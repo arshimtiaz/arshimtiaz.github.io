@@ -1,9 +1,9 @@
 ---
 title: "About Me"
-description: "Hello, I’m Arsh Jamadar, read this page to find out more about me!"
+description: "Hello, I’m Arsh Imtiaz, read this page to find out more about me!"
 ---
 
-Hello, I'm Arsh Jamadar; a final year Bachelor of Science student studying Cyber Security and Ethical Hacking. I am currently looking for graduate jobs in the cyber security industry. I have a keen interest in penetration testing, social engineering and network security. Below shows the modules I have undertaken so far, achieving a first in each:
+Hello, I'm Arsh Imtiaz; a final year Bachelor of Science student studying Cyber Security and Ethical Hacking. I am currently looking for graduate jobs in the cyber security industry. I have a keen interest in penetration testing, social engineering and network security. Below shows the modules I have undertaken so far, achieving a first in each:
 
 - Computer Architecture and Networks
 - Computer Systems and Networking (CISCO)
@@ -24,10 +24,10 @@ If you have any further enquiries about my academic or work-based achievements, 
 
 ### TryHackMe
 
-TryHackMe is an ethical hacking learning platform, in which I have reached level 11.
+TryHackMe is an ethical hacking learning platform, in which I have reached level 12.
 
 <script src="https://tryhackme.com/badge/203421"></script>
 
 ## My Professional Resume
 
-You can **download a copy of my CV** [here](https://github.com/arshjamadar/arshjamadar.github.io/raw/main/content/about/Arsh_CV.pdf) for a detailed overview of my qualifications and experiences.
+You can **download a copy of my CV** [here](https://github.com/arshimtiaz/arshimtiaz.github.io/raw/main/content/about/Arsh_CV.pdf) for a detailed overview of my qualifications and experiences.
