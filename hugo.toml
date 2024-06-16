@@ -1,7 +1,7 @@
-baseURL = "https://arshjamadar.github.io"
+baseURL = "https://arshimtiaz.github.io"
 defaultContentLanguage = "en"
 languageCode = "en"
-title = "Arsh Jamadar"
+title = "Arsh Imtiaz"
 theme = "LoveIt"
 timeZone = "Europe/London"
 enableGitInfo = true
@@ -31,14 +31,14 @@ enableRobotsTXT = true
 
 [params]
   version = "0.2.X"
-  description = "The personal site for Arsh Jamadar"
-  keywords = ["Arsh", "Jamadar", "Arsh Jamadar", "cyber security", "Ethical Hacking", "CV"]
+  description = "The personal site for Arsh Imtiaz"
+  keywords = ["Arsh", "Imtiaz", "Arsh Imtiaz", "cyber security", "Ethical Hacking", "CV"]
   defaultTheme = "dark"
   fingerprint = ""
   dateFormat = "2006-01-02"
 
   [params.app]
-    title = "Arsh Jamadar"
+    title = "Arsh Imtiaz"
     noFavicon = true
     svgFavicon = ""
     # Android browser
@@ -68,7 +68,7 @@ enableRobotsTXT = true
     [params.header.title]
       # URL of the LOGO
       logo = ""
-      name = "Arsh Jamadar"
+      name = "Arsh Imtiaz"
       pre = ""
       post = ""
       typeit = false
@@ -98,8 +98,8 @@ enableRobotsTXT = true
     [params.home.profile]
       enable = true
       avatarURL = "/img/me.jpeg"
-      avatarAlt = "Arsh Jamadar"
-      title = "Arsh Jamadar"
+      avatarAlt = "Arsh Imtiaz"
+      title = "Arsh Imtiaz"
       subtitle = "Cyber Security and Ethical Hacking Student"
       disclaimer = "Some content on this website teaches hacking, in the trust that you will use it ethically and ensure that you follow all local and relevant laws."
       typeit = true
@@ -109,7 +109,7 @@ enableRobotsTXT = true
       enable = false
 
   [params.social]
-    GitHub = "arshjamadar"
+    GitHub = "arshimtiaz"
     Linkedin = "arsh-jamadar"
     # Email = "contact"
     RSS = false
@@ -242,7 +242,7 @@ enableRobotsTXT = true
       images = []
       # Publisher info
       [params.page.seo.publisher]
-        name = "Arsh Jamadar"
+        name = "Arsh Imtiaz"
         logoUrl = "/images/avatar.png"
 
   [params.typeit]
@@ -334,7 +334,7 @@ enableRobotsTXT = true
 
 # Author config
 [author]
-  name = "Arsh Jamadar"
+  name = "Arsh Imtiaz"
   email = ""
   link = "/about"
 
