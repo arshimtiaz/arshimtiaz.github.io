@@ -3,7 +3,24 @@
         <title>All Posts - Arsh Imtiaz</title>
         <link>https://arshimtiaz.github.io/posts/</link>
         <description>All Posts | Arsh Imtiaz</description>
-        <generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Fri, 24 Nov 2023 03:38:53 &#43;0300</lastBuildDate><atom:link href="https://arshimtiaz.github.io/posts/" rel="self" type="application/rss+xml" /><item>
+        <generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Tue, 14 Jan 2025 02:05:35 &#43;0300</lastBuildDate><atom:link href="https://arshimtiaz.github.io/posts/" rel="self" type="application/rss+xml" /><item>
+    <title>Third Post</title>
+    <link>https://arshimtiaz.github.io/posts/third-post/</link>
+    <pubDate>Tue, 14 Jan 2025 02:05:35 &#43;0300</pubDate>
+    <author>Author</author>
+    <guid>https://arshimtiaz.github.io/posts/third-post/</guid>
+    <description><![CDATA[<p>&ldquo;To err is to human.&rdquo; ~ Serina</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-py" data-lang="py"><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;Quotes by serina&#34;</span><span class="p">)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div>]]></description>
+</item>
+<item>
     <title>My Second Post</title>
     <link>https://arshimtiaz.github.io/posts/my-second-post/</link>
     <pubDate>Fri, 24 Nov 2023 03:38:53 &#43;0300</pubDate>
