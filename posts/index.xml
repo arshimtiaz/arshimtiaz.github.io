@@ -1,0 +1,24 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>All Posts - Arsh Imtiaz</title>
+        <link>https://arshimtiaz.github.io/posts/</link>
+        <description>All Posts | Arsh Imtiaz</description>
+        <generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Fri, 24 Nov 2023 03:38:53 &#43;0300</lastBuildDate><atom:link href="https://arshimtiaz.github.io/posts/" rel="self" type="application/rss+xml" /><item>
+    <title>My Second Post</title>
+    <link>https://arshimtiaz.github.io/posts/my-second-post/</link>
+    <pubDate>Fri, 24 Nov 2023 03:38:53 &#43;0300</pubDate>
+    <author>Author</author>
+    <guid>https://arshimtiaz.github.io/posts/my-second-post/</guid>
+    <description><![CDATA[<p>Hello this is also just a test.</p>]]></description>
+</item>
+<item>
+    <title>My First Post</title>
+    <link>https://arshimtiaz.github.io/posts/my-first-post/</link>
+    <pubDate>Fri, 24 Nov 2023 02:30:39 &#43;0300</pubDate>
+    <author>Author</author>
+    <guid>https://arshimtiaz.github.io/posts/my-first-post/</guid>
+    <description><![CDATA[<h2 id="introduction">Introduction</h2>
+<p>This is <strong>my first post</strong>, and just a <em>test</em>.</p>]]></description>
+</item>
+</channel>
+</rss>
