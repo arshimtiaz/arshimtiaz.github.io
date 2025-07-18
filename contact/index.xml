@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Contacts on Arsh Imtiaz</title>
+    <link>http://localhost:1313/contact/</link>
+    <description>Recent content in Contacts on Arsh Imtiaz</description>
+    <generator>Hugo</generator>
+    <language>en</language>
+    <atom:link href="http://localhost:1313/contact/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Contact Me</title>
+      <link>http://localhost:1313/contact/contact/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/contact/contact/</guid>
+      <description>&lt;p&gt;If you have any questions, do not hesitate and contact me by filling out the form below, and I will respond via email (unless another method is requested).&lt;/p&gt;&#xA;&lt;form action=&#34;https://send.pageclip.co/2f1J3KQ4ey46gQxx4bCF2xrUkmw7Zooq&#34; class=&#34;pageclip-form pageclip-form--success&#34; method=&#34;post&#34;&gt;&#xA;  &lt;label for=&#34;name&#34;&gt;Name:&lt;/label&gt;&lt;br&gt;&#xA;  &lt;input type=&#34;text&#34; name=&#34;name&#34; placeholder=&#34;Your Name&#34; required /&gt;&lt;br&gt;&#xA;&lt;p&gt;&lt;label for=&#34;email&#34;&gt;Email:&lt;/label&gt;&lt;br&gt;&#xA;&lt;input type=&#34;email&#34; name=&#34;email&#34; placeholder=&#34;your_email@example.com&#34; required /&gt;&lt;br&gt;&lt;/p&gt;&#xA;&lt;p&gt;&lt;label for=&#34;subject&#34;&gt;Subject&lt;/label&gt;&lt;br&gt;&#xA;&lt;input type=&#34;text&#34; name=&#34;subject&#34; placeholder=&#34;Email subject&#34; required /&gt;&lt;br&gt;&lt;/p&gt;&#xA;&lt;p&gt;&lt;label for=&#34;message&#34;&gt;Message:&lt;/label&gt;&lt;br&gt;&lt;/p&gt;&#xA;  &lt;textarea name=&#34;message&#34; placeholder=&#34;Your message...&#34; required &gt;&lt;/textarea&gt;&lt;br&gt;&#xA;  &lt;button class=&#34;button pageclip-form__submit&#34; type=&#34;submit&#34;&gt;&#xA;    &lt;span&gt;Submit&lt;/span&gt;&#xA;  &lt;/button&gt;&#xA;&lt;/form&gt;&#xA;&lt;h2 id=&#34;dont-like-emails&#34;&gt;Don&amp;rsquo;t Like Emails?&lt;/h2&gt;&#xA;&lt;p&gt;That&amp;rsquo;s fine, have a look at the &lt;a href=&#34;http://localhost:1313/&#34; rel=&#34;&#34;&gt;homepage&lt;/a&gt; to find other ways to reach me!&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

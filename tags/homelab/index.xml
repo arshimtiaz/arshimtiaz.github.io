@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Homelab on Arsh Imtiaz</title><link>https://arshimtiaz.github.io/tags/homelab/</link><description>Recent content in Homelab on Arsh Imtiaz</description><generator>Hugo</generator><language>en</language><lastBuildDate>Sat, 14 Jun 2025 00:00:00 +0100</lastBuildDate><atom:link href="https://arshimtiaz.github.io/tags/homelab/index.xml" rel="self" type="application/rss+xml"/><item><title>Docker to Detection: Setting Up Wazuh SIEM for Beginners</title><link>https://arshimtiaz.github.io/posts/wazuh-setup/</link><pubDate>Sat, 14 Jun 2025 00:00:00 +0100</pubDate><guid>https://arshimtiaz.github.io/posts/wazuh-setup/</guid><description>&lt;p>&lt;img
+ class="lazyload"
+ src="https://arshimtiaz.github.io/svg/loading.min.svg"
+ data-src="https://arshimtiaz.github.io/images/wazuh-header-image.jpg"
+ data-srcset="https://arshimtiaz.github.io/images/wazuh-header-image.jpg, https://arshimtiaz.github.io/images/wazuh-header-image.jpg 1.5x, https://arshimtiaz.github.io/images/wazuh-header-image.jpg 2x"
+ data-sizes="auto"
+ alt="/images/wazuh-header-image.jpg"
+ title="Wazuh" />&lt;/p>
+&lt;p>Setting up a SIEM (Security Information and Event Management) system might sound intimidating if you’re just getting started, but it’s a rewarding project that gives you real insight into how cybersecurity professionals monitor and detect threats. I recently built a Wazuh-based SIEM entirely with Docker and connected my personal Linux workstation as an agent. In this post, I’ll walk you through the process with practical commands for both Arch Linux and Debian users.&lt;/p></description></item></channel></rss>
