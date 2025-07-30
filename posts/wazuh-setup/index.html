@@ -1,89 +1,406 @@
-<!doctype html><html lang=en><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=robots content="noodp"><title>Docker to Detection: Setting Up Wazuh SIEM for Beginners - Arsh Imtiaz</title><meta name=Description content="How I set up a Wazuh-based SIEM using Docker, detected a real CVE, and connected my Linux machine as an agent."><meta property="og:url" content="https://arshimtiaz.github.io/posts/wazuh-setup/"><meta property="og:site_name" content="Arsh Imtiaz"><meta property="og:title" content="Docker to Detection: Setting Up Wazuh SIEM for Beginners"><meta property="og:description" content="How I set up a Wazuh-based SIEM using Docker, detected a real CVE, and connected my Linux machine as an agent."><meta property="og:locale" content="en"><meta property="og:type" content="article"><meta property="article:section" content="posts"><meta property="article:published_time" content="2025-06-14T00:00:00+01:00"><meta property="article:modified_time" content="2025-06-14T00:00:00+01:00"><meta property="article:tag" content="SIEM"><meta property="article:tag" content="Cybersecurity"><meta property="article:tag" content="Wazuh"><meta property="article:tag" content="Docker"><meta property="article:tag" content="Homelab"><meta name=twitter:card content="summary"><meta name=twitter:title content="Docker to Detection: Setting Up Wazuh SIEM for Beginners"><meta name=twitter:description content="How I set up a Wazuh-based SIEM using Docker, detected a real CVE, and connected my Linux machine as an agent."><meta name=application-name content="Arsh Imtiaz"><meta name=apple-mobile-web-app-title content="Arsh Imtiaz"><meta name=theme-color content="#ffffff"><meta name=msapplication-TileColor content="#da532c"><link rel=canonical href=https://arshimtiaz.github.io/posts/wazuh-setup/><link rel=prev href=https://arshimtiaz.github.io/posts/welcome/><link rel=stylesheet href=/css/style.min.css><link rel=preload href=/lib/fontawesome-free/all.min.css as=style onload='this.onload=null,this.rel="stylesheet"'><noscript><link rel=stylesheet href=/lib/fontawesome-free/all.min.css></noscript><link rel=preload href=/lib/animate/animate.min.css as=style onload='this.onload=null,this.rel="stylesheet"'><noscript><link rel=stylesheet href=/lib/animate/animate.min.css></noscript><script type=application/ld+json>{"@context":"http://schema.org","@type":"BlogPosting","headline":"Docker to Detection: Setting Up Wazuh SIEM for Beginners","inLanguage":"en","mainEntityOfPage":{"@type":"WebPage","@id":"https:\/\/arshimtiaz.github.io\/posts\/wazuh-setup\/"},"genre":"posts","keywords":"SIEM, Cybersecurity, Wazuh, Docker, Homelab","wordcount":850,"url":"https:\/\/arshimtiaz.github.io\/posts\/wazuh-setup\/","datePublished":"2025-06-14T00:00:00+01:00","dateModified":"2025-06-14T00:00:00+01:00","publisher":{"@type":"Organization","name":"Arsh Imtiaz","logo":"https:\/\/arshimtiaz.github.io\/images\/avatar.png"},"author":{"@type":"Person","name":"Arsh Imtiaz"},"description":"How I set up a Wazuh-based SIEM using Docker, detected a real CVE, and connected my Linux machine as an agent."}</script></head><body data-header-desktop=fixed data-header-mobile=auto><script type=text/javascript>(window.localStorage&&localStorage.getItem("theme")?localStorage.getItem("theme")==="dark":"dark"==="auto"?window.matchMedia("(prefers-color-scheme: dark)").matches:"dark"==="dark")&&document.body.setAttribute("theme","dark")</script><div id=mask></div><div class=wrapper><header class=desktop id=header-desktop><div class=header-wrapper><div class=header-title><a href=/ title="Arsh Imtiaz">Arsh Imtiaz</a></div><div class=menu><div class=menu-inner><a class=menu-item href=/>Home </a><a class=menu-item href=/about/>About </a><a class=menu-item href=/posts/>Blog </a><a class=menu-item href=/contact/>Contact </a><span class="menu-item delimiter"></span><span class="menu-item search" id=search-desktop>
-<input type=text placeholder="Enter search term" id=search-input-desktop>
-<a href=javascript:void(0); class="search-button search-toggle" id=search-toggle-desktop title=Search><i class="fas fa-search fa-fw" aria-hidden=true></i>
-</a><a href=javascript:void(0); class="search-button search-clear" id=search-clear-desktop title=Clear><i class="fas fa-times-circle fa-fw" aria-hidden=true></i>
-</a><span class="search-button search-loading" id=search-loading-desktop><i class="fas fa-spinner fa-fw fa-spin" aria-hidden=true></i>
-</span></span><a href=javascript:void(0); class="menu-item theme-switch" title="Switch Theme"><i class="fas fa-adjust fa-fw" aria-hidden=true></i></a></div></div></div></header><header class=mobile id=header-mobile><div class=header-container><div class=header-wrapper><div class=header-title><a href=/ title="Arsh Imtiaz">Arsh Imtiaz</a></div><div class=menu-toggle id=menu-toggle-mobile><span></span><span></span><span></span></div></div><div class=menu id=menu-mobile><div class=search-wrapper><div class="search mobile" id=search-mobile><input type=text placeholder="Enter search term" id=search-input-mobile>
-<a href=javascript:void(0); class="search-button search-toggle" id=search-toggle-mobile title=Search><i class="fas fa-search fa-fw" aria-hidden=true></i>
-</a><a href=javascript:void(0); class="search-button search-clear" id=search-clear-mobile title=Clear><i class="fas fa-times-circle fa-fw" aria-hidden=true></i>
-</a><span class="search-button search-loading" id=search-loading-mobile><i class="fas fa-spinner fa-fw fa-spin" aria-hidden=true></i></span></div><a href=javascript:void(0); class=search-cancel id=search-cancel-mobile>Cancel</a></div><a class=menu-item href=/ title>Home</a><a class=menu-item href=/about/ title>About</a><a class=menu-item href=/posts/ title>Blog</a><a class=menu-item href=/contact/ title>Contact</a><a href=javascript:void(0); class="menu-item theme-switch" title="Switch Theme">
-<i class="fas fa-adjust fa-fw" aria-hidden=true></i></a></div></div></header><div class="search-dropdown desktop"><div id=search-dropdown-desktop></div></div><div class="search-dropdown mobile"><div id=search-dropdown-mobile></div></div><main class=main><div class=container><div class=toc id=toc-auto><h2 class=toc-title>Contents</h2><div class=toc-content id=toc-content-auto></div></div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">Docker to Detection: Setting Up Wazuh SIEM for Beginners</h1><div class=post-meta><div class=post-meta-line><span class=post-author><a href=/ title=Author rel=author class=author><i class="fas fa-user-circle fa-fw" aria-hidden=true></i>Arsh Imtiaz</a></span></div><div class=post-meta-line><i class="far fa-calendar-alt fa-fw" aria-hidden=true></i>&nbsp;<time datetime=2025-06-14>2025-06-14</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden=true></i>&nbsp;850 words&nbsp;
-<i class="far fa-clock fa-fw" aria-hidden=true></i>&nbsp;4 minutes&nbsp;</div></div><div class="details toc" id=toc-static data-kept><div class="details-summary toc-title"><span>Contents</span>
-<span><i class="details-icon fas fa-angle-right" aria-hidden=true></i></span></div><div class="details-content toc-content" id=toc-content-static><nav id=TableOfContents><ul><li><a href=#system-overview>System Overview</a></li><li><a href=#step-1-installing-docker-and-docker-compose>Step 1: Installing Docker and Docker Compose</a></li><li><a href=#step-2-cloning-the-wazuh-docker-repository>Step 2: Cloning the Wazuh Docker Repository</a></li><li><a href=#step-3-generating-ssl-certificates>Step 3: Generating SSL Certificates</a></li><li><a href=#step-4-starting-the-wazuh-stack>Step 4: Starting the Wazuh Stack</a></li><li><a href=#step-5-accessing-the-web-dashboard>Step 5: Accessing the Web Dashboard</a></li><li><a href=#adding-your-own-machine-as-an-agent>Adding Your Own Machine as an Agent</a><ul><li><a href=#download-and-install-the-agent>Download and install the agent:</a></li><li><a href=#register-the-agent-with-the-manager>Register the agent with the manager:</a></li></ul></li><li><a href=#real-world-detection-cve-2025-4598>Real-World Detection: CVE-2025-4598</a></li><li><a href=#why-this-matters>Why This Matters</a></li><li><a href=#whats-next>What’s Next?</a></li><li><a href=#final-thoughts>Final Thoughts</a></li></ul></nav></div></div><div class=content id=content><p><img class=lazyload src=/svg/loading.min.svg data-src=/images/wazuh-header-image.jpg data-srcset="/images/wazuh-header-image.jpg, /images/wazuh-header-image.jpg 1.5x, /images/wazuh-header-image.jpg 2x" data-sizes=auto alt=/images/wazuh-header-image.jpg title=Wazuh></p><p>Setting up a SIEM (Security Information and Event Management) system might sound intimidating if you’re just getting started, but it’s a rewarding project that gives you real insight into how cybersecurity professionals monitor and detect threats. I recently built a Wazuh-based SIEM entirely with Docker and connected my personal Linux workstation as an agent. In this post, I’ll walk you through the process with practical commands for both Arch Linux and Debian users.</p><hr><blockquote><p><strong>Wazuh</strong> started as a fork of OSSEC, one of the first open-source host-based intrusion detection systems, but has evolved into a full-blown security platform with log analysis, vulnerability detection, and compliance monitoring.</p></blockquote><hr><h2 id=system-overview>System Overview</h2><p>Here’s what I used:</p><ul><li>Host OS: Arch Linux (but I include Debian commands too, since many readers might be on either)</li><li>Deployment method: Docker (because containers make complex stacks easier to manage)</li><li>Architecture: Single-node setup running Manager, Indexer, and Dashboard on one machine</li><li>Agent: My own Linux workstation</li><li>Use case: Personal monitoring and vulnerability detection in a home lab</li></ul><hr><h2 id=step-1-installing-docker-and-docker-compose>Step 1: Installing Docker and Docker Compose</h2><p>Before we get started, make sure Docker is installed and running. If you don’t have it, here’s how:</p><p><strong>On Arch Linux:</strong></p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
-</span><span class=lnt>2
-</span><span class=lnt>3
-</span><span class=lnt>4
-</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>sudo pacman -S docker docker-compose
-</span></span><span class=line><span class=cl>sudo systemctl <span class=nb>enable</span> --now docker
-</span></span><span class=line><span class=cl>sudo usermod -aG docker <span class=nv>$USER</span>
-</span></span><span class=line><span class=cl>newgrp docker
-</span></span></code></pre></td></tr></table></div></div><p><strong>On Debian or Ubuntu:</strong></p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
-</span><span class=lnt>2
-</span><span class=lnt>3
-</span><span class=lnt>4
-</span><span class=lnt>5
-</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>sudo apt update
-</span></span><span class=line><span class=cl>sudo apt install docker.io docker-compose
-</span></span><span class=line><span class=cl>sudo systemctl <span class=nb>enable</span> --now docker
-</span></span><span class=line><span class=cl>sudo usermod -aG docker <span class=nv>$USER</span>
-</span></span><span class=line><span class=cl>newgrp docker
-</span></span></code></pre></td></tr></table></div></div><hr><blockquote><p>Docker was originally released in 2013 and revolutionized how developers package and deploy applications. Today, it’s an essential tool in cybersecurity labs for simulating complex environments quickly.</p></blockquote><hr><h2 id=step-2-cloning-the-wazuh-docker-repository>Step 2: Cloning the Wazuh Docker Repository</h2><p>Wazuh maintains an official Docker repository with all the configurations needed for different deployments. Grab the single-node setup like this:</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
-</span><span class=lnt>2
-</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>git clone https://github.com/wazuh/wazuh-docker -b v4.12.0
-</span></span><span class=line><span class=cl><span class=nb>cd</span> wazuh-docker/single-node
-</span></span></code></pre></td></tr></table></div></div><hr><h2 id=step-3-generating-ssl-certificates>Step 3: Generating SSL Certificates</h2><p>To secure communication between the components, you’ll need to generate SSL certificates. First, create the directory:</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
-</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>mkdir -p config/wazuh_indexer_ssl_certs/
-</span></span></code></pre></td></tr></table></div></div><p>Next, create the configuration files. Here’s the <strong>config/certs.yml</strong> file content:</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
-</span><span class=lnt>2
-</span><span class=lnt>3
-</span><span class=lnt>4
-</span><span class=lnt>5
-</span><span class=lnt>6
-</span><span class=lnt>7
-</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-yaml data-lang=yaml><span class=line><span class=cl><span class=nt>nodes</span><span class=p>:</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>  </span>- <span class=nt>name</span><span class=p>:</span><span class=w> </span><span class=l>wazuh.indexer</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>type</span><span class=p>:</span><span class=w> </span><span class=l>indexer</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>  </span>- <span class=nt>name</span><span class=p>:</span><span class=w> </span><span class=l>wazuh.manager</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>type</span><span class=p>:</span><span class=w> </span><span class=l>manager</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>  </span>- <span class=nt>name</span><span class=p>:</span><span class=w> </span><span class=l>wazuh.dashboard</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>type</span><span class=p>:</span><span class=w> </span><span class=l>dashboard</span><span class=w>
-</span></span></span></code></pre></td></tr></table></div></div><p>And the <strong>generate-indexer-certs.yml</strong> file:</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
-</span><span class=lnt>2
-</span><span class=lnt>3
-</span><span class=lnt>4
-</span><span class=lnt>5
-</span><span class=lnt>6
-</span><span class=lnt>7
-</span><span class=lnt>8
-</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-yaml data-lang=yaml><span class=line><span class=cl><span class=nt>version</span><span class=p>:</span><span class=w> </span><span class=s1>&#39;3.3&#39;</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w></span><span class=nt>services</span><span class=p>:</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>generator</span><span class=p>:</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>image</span><span class=p>:</span><span class=w> </span><span class=l>wazuh/wazuh-certs-generator:0.0.2</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>hostname</span><span class=p>:</span><span class=w> </span><span class=l>wazuh-certs-generator</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>volumes</span><span class=p>:</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>./config/wazuh_indexer_ssl_certs/:/certificates/</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>./config/certs.yml:/config/certs.yml</span><span class=w>
-</span></span></span></code></pre></td></tr></table></div></div><p>Then run:</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
-</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>docker-compose -f generate-indexer-certs.yml run --rm generator
-</span></span></code></pre></td></tr></table></div></div><p>If you get errors about overwriting files, just clear the folder and try again:</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
-</span><span class=lnt>2
-</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>rm -rf config/wazuh_indexer_ssl_certs/*
-</span></span><span class=line><span class=cl>docker-compose -f generate-indexer-certs.yml run --rm generator
-</span></span></code></pre></td></tr></table></div></div><hr><h2 id=step-4-starting-the-wazuh-stack>Step 4: Starting the Wazuh Stack</h2><p>With everything set, launch the whole Wazuh environment:</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
-</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>docker-compose up -d
-</span></span></code></pre></td></tr></table></div></div><p>This will bring up the manager, indexer, and dashboard.</p><hr><h2 id=step-5-accessing-the-web-dashboard>Step 5: Accessing the Web Dashboard</h2><p>Open your browser and head to:</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
-</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>https://&lt;your-server-ip&gt;
-</span></span></code></pre></td></tr></table></div></div><p>This would be localhost if you&rsquo;re setting it up locally.</p><hr><p>The default login credentials are:</p><ul><li>Username: <code>admin</code></li><li>Password: <code>SecretPassword</code> (or check the <code>.env</code> file in the repo)</li></ul><p>Expect a warning about the self-signed certificate. This is normal. You can safely proceed for now.</p><hr><h2 id=adding-your-own-machine-as-an-agent>Adding Your Own Machine as an Agent</h2><p>Wazuh’s strength lies in monitoring endpoints. I connected my Arch Linux workstation as an agent, but these steps work the same on Debian.</p><h3 id=download-and-install-the-agent>Download and install the agent:</h3><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
-</span><span class=lnt>2
-</span><span class=lnt>3
-</span><span class=lnt>4
-</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>curl -sO https://packages.wazuh.com/4.12/wazuh-agent-4.12.0-linux-x86_64.tar.gz
-</span></span><span class=line><span class=cl>tar -xvzf wazuh-agent-4.12.0-linux-x86_64.tar.gz
-</span></span><span class=line><span class=cl><span class=nb>cd</span> wazuh-agent-4.12.0
-</span></span><span class=line><span class=cl>sudo ./install.sh
-</span></span></code></pre></td></tr></table></div></div><h3 id=register-the-agent-with-the-manager>Register the agent with the manager:</h3><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
-</span><span class=lnt>2
-</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>sudo /var/ossec/bin/agent-auth -m &lt;wazuh-manager-ip&gt;
-</span></span><span class=line><span class=cl>sudo systemctl <span class=nb>enable</span> --now wazuh-agent
-</span></span></code></pre></td></tr></table></div></div><p>After a short while, your agent will show up in the dashboard, forwarding logs and security events.</p><hr><blockquote><p>The first version of Wazuh was released in 2015, and it has since become one of the most widely used open-source security platforms worldwide.</p></blockquote><p><strong>You&rsquo;re now done!</strong> You should be able to explore the dashboard and learn all the features Wazuh has to offer.</p><hr><h2 id=real-world-detection-cve-2025-4598>Real-World Detection: CVE-2025-4598</h2><p>Shortly after getting everything running, Wazuh’s Vulnerability Detector flagged a real systemd vulnerability on my machine (CVE-2025-4598). This was a practical example of how such tools help spot risks before attackers do.</p><p><em>Don’t worry, I patched it right away. Wouldn’t want to make it too easy for you hackers, right?</em></p><hr><h2 id=why-this-matters>Why This Matters</h2><p>Setting this up wasn’t just an academic exercise. I now have a hands-on understanding of log collection, normalization, and alerting. In fields like automotive cybersecurity, knowing what’s happening on endpoints and spotting anomalies early is crucial—and this kind of setup lets you practice those skills.</p><hr><h2 id=whats-next>What’s Next?</h2><p>Here are some things you can try for yourself now that you&rsquo;ve got the hang of setting it up:</p><ul><li>Crafting custom detection rules tailored to your environment</li><li>Simulating attacks to validate your alerts</li><li>Adding Windows or other OS agents</li><li>Expanding to multi-node deployments for scalability</li></ul><hr><h2 id=final-thoughts>Final Thoughts</h2><p>Wazuh is a fantastic project for anyone looking to deepen their cybersecurity skills. Using Docker simplifies the setup, and the dashboard delivers meaningful insights out of the box. Whether you’re a beginner or an experienced professional, experimenting with Wazuh builds a solid foundation for real-world security monitoring.</p><p>Thanks for reading! Feel free to reach out if you want to discuss or share your own setups.</p></div><div class=post-footer id=post-footer><div class=post-info><div class=post-info-line><div class=post-info-mod><span>Updated on 2025-06-14</span></div></div><div class=post-info-line><div class=post-info-md></div><div class=post-info-share><span></span></div></div></div><div class=post-info-more><section class=post-tags><i class="fas fa-tags fa-fw" aria-hidden=true></i>&nbsp;<a href=/tags/siem/>SIEM</a>,&nbsp;<a href=/tags/cybersecurity/>Cybersecurity</a>,&nbsp;<a href=/tags/wazuh/>Wazuh</a>,&nbsp;<a href=/tags/docker/>Docker</a>,&nbsp;<a href=/tags/homelab/>Homelab</a></section><section><span><a href=javascript:void(0); onclick=window.history.back()>Back</a></span>&nbsp;|&nbsp;<span><a href=/>Home</a></span></section></div><div class=post-nav><a href=/posts/welcome/ class=prev rel=prev title=Welcome><i class="fas fa-angle-left fa-fw" aria-hidden=true></i>Welcome</a></div></div></article></div></main><footer class=footer><div class=footer-container><div class=footer-line itemscope itemtype=http://schema.org/CreativeWork><i class="far fa-copyright fa-fw" aria-hidden=true></i><span itemprop=copyrightYear>2023 - 2025</span><span class=author itemprop=copyrightHolder>&nbsp;<a href=/ target=_blank></a></span>&nbsp;|&nbsp;<span class=license>All Rights Reserved</span></div></div></footer></div><div id=fixed-buttons><a href=# id=back-to-top class=fixed-button title="Back to Top"><i class="fas fa-arrow-up fa-fw" aria-hidden=true></i>
-</a><a href=# id=view-comments class=fixed-button title="View Comments"><i class="fas fa-comment fa-fw" aria-hidden=true></i></a></div><script type=text/javascript src=/lib/autocomplete/autocomplete.min.js></script><script type=text/javascript src=/lib/lunr/lunr.min.js></script><script type=text/javascript src=/lib/lazysizes/lazysizes.min.js></script><script type=text/javascript src=/lib/clipboard/clipboard.min.js></script><script type=text/javascript>window.config={code:{copyTitle:"Copy to clipboard",maxShownLines:50},comment:{},search:{highlightTag:"em",lunrIndexURL:"/index.json",maxResultLength:10,noResultsFound:"No results found",snippetLength:30,type:"lunr"}}</script><script type=text/javascript src=/js/theme.min.js></script></body></html>
+<!DOCTYPE html>
+<html lang="en">
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>Docker to Detection: Setting Up Wazuh SIEM for Beginners - Arsh Imtiaz</title><meta name="Description" content="How I set up a Wazuh-based SIEM using Docker, detected a real CVE, and connected my Linux machine as an agent."><meta property="og:url" content="http://localhost:1313/posts/wazuh-setup/">
+  <meta property="og:site_name" content="Arsh Imtiaz">
+  <meta property="og:title" content="Docker to Detection: Setting Up Wazuh SIEM for Beginners">
+  <meta property="og:description" content="How I set up a Wazuh-based SIEM using Docker, detected a real CVE, and connected my Linux machine as an agent.">
+  <meta property="og:locale" content="en">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2025-06-14T00:00:00+01:00">
+    <meta property="article:modified_time" content="2025-06-14T00:00:00+01:00">
+    <meta property="article:tag" content="SIEM">
+    <meta property="article:tag" content="Cybersecurity">
+    <meta property="article:tag" content="Wazuh">
+    <meta property="article:tag" content="Docker">
+    <meta property="article:tag" content="Homelab">
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Docker to Detection: Setting Up Wazuh SIEM for Beginners">
+  <meta name="twitter:description" content="How I set up a Wazuh-based SIEM using Docker, detected a real CVE, and connected my Linux machine as an agent.">
+<meta name="application-name" content="Arsh Imtiaz">
+<meta name="apple-mobile-web-app-title" content="Arsh Imtiaz"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="canonical" href="http://localhost:1313/posts/wazuh-setup/" /><link rel="prev" href="http://localhost:1313/posts/welcome/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="/lib/fontawesome-free/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"></noscript><link rel="preload" href="/lib/animate/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="/lib/animate/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Docker to Detection: Setting Up Wazuh SIEM for Beginners",
+        "inLanguage": "en",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "http:\/\/localhost:1313\/posts\/wazuh-setup\/"
+        },"genre": "posts","keywords": "SIEM, Cybersecurity, Wazuh, Docker, Homelab","wordcount":  850 ,
+        "url": "http:\/\/localhost:1313\/posts\/wazuh-setup\/","datePublished": "2025-06-14T00:00:00+01:00","dateModified": "2025-06-14T00:00:00+01:00","publisher": {
+            "@type": "Organization",
+            "name": "Arsh Imtiaz","logo": "http:\/\/localhost:1313\/images\/avatar.png"},"author": {
+                "@type": "Person",
+                "name": "Arsh Imtiaz"
+            },"description": "How I set up a Wazuh-based SIEM using Docker, detected a real CVE, and connected my Linux machine as an agent."
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('dark' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'dark' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="Arsh Imtiaz">Arsh Imtiaz</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/"> Home </a><a class="menu-item" href="/about/"> About </a><a class="menu-item" href="/posts/"> Blog </a><a class="menu-item" href="/contact/"> Contact </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="Enter search term" id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="Search">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="Clear">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a></div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="Arsh Imtiaz">Arsh Imtiaz</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="Enter search term" id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="Search">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="Clear">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        Cancel
+                    </a>
+                </div><a class="menu-item" href="/" title="">Home</a><a class="menu-item" href="/about/" title="">About</a><a class="menu-item" href="/posts/" title="">Blog</a><a class="menu-item" href="/contact/" title="">Contact</a><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a></div>
+    </div>
+</header><div class="search-dropdown desktop">
+        <div id="search-dropdown-desktop"></div>
+    </div>
+    <div class="search-dropdown mobile">
+        <div id="search-dropdown-mobile"></div>
+    </div><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">Contents</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">Docker to Detection: Setting Up Wazuh SIEM for Beginners</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>Arsh Imtiaz</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2025-06-14">2025-06-14</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;850 words&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;4 minutes&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  data-kept="">
+                <div class="details-summary toc-title">
+                    <span>Contents</span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#system-overview">System Overview</a></li>
+    <li><a href="#step-1-installing-docker-and-docker-compose">Step 1: Installing Docker and Docker Compose</a></li>
+    <li><a href="#step-2-cloning-the-wazuh-docker-repository">Step 2: Cloning the Wazuh Docker Repository</a></li>
+    <li><a href="#step-3-generating-ssl-certificates">Step 3: Generating SSL Certificates</a></li>
+    <li><a href="#step-4-starting-the-wazuh-stack">Step 4: Starting the Wazuh Stack</a></li>
+    <li><a href="#step-5-accessing-the-web-dashboard">Step 5: Accessing the Web Dashboard</a></li>
+    <li><a href="#adding-your-own-machine-as-an-agent">Adding Your Own Machine as an Agent</a>
+      <ul>
+        <li><a href="#download-and-install-the-agent">Download and install the agent:</a></li>
+        <li><a href="#register-the-agent-with-the-manager">Register the agent with the manager:</a></li>
+      </ul>
+    </li>
+    <li><a href="#real-world-detection-cve-2025-4598">Real-World Detection: CVE-2025-4598</a></li>
+    <li><a href="#why-this-matters">Why This Matters</a></li>
+    <li><a href="#whats-next">What’s Next?</a></li>
+    <li><a href="#final-thoughts">Final Thoughts</a></li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/images/wazuh-header-image.jpg"
+        data-srcset="/images/wazuh-header-image.jpg, /images/wazuh-header-image.jpg 1.5x, /images/wazuh-header-image.jpg 2x"
+        data-sizes="auto"
+        alt="/images/wazuh-header-image.jpg"
+        title="Wazuh" /></p>
+<p>Setting up a SIEM (Security Information and Event Management) system might sound intimidating if you’re just getting started, but it’s a rewarding project that gives you real insight into how cybersecurity professionals monitor and detect threats. I recently built a Wazuh-based SIEM entirely with Docker and connected my personal Linux workstation as an agent. In this post, I’ll walk you through the process with practical commands for both Arch Linux and Debian users.</p>
+<hr>
+<blockquote>
+<p><strong>Wazuh</strong> started as a fork of OSSEC, one of the first open-source host-based intrusion detection systems, but has evolved into a full-blown security platform with log analysis, vulnerability detection, and compliance monitoring.</p></blockquote>
+<hr>
+<h2 id="system-overview">System Overview</h2>
+<p>Here’s what I used:</p>
+<ul>
+<li>Host OS: Arch Linux (but I include Debian commands too, since many readers might be on either)</li>
+<li>Deployment method: Docker (because containers make complex stacks easier to manage)</li>
+<li>Architecture: Single-node setup running Manager, Indexer, and Dashboard on one machine</li>
+<li>Agent: My own Linux workstation</li>
+<li>Use case: Personal monitoring and vulnerability detection in a home lab</li>
+</ul>
+<hr>
+<h2 id="step-1-installing-docker-and-docker-compose">Step 1: Installing Docker and Docker Compose</h2>
+<p>Before we get started, make sure Docker is installed and running. If you don’t have it, here’s how:</p>
+<p><strong>On Arch Linux:</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo pacman -S docker docker-compose
+</span></span><span class="line"><span class="cl">sudo systemctl <span class="nb">enable</span> --now docker
+</span></span><span class="line"><span class="cl">sudo usermod -aG docker <span class="nv">$USER</span>
+</span></span><span class="line"><span class="cl">newgrp docker
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><strong>On Debian or Ubuntu:</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo apt update
+</span></span><span class="line"><span class="cl">sudo apt install docker.io docker-compose
+</span></span><span class="line"><span class="cl">sudo systemctl <span class="nb">enable</span> --now docker
+</span></span><span class="line"><span class="cl">sudo usermod -aG docker <span class="nv">$USER</span>
+</span></span><span class="line"><span class="cl">newgrp docker
+</span></span></code></pre></td></tr></table>
+</div>
+</div><hr>
+<blockquote>
+<p>Docker was originally released in 2013 and revolutionized how developers package and deploy applications. Today, it’s an essential tool in cybersecurity labs for simulating complex environments quickly.</p></blockquote>
+<hr>
+<h2 id="step-2-cloning-the-wazuh-docker-repository">Step 2: Cloning the Wazuh Docker Repository</h2>
+<p>Wazuh maintains an official Docker repository with all the configurations needed for different deployments. Grab the single-node setup like this:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">git clone https://github.com/wazuh/wazuh-docker -b v4.12.0
+</span></span><span class="line"><span class="cl"><span class="nb">cd</span> wazuh-docker/single-node
+</span></span></code></pre></td></tr></table>
+</div>
+</div><hr>
+<h2 id="step-3-generating-ssl-certificates">Step 3: Generating SSL Certificates</h2>
+<p>To secure communication between the components, you’ll need to generate SSL certificates. First, create the directory:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">mkdir -p config/wazuh_indexer_ssl_certs/
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Next, create the configuration files. Here’s the <strong>config/certs.yml</strong> file content:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">nodes</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">wazuh.indexer</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l">indexer</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">wazuh.manager</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l">manager</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">wazuh.dashboard</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l">dashboard</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>And the <strong>generate-indexer-certs.yml</strong> file:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">version</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;3.3&#39;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">services</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">generator</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l">wazuh/wazuh-certs-generator:0.0.2</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">hostname</span><span class="p">:</span><span class="w"> </span><span class="l">wazuh-certs-generator</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">volumes</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="l">./config/wazuh_indexer_ssl_certs/:/certificates/</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="l">./config/certs.yml:/config/certs.yml</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>Then run:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">docker-compose -f generate-indexer-certs.yml run --rm generator
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>If you get errors about overwriting files, just clear the folder and try again:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">rm -rf config/wazuh_indexer_ssl_certs/*
+</span></span><span class="line"><span class="cl">docker-compose -f generate-indexer-certs.yml run --rm generator
+</span></span></code></pre></td></tr></table>
+</div>
+</div><hr>
+<h2 id="step-4-starting-the-wazuh-stack">Step 4: Starting the Wazuh Stack</h2>
+<p>With everything set, launch the whole Wazuh environment:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">docker-compose up -d
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>This will bring up the manager, indexer, and dashboard.</p>
+<hr>
+<h2 id="step-5-accessing-the-web-dashboard">Step 5: Accessing the Web Dashboard</h2>
+<p>Open your browser and head to:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">https://&lt;your-server-ip&gt;
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>This would be localhost if you&rsquo;re setting it up locally.</p>
+<hr>
+<p>The default login credentials are:</p>
+<ul>
+<li>Username: <code>admin</code></li>
+<li>Password: <code>SecretPassword</code> (or check the <code>.env</code> file in the repo)</li>
+</ul>
+<p>Expect a warning about the self-signed certificate. This is normal. You can safely proceed for now.</p>
+<hr>
+<h2 id="adding-your-own-machine-as-an-agent">Adding Your Own Machine as an Agent</h2>
+<p>Wazuh’s strength lies in monitoring endpoints. I connected my Arch Linux workstation as an agent, but these steps work the same on Debian.</p>
+<h3 id="download-and-install-the-agent">Download and install the agent:</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">curl -sO https://packages.wazuh.com/4.12/wazuh-agent-4.12.0-linux-x86_64.tar.gz
+</span></span><span class="line"><span class="cl">tar -xvzf wazuh-agent-4.12.0-linux-x86_64.tar.gz
+</span></span><span class="line"><span class="cl"><span class="nb">cd</span> wazuh-agent-4.12.0
+</span></span><span class="line"><span class="cl">sudo ./install.sh
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="register-the-agent-with-the-manager">Register the agent with the manager:</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo /var/ossec/bin/agent-auth -m &lt;wazuh-manager-ip&gt;
+</span></span><span class="line"><span class="cl">sudo systemctl <span class="nb">enable</span> --now wazuh-agent
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>After a short while, your agent will show up in the dashboard, forwarding logs and security events.</p>
+<hr>
+<blockquote>
+<p>The first version of Wazuh was released in 2015, and it has since become one of the most widely used open-source security platforms worldwide.</p></blockquote>
+<p><strong>You&rsquo;re now done!</strong> You should be able to explore the dashboard and learn all the features Wazuh has to offer.</p>
+<hr>
+<h2 id="real-world-detection-cve-2025-4598">Real-World Detection: CVE-2025-4598</h2>
+<p>Shortly after getting everything running, Wazuh’s Vulnerability Detector flagged a real systemd vulnerability on my machine (CVE-2025-4598). This was a practical example of how such tools help spot risks before attackers do.</p>
+<p><em>Don’t worry, I patched it right away. Wouldn’t want to make it too easy for you hackers, right?</em></p>
+<hr>
+<h2 id="why-this-matters">Why This Matters</h2>
+<p>Setting this up wasn’t just an academic exercise. I now have a hands-on understanding of log collection, normalization, and alerting. In fields like automotive cybersecurity, knowing what’s happening on endpoints and spotting anomalies early is crucial—and this kind of setup lets you practice those skills.</p>
+<hr>
+<h2 id="whats-next">What’s Next?</h2>
+<p>Here are some things you can try for yourself now that you&rsquo;ve got the hang of setting it up:</p>
+<ul>
+<li>Crafting custom detection rules tailored to your environment</li>
+<li>Simulating attacks to validate your alerts</li>
+<li>Adding Windows or other OS agents</li>
+<li>Expanding to multi-node deployments for scalability</li>
+</ul>
+<hr>
+<h2 id="final-thoughts">Final Thoughts</h2>
+<p>Wazuh is a fantastic project for anyone looking to deepen their cybersecurity skills. Using Docker simplifies the setup, and the dashboard delivers meaningful insights out of the box. Whether you’re a beginner or an experienced professional, experimenting with Wazuh builds a solid foundation for real-world security monitoring.</p>
+<p>Thanks for reading! Feel free to reach out if you want to discuss or share your own setups.</p>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>Updated on 2025-06-14</span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="/tags/siem/">SIEM</a>,&nbsp;<a href="/tags/cybersecurity/">Cybersecurity</a>,&nbsp;<a href="/tags/wazuh/">Wazuh</a>,&nbsp;<a href="/tags/docker/">Docker</a>,&nbsp;<a href="/tags/homelab/">Homelab</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">Back</a></span>&nbsp;|&nbsp;<span><a href="/">Home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/posts/welcome/" class="prev" rel="prev" title="Welcome"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>Welcome</a></div>
+</div>
+</article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2023 - 2025</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank"></a></span>&nbsp;|&nbsp;<span class="license">All Rights Reserved</span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="Back to Top">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="View Comments">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"Copy to clipboard","maxShownLines":50},"comment":{},"search":{"highlightTag":"em","lunrIndexURL":"/index.json","maxResultLength":10,"noResultsFound":"No results found","snippetLength":30,"type":"lunr"}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>
