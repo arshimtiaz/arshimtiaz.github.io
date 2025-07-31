@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Tutorial on Arsh Imtiaz</title>
+    <link>http://localhost:1313/tags/tutorial/</link>
+    <description>Recent content in Tutorial on Arsh Imtiaz</description>
+    <generator>Hugo</generator>
+    <language>en</language>
+    <lastBuildDate>Wed, 30 Jul 2025 00:00:00 +0100</lastBuildDate>
+    <atom:link href="http://localhost:1313/tags/tutorial/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>My First Wi-Fi Pentest with Aircrack-ng (Beginner Tutorial)</title>
+      <link>http://localhost:1313/posts/wifi-hacking/</link>
+      <pubDate>Wed, 30 Jul 2025 00:00:00 +0100</pubDate>
+      <guid>http://localhost:1313/posts/wifi-hacking/</guid>
+      <description>&lt;h1 id=&#34;my-first-wi-fi-pentest-with-aircrack-ng-beginner-tutorial&#34;&gt;My First Wi-Fi Pentest with Aircrack-ng (Beginner Tutorial)&lt;/h1&gt;&#xA;&lt;blockquote&gt;&#xA;&lt;p&gt;This was my very first attempt at Wi-Fi pentesting. It wasn’t smooth sailing – I made a bunch of rookie mistakes – but by the end, I managed to capture and crack my test Wi-Fi password. Here’s exactly what I did (and what I messed up).&lt;/p&gt;&lt;/blockquote&gt;&#xA;&lt;p&gt;⚠️ &lt;strong&gt;Disclaimer:&lt;/strong&gt; Only perform these tests on your own network or a network you have explicit permission to test. Hacking into networks without permission is illegal.&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>
