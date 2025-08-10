@@ -3,9 +3,22 @@
         <title>Arsh Imtiaz</title>
         <link>https://arshimtiaz.github.io/</link>
         <description>The personal site for Arsh Imtiaz</description>
-        <generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Wed, 30 Jul 2025 00:00:00 &#43;0100</lastBuildDate>
+        <generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Wed, 06 Aug 2025 00:00:00 &#43;0100</lastBuildDate>
             <atom:link href="https://arshimtiaz.github.io/index.xml" rel="self" type="application/rss+xml" />
         <item>
+    <title>Why Networking Fundamentals Should Be Your First Step</title>
+    <link>https://arshimtiaz.github.io/posts/networking-fundamentals/</link>
+    <pubDate>Wed, 06 Aug 2025 00:00:00 &#43;0100</pubDate>
+    <author>Arsh Imtiaz</author>
+    <guid>https://arshimtiaz.github.io/posts/networking-fundamentals/</guid>
+    <description><![CDATA[<div style="text-align: center;">
+  
+  <small>Networking is fun. Also, it is the part that keeps your hacks from breaking at the worst time.</small>
+</div>
+<p><big>So, you wanna be a hacker?</big></p>
+<p>Cool. I did too. I jumped into Kali, sprayed tools, and followed tutorials like a robot. Things worked, but I could not explain why. That was my first big lesson: <strong>without networking, most of security looks like magic</strong>. No magic here. Just packets, addresses, ports, and paths.</p>]]></description>
+</item>
+<item>
     <title>My First Wi-Fi Pentest</title>
     <link>https://arshimtiaz.github.io/posts/wifi-hacking/</link>
     <pubDate>Wed, 30 Jul 2025 00:00:00 &#43;0100</pubDate>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Infosec Culture on Arsh Imtiaz</title>
+    <link>http://localhost:1313/tags/infosec-culture/</link>
+    <description>Recent content in Infosec Culture on Arsh Imtiaz</description>
+    <generator>Hugo</generator>
+    <language>en</language>
+    <lastBuildDate>Wed, 06 Aug 2025 00:00:00 +0100</lastBuildDate>
+    <atom:link href="http://localhost:1313/tags/infosec-culture/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Cybersecurity Is Changing – And We&#39;re Still Hiring Like It&#39;s 2004</title>
+      <link>http://localhost:1313/posts/cybersecurity-hiring-is-broken/</link>
+      <pubDate>Wed, 06 Aug 2025 00:00:00 +0100</pubDate>
+      <guid>http://localhost:1313/posts/cybersecurity-hiring-is-broken/</guid>
+      <description>&lt;h2 id=&#34;cybersecurity-is-changing--the-industry-isnt&#34;&gt;Cybersecurity Is Changing — The Industry Isn’t&lt;/h2&gt;&#xA;&lt;p&gt;Let me just say it straight: the way the cybersecurity world operates today feels painfully outdated.&lt;/p&gt;&#xA;&lt;p&gt;Teenagers with a half-decent laptop, curiosity, and a bit of Reddit can hack into Fortune 500 companies — and no, that’s not just a movie plot. It’s real. It’s happening. And it makes you wonder… if that’s the reality, why does it still feel so hard for passionate, capable people to break into this industry?&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

@@ -2,23 +2,26 @@
     xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
     xmlns:xhtml="http://www.w3.org/1999/xhtml"
     ><url>
-            <loc>https://arshimtiaz.github.io/tags/aircrack-ng/</loc><lastmod>2025-07-31T01:49:53&#43;01:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
-            <loc>https://arshimtiaz.github.io/</loc><lastmod>2025-07-31T01:49:53&#43;01:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
-            <loc>https://arshimtiaz.github.io/posts/wifi-hacking/</loc><lastmod>2025-07-31T01:49:53&#43;01:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
-            <loc>https://arshimtiaz.github.io/tags/pentesting/</loc><lastmod>2025-07-31T01:49:53&#43;01:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
-            <loc>https://arshimtiaz.github.io/posts/</loc><lastmod>2025-07-31T01:49:53&#43;01:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
-            <loc>https://arshimtiaz.github.io/tags/</loc><lastmod>2025-07-31T01:49:53&#43;01:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
-            <loc>https://arshimtiaz.github.io/tags/wifi/</loc><lastmod>2025-07-31T01:49:53&#43;01:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
-            <loc>https://arshimtiaz.github.io/tags/cybersecurity/</loc><lastmod>2025-07-30T18:13:43&#43;01:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
-            <loc>https://arshimtiaz.github.io/tags/docker/</loc><lastmod>2025-07-30T18:13:43&#43;01:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
-            <loc>https://arshimtiaz.github.io/posts/wazuh-setup/</loc><lastmod>2025-07-30T18:13:43&#43;01:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
-            <loc>https://arshimtiaz.github.io/tags/homelab/</loc><lastmod>2025-07-30T18:13:43&#43;01:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
-            <loc>https://arshimtiaz.github.io/tags/siem/</loc><lastmod>2025-07-30T18:13:43&#43;01:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
-            <loc>https://arshimtiaz.github.io/tags/wazuh/</loc><lastmod>2025-07-30T18:13:43&#43;01:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
-            <loc>https://arshimtiaz.github.io/tags/ctfs/</loc><lastmod>2025-07-30T18:13:43&#43;01:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
-            <loc>https://arshimtiaz.github.io/tags/ethical-hacking/</loc><lastmod>2025-07-30T18:13:43&#43;01:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
-            <loc>https://arshimtiaz.github.io/tags/introduction/</loc><lastmod>2025-07-30T18:13:43&#43;01:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
-            <loc>https://arshimtiaz.github.io/posts/welcome/</loc><lastmod>2025-07-30T18:13:43&#43;01:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
-            <loc>https://arshimtiaz.github.io/about/</loc><lastmod>2025-07-30T18:13:43&#43;01:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
+            <loc>https://arshimtiaz.github.io/</loc><lastmod>2025-08-10T11:36:25&#43;01:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
+            <loc>https://arshimtiaz.github.io/tags/cybersecurity/</loc><lastmod>2025-08-10T11:36:25&#43;01:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
+            <loc>https://arshimtiaz.github.io/tags/learning-path/</loc><lastmod>2025-08-10T11:36:25&#43;01:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
+            <loc>https://arshimtiaz.github.io/tags/networking/</loc><lastmod>2025-08-10T11:36:25&#43;01:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
+            <loc>https://arshimtiaz.github.io/posts/</loc><lastmod>2025-08-10T11:36:25&#43;01:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
+            <loc>https://arshimtiaz.github.io/tags/</loc><lastmod>2025-08-10T11:36:25&#43;01:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
+            <loc>https://arshimtiaz.github.io/posts/networking-fundamentals/</loc><lastmod>2025-08-10T11:36:25&#43;01:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
+            <loc>https://arshimtiaz.github.io/tags/aircrack-ng/</loc><lastmod>2025-08-10T11:36:25&#43;01:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
+            <loc>https://arshimtiaz.github.io/posts/wifi-hacking/</loc><lastmod>2025-08-10T11:36:25&#43;01:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
+            <loc>https://arshimtiaz.github.io/tags/pentesting/</loc><lastmod>2025-08-10T11:36:25&#43;01:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
+            <loc>https://arshimtiaz.github.io/tags/wifi/</loc><lastmod>2025-08-10T11:36:25&#43;01:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
+            <loc>https://arshimtiaz.github.io/tags/docker/</loc><lastmod>2025-08-10T11:36:25&#43;01:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
+            <loc>https://arshimtiaz.github.io/posts/wazuh-setup/</loc><lastmod>2025-08-10T11:36:25&#43;01:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
+            <loc>https://arshimtiaz.github.io/tags/homelab/</loc><lastmod>2025-08-10T11:36:25&#43;01:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
+            <loc>https://arshimtiaz.github.io/tags/siem/</loc><lastmod>2025-08-10T11:36:25&#43;01:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
+            <loc>https://arshimtiaz.github.io/tags/wazuh/</loc><lastmod>2025-08-10T11:36:25&#43;01:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
+            <loc>https://arshimtiaz.github.io/tags/ctfs/</loc><lastmod>2025-08-10T11:36:25&#43;01:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
+            <loc>https://arshimtiaz.github.io/tags/ethical-hacking/</loc><lastmod>2025-08-10T11:36:25&#43;01:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
+            <loc>https://arshimtiaz.github.io/tags/introduction/</loc><lastmod>2025-08-10T11:36:25&#43;01:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
+            <loc>https://arshimtiaz.github.io/posts/welcome/</loc><lastmod>2025-08-10T11:36:25&#43;01:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
+            <loc>https://arshimtiaz.github.io/about/</loc><lastmod>2025-07-30T18:13:43&#43;01:00</lastmod><changefreq>weekly</changefreq><priority>0.9</priority></url><url>
             <loc>https://arshimtiaz.github.io/categories/</loc><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
-            <loc>https://arshimtiaz.github.io/contact/</loc><lastmod>2025-07-31T01:49:53&#43;01:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url></urlset>
+            <loc>https://arshimtiaz.github.io/contact/</loc><lastmod>2025-07-31T01:49:53&#43;01:00</lastmod><changefreq>weekly</changefreq><priority>0.9</priority></url></urlset>

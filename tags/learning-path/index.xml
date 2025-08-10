@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Learning Path on Arsh Imtiaz</title>
+    <link>https://arshimtiaz.github.io/tags/learning-path/</link>
+    <description>Recent content in Learning Path on Arsh Imtiaz</description>
+    <generator>Hugo</generator>
+    <language>en</language>
+    <lastBuildDate>Sun, 10 Aug 2025 11:36:25 +0100</lastBuildDate>
+    <atom:link href="https://arshimtiaz.github.io/tags/learning-path/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Why Networking Fundamentals Should Be Your First Step</title>
+      <link>https://arshimtiaz.github.io/posts/networking-fundamentals/</link>
+      <pubDate>Wed, 06 Aug 2025 00:00:00 +0100</pubDate>
+      <guid>https://arshimtiaz.github.io/posts/networking-fundamentals/</guid>
+      <description>&lt;div style=&#34;text-align: center;&#34;&gt;&#xA;  &lt;img src=&#34;./network-nodes.gif&#34; alt=&#34;Networking is fun&#34; width=&#34;100%&#34;&gt;&#xA;  &lt;small&gt;Networking is fun. Also, it is the part that keeps your hacks from breaking at the worst time.&lt;/small&gt;&#xA;&lt;/div&gt;&#xA;&lt;p&gt;&lt;big&gt;So, you wanna be a hacker?&lt;/big&gt;&lt;/p&gt;&#xA;&lt;p&gt;Cool. I did too. I jumped into Kali, sprayed tools, and followed tutorials like a robot. Things worked, but I could not explain why. That was my first big lesson: &lt;strong&gt;without networking, most of security looks like magic&lt;/strong&gt;. No magic here. Just packets, addresses, ports, and paths.&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>
