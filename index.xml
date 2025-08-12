@@ -1,16 +1,16 @@
 <rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
     <channel>
         <title>Arsh Imtiaz</title>
-        <link>http://localhost:1313/</link>
+        <link>https://arshimtiaz.github.io/</link>
         <description>The personal site for Arsh Imtiaz</description>
         <generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Wed, 06 Aug 2025 00:00:00 &#43;0100</lastBuildDate>
-            <atom:link href="http://localhost:1313/index.xml" rel="self" type="application/rss+xml" />
+            <atom:link href="https://arshimtiaz.github.io/index.xml" rel="self" type="application/rss+xml" />
         <item>
     <title>Why Networking Fundamentals Should Be Your First Step</title>
-    <link>http://localhost:1313/posts/networking-fundamentals/</link>
+    <link>https://arshimtiaz.github.io/posts/networking-fundamentals/</link>
     <pubDate>Wed, 06 Aug 2025 00:00:00 &#43;0100</pubDate>
     <author>Arsh Imtiaz</author>
-    <guid>http://localhost:1313/posts/networking-fundamentals/</guid>
+    <guid>https://arshimtiaz.github.io/posts/networking-fundamentals/</guid>
     <description><![CDATA[<div style="text-align: center;">
   
   <small>Networking is fun. Also, it is the part that keeps your hacks from breaking at the worst time.</small>
@@ -20,10 +20,10 @@
 </item>
 <item>
     <title>My First Wi-Fi Pentest</title>
-    <link>http://localhost:1313/posts/wifi-hacking/</link>
+    <link>https://arshimtiaz.github.io/posts/wifi-hacking/</link>
     <pubDate>Wed, 30 Jul 2025 00:00:00 &#43;0100</pubDate>
     <author>Arsh Imtiaz</author>
-    <guid>http://localhost:1313/posts/wifi-hacking/</guid>
+    <guid>https://arshimtiaz.github.io/posts/wifi-hacking/</guid>
     <description><![CDATA[<p></p>
 <h1 id="my-first-wi-fi-pentest">My First Wi-Fi Pentest</h1>
 <p>There’s a massive difference between watching pentesting videos and actually doing it. This was my first time seriously trying Wi-Fi pentesting, and it was a mix of pure excitement, a bunch of silly mistakes, and that one moment of “YES! It finally worked.”</p>
@@ -31,19 +31,19 @@
 </item>
 <item>
     <title>Docker to Detection: Setting Up Wazuh SIEM for Beginners</title>
-    <link>http://localhost:1313/posts/wazuh-setup/</link>
+    <link>https://arshimtiaz.github.io/posts/wazuh-setup/</link>
     <pubDate>Sat, 14 Jun 2025 00:00:00 &#43;0100</pubDate>
     <author>Arsh Imtiaz</author>
-    <guid>http://localhost:1313/posts/wazuh-setup/</guid>
+    <guid>https://arshimtiaz.github.io/posts/wazuh-setup/</guid>
     <description><![CDATA[<p></p>
 <p>Setting up a SIEM (Security Information and Event Management) system might sound intimidating if you’re just getting started, but it’s a rewarding project that gives you real insight into how cybersecurity professionals monitor and detect threats. I recently built a Wazuh-based SIEM entirely with Docker and connected my personal Linux workstation as an agent. In this post, I’ll walk you through the process with practical commands for both Arch Linux and Debian users.</p>]]></description>
 </item>
 <item>
     <title>Welcome</title>
-    <link>http://localhost:1313/posts/welcome/</link>
+    <link>https://arshimtiaz.github.io/posts/welcome/</link>
     <pubDate>Wed, 15 Jan 2025 11:59:12 &#43;0300</pubDate>
     <author>Arsh Imtiaz</author>
-    <guid>http://localhost:1313/posts/welcome/</guid>
+    <guid>https://arshimtiaz.github.io/posts/welcome/</guid>
     <description><![CDATA[<h1 id="welcome-to-my-blog">Welcome to My Blog</h1>
 <p>Hello, and thank you for visiting my blog!</p>
 <p>I&rsquo;m Arsh Imtiaz — a cybersecurity professional passionate about ethical hacking, information security, and continuous learning in the ever-evolving world of technology.</p>
