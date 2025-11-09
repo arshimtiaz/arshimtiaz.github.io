@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Ctfs on Arsh Imtiaz</title>
-    <link>https://arshimtiaz.github.io/tags/ctfs/</link>
+    <link>http://localhost:1313/tags/ctfs/</link>
     <description>Recent content in Ctfs on Arsh Imtiaz</description>
     <generator>Hugo</generator>
     <language>en</language>
     <lastBuildDate>Sun, 10 Aug 2025 11:36:25 +0100</lastBuildDate>
-    <atom:link href="https://arshimtiaz.github.io/tags/ctfs/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://localhost:1313/tags/ctfs/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Welcome</title>
-      <link>https://arshimtiaz.github.io/posts/welcome/</link>
+      <link>http://localhost:1313/posts/welcome/</link>
       <pubDate>Wed, 15 Jan 2025 11:59:12 +0300</pubDate>
-      <guid>https://arshimtiaz.github.io/posts/welcome/</guid>
+      <guid>http://localhost:1313/posts/welcome/</guid>
       <description>&lt;h1 id=&#34;welcome-to-my-blog&#34;&gt;Welcome to My Blog&lt;/h1&gt;&#xA;&lt;p&gt;Hello, and thank you for visiting my blog!&lt;/p&gt;&#xA;&lt;p&gt;I&amp;rsquo;m Arsh Imtiaz — a cybersecurity professional passionate about ethical hacking, information security, and continuous learning in the ever-evolving world of technology.&lt;/p&gt;&#xA;&lt;h2 id=&#34;about-this-blog&#34;&gt;About This Blog&lt;/h2&gt;&#xA;&lt;p&gt;This space is dedicated to sharing insights, experiences, and practical knowledge related to cybersecurity and ethical hacking. Here, you’ll find:&lt;/p&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;&lt;strong&gt;Technical write-ups and tutorials&lt;/strong&gt; covering various tools, techniques, and challenges.&lt;/li&gt;&#xA;&lt;li&gt;&lt;strong&gt;Personal reflections&lt;/strong&gt; on projects, learning journeys, and industry trends.&lt;/li&gt;&#xA;&lt;li&gt;&lt;strong&gt;CTF walkthroughs and writeups&lt;/strong&gt; from platforms like TryHackMe and HackTheBox.&lt;/li&gt;&#xA;&lt;li&gt;Occasional commentary on broader tech topics, aimed at both beginners and professionals.&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;h2 id=&#34;why-i-created-this-blog&#34;&gt;Why I Created This Blog&lt;/h2&gt;&#xA;&lt;p&gt;I launched this blog to document my professional journey, share knowledge with the community, and foster connections with fellow security enthusiasts. Whether you&amp;rsquo;re just starting out or looking to deepen your skills, I hope you find something valuable here.&lt;/p&gt;</description>
     </item>
   </channel>

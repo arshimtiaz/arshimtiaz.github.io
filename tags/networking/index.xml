@@ -2,24 +2,24 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Networking on Arsh Imtiaz</title>
-    <link>https://arshimtiaz.github.io/tags/networking/</link>
+    <link>http://localhost:1313/tags/networking/</link>
     <description>Recent content in Networking on Arsh Imtiaz</description>
     <generator>Hugo</generator>
     <language>en</language>
-    <lastBuildDate>Sun, 09 Nov 2025 00:00:00 +0000</lastBuildDate>
-    <atom:link href="https://arshimtiaz.github.io/tags/networking/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 09 Nov 2025 07:04:36 +0000</lastBuildDate>
+    <atom:link href="http://localhost:1313/tags/networking/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>When Red Teaming Meets Car Hacking: Building a Virtual Vehicle Pentest Lab on My Laptop</title>
-      <link>https://arshimtiaz.github.io/posts/virtual-vehicle-lab/</link>
+      <link>http://localhost:1313/posts/virtual-vehicle-lab/</link>
       <pubDate>Sun, 09 Nov 2025 00:00:00 +0000</pubDate>
-      <guid>https://arshimtiaz.github.io/posts/virtual-vehicle-lab/</guid>
+      <guid>http://localhost:1313/posts/virtual-vehicle-lab/</guid>
       <description>&lt;div style=&#34;text-align: center;&#34;&gt;&#xA;  &lt;img src=&#34;assets/car_hacking.png&#34; alt=&#34;Networking is fun&#34; width=&#34;100%&#34;&gt;&#xA;  &lt;small&gt;How does one emulate cars at home?&lt;/small&gt;&#xA;&lt;/div&gt;&#xA;&lt;p&gt;Every car hacking tool I have come across required expensive ECUs, adapters or even full test benches. Having worked with test cars before, I got an insight into how time consuming and expensive, if not difficult it is to set a working HIL (Hardware-In-Loop) setup.&#xA;I didn&amp;rsquo;t want to wait for hardware to understand how automotive networks behave - I wanted to simulate it.&lt;/p&gt;</description>
     </item>
     <item>
       <title>Why Networking Fundamentals Should Be Your First Step</title>
-      <link>https://arshimtiaz.github.io/posts/networking-fundamentals/</link>
+      <link>http://localhost:1313/posts/networking-fundamentals/</link>
       <pubDate>Wed, 06 Aug 2025 00:00:00 +0100</pubDate>
-      <guid>https://arshimtiaz.github.io/posts/networking-fundamentals/</guid>
+      <guid>http://localhost:1313/posts/networking-fundamentals/</guid>
       <description>&lt;div style=&#34;text-align: center;&#34;&gt;&#xA;  &lt;img src=&#34;./network-nodes.gif&#34; alt=&#34;Networking is fun&#34; width=&#34;100%&#34;&gt;&#xA;  &lt;small&gt;Networking is fun. Also, it is the part that keeps your hacks from breaking at the worst time.&lt;/small&gt;&#xA;&lt;/div&gt;&#xA;&lt;p&gt;&lt;big&gt;So, you wanna be a hacker?&lt;/big&gt;&lt;/p&gt;&#xA;&lt;p&gt;Cool. I did too. I jumped into Kali, sprayed tools, and followed tutorials like a robot. Things worked, but I could not explain why. That was my first big lesson: &lt;strong&gt;without networking, most of security looks like magic&lt;/strong&gt;. No magic here. Just packets, addresses, ports, and paths.&lt;/p&gt;</description>
     </item>
   </channel>
