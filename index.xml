@@ -3,9 +3,22 @@
         <title>Arsh Imtiaz</title>
         <link>https://arshimtiaz.github.io/</link>
         <description>The personal site for Arsh Imtiaz</description>
-        <generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Wed, 06 Aug 2025 00:00:00 &#43;0100</lastBuildDate>
+        <generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Sun, 09 Nov 2025 00:00:00 &#43;0000</lastBuildDate>
             <atom:link href="https://arshimtiaz.github.io/index.xml" rel="self" type="application/rss+xml" />
         <item>
+    <title>When Red Teaming Meets Car Hacking: Building a Virtual Vehicle Pentest Lab on My Laptop</title>
+    <link>https://arshimtiaz.github.io/posts/virtual-vehicle-lab/</link>
+    <pubDate>Sun, 09 Nov 2025 00:00:00 &#43;0000</pubDate>
+    <author>Arsh Imtiaz</author>
+    <guid>https://arshimtiaz.github.io/posts/virtual-vehicle-lab/</guid>
+    <description><![CDATA[<div style="text-align: center;">
+  
+  <small>How does one emulate cars at home?</small>
+</div>
+<p>Every car hacking tool I have come across required expensive ECUs, adapters or even full test benches. Having worked with test cars before, I got an insight into how time consuming and expensive, if not difficult it is to set a working HIL (Hardware-In-Loop) setup.
+I didn&rsquo;t want to wait for hardware to understand how automotive networks behave - I wanted to simulate it.</p>]]></description>
+</item>
+<item>
     <title>Why Networking Fundamentals Should Be Your First Step</title>
     <link>https://arshimtiaz.github.io/posts/networking-fundamentals/</link>
     <pubDate>Wed, 06 Aug 2025 00:00:00 &#43;0100</pubDate>
