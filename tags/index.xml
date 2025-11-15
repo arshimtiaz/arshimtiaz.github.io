@@ -2,101 +2,101 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Tags on Arsh Imtiaz</title>
-    <link>http://localhost:1313/tags/</link>
+    <link>https://arshimtiaz.github.io/tags/</link>
     <description>Recent content in Tags on Arsh Imtiaz</description>
     <generator>Hugo</generator>
     <language>en</language>
-    <lastBuildDate>Sun, 09 Nov 2025 07:04:36 +0000</lastBuildDate>
-    <atom:link href="http://localhost:1313/tags/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 15 Nov 2025 03:26:42 +0000</lastBuildDate>
+    <atom:link href="https://arshimtiaz.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Cybersecurity</title>
-      <link>http://localhost:1313/tags/cybersecurity/</link>
+      <link>https://arshimtiaz.github.io/tags/cybersecurity/</link>
       <pubDate>Sun, 09 Nov 2025 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/tags/cybersecurity/</guid>
+      <guid>https://arshimtiaz.github.io/tags/cybersecurity/</guid>
       <description></description>
     </item>
     <item>
       <title>Homelab</title>
-      <link>http://localhost:1313/tags/homelab/</link>
+      <link>https://arshimtiaz.github.io/tags/homelab/</link>
       <pubDate>Sun, 09 Nov 2025 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/tags/homelab/</guid>
+      <guid>https://arshimtiaz.github.io/tags/homelab/</guid>
       <description></description>
     </item>
     <item>
       <title>Networking</title>
-      <link>http://localhost:1313/tags/networking/</link>
+      <link>https://arshimtiaz.github.io/tags/networking/</link>
       <pubDate>Sun, 09 Nov 2025 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/tags/networking/</guid>
+      <guid>https://arshimtiaz.github.io/tags/networking/</guid>
       <description></description>
     </item>
     <item>
       <title>Pentesting</title>
-      <link>http://localhost:1313/tags/pentesting/</link>
+      <link>https://arshimtiaz.github.io/tags/pentesting/</link>
       <pubDate>Sun, 09 Nov 2025 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/tags/pentesting/</guid>
+      <guid>https://arshimtiaz.github.io/tags/pentesting/</guid>
       <description></description>
     </item>
     <item>
       <title>Wifi</title>
-      <link>http://localhost:1313/tags/wifi/</link>
+      <link>https://arshimtiaz.github.io/tags/wifi/</link>
       <pubDate>Sun, 09 Nov 2025 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/tags/wifi/</guid>
+      <guid>https://arshimtiaz.github.io/tags/wifi/</guid>
       <description></description>
     </item>
     <item>
       <title>Learning Path</title>
-      <link>http://localhost:1313/tags/learning-path/</link>
+      <link>https://arshimtiaz.github.io/tags/learning-path/</link>
       <pubDate>Wed, 06 Aug 2025 00:00:00 +0100</pubDate>
-      <guid>http://localhost:1313/tags/learning-path/</guid>
+      <guid>https://arshimtiaz.github.io/tags/learning-path/</guid>
       <description></description>
     </item>
     <item>
       <title>Aircrack-Ng</title>
-      <link>http://localhost:1313/tags/aircrack-ng/</link>
+      <link>https://arshimtiaz.github.io/tags/aircrack-ng/</link>
       <pubDate>Wed, 30 Jul 2025 00:00:00 +0100</pubDate>
-      <guid>http://localhost:1313/tags/aircrack-ng/</guid>
+      <guid>https://arshimtiaz.github.io/tags/aircrack-ng/</guid>
       <description></description>
     </item>
     <item>
       <title>Docker</title>
-      <link>http://localhost:1313/tags/docker/</link>
+      <link>https://arshimtiaz.github.io/tags/docker/</link>
       <pubDate>Sat, 14 Jun 2025 00:00:00 +0100</pubDate>
-      <guid>http://localhost:1313/tags/docker/</guid>
+      <guid>https://arshimtiaz.github.io/tags/docker/</guid>
       <description></description>
     </item>
     <item>
       <title>SIEM</title>
-      <link>http://localhost:1313/tags/siem/</link>
+      <link>https://arshimtiaz.github.io/tags/siem/</link>
       <pubDate>Sat, 14 Jun 2025 00:00:00 +0100</pubDate>
-      <guid>http://localhost:1313/tags/siem/</guid>
+      <guid>https://arshimtiaz.github.io/tags/siem/</guid>
       <description></description>
     </item>
     <item>
       <title>Wazuh</title>
-      <link>http://localhost:1313/tags/wazuh/</link>
+      <link>https://arshimtiaz.github.io/tags/wazuh/</link>
       <pubDate>Sat, 14 Jun 2025 00:00:00 +0100</pubDate>
-      <guid>http://localhost:1313/tags/wazuh/</guid>
+      <guid>https://arshimtiaz.github.io/tags/wazuh/</guid>
       <description></description>
     </item>
     <item>
       <title>Ctfs</title>
-      <link>http://localhost:1313/tags/ctfs/</link>
+      <link>https://arshimtiaz.github.io/tags/ctfs/</link>
       <pubDate>Wed, 15 Jan 2025 11:59:12 +0300</pubDate>
-      <guid>http://localhost:1313/tags/ctfs/</guid>
+      <guid>https://arshimtiaz.github.io/tags/ctfs/</guid>
       <description></description>
     </item>
     <item>
       <title>Ethical Hacking</title>
-      <link>http://localhost:1313/tags/ethical-hacking/</link>
+      <link>https://arshimtiaz.github.io/tags/ethical-hacking/</link>
       <pubDate>Wed, 15 Jan 2025 11:59:12 +0300</pubDate>
-      <guid>http://localhost:1313/tags/ethical-hacking/</guid>
+      <guid>https://arshimtiaz.github.io/tags/ethical-hacking/</guid>
       <description></description>
     </item>
     <item>
       <title>Introduction</title>
-      <link>http://localhost:1313/tags/introduction/</link>
+      <link>https://arshimtiaz.github.io/tags/introduction/</link>
       <pubDate>Wed, 15 Jan 2025 11:59:12 +0300</pubDate>
-      <guid>http://localhost:1313/tags/introduction/</guid>
+      <guid>https://arshimtiaz.github.io/tags/introduction/</guid>
       <description></description>
     </item>
   </channel>

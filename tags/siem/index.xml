@@ -2,18 +2,18 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>SIEM on Arsh Imtiaz</title>
-    <link>http://localhost:1313/tags/siem/</link>
+    <link>https://arshimtiaz.github.io/tags/siem/</link>
     <description>Recent content in SIEM on Arsh Imtiaz</description>
     <generator>Hugo</generator>
     <language>en</language>
     <lastBuildDate>Sun, 10 Aug 2025 11:36:25 +0100</lastBuildDate>
-    <atom:link href="http://localhost:1313/tags/siem/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://arshimtiaz.github.io/tags/siem/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Docker to Detection: Setting Up Wazuh SIEM for Beginners</title>
-      <link>http://localhost:1313/posts/wazuh-setup/</link>
+      <link>https://arshimtiaz.github.io/posts/wazuh-setup/</link>
       <pubDate>Sat, 14 Jun 2025 00:00:00 +0100</pubDate>
-      <guid>http://localhost:1313/posts/wazuh-setup/</guid>
-      <description>&lt;p&gt;&lt;img&#xA;        class=&#34;lazyload&#34;&#xA;        src=&#34;http://localhost:1313/svg/loading.min.svg&#34;&#xA;        data-src=&#34;http://localhost:1313/images/wazuh-header-image.jpg&#34;&#xA;        data-srcset=&#34;http://localhost:1313/images/wazuh-header-image.jpg, http://localhost:1313/images/wazuh-header-image.jpg 1.5x, http://localhost:1313/images/wazuh-header-image.jpg 2x&#34;&#xA;        data-sizes=&#34;auto&#34;&#xA;        alt=&#34;/images/wazuh-header-image.jpg&#34;&#xA;        title=&#34;Wazuh&#34; /&gt;&lt;/p&gt;&#xA;&lt;p&gt;Setting up a SIEM (Security Information and Event Management) system might sound intimidating if you’re just getting started, but it’s a rewarding project that gives you real insight into how cybersecurity professionals monitor and detect threats. I recently built a Wazuh-based SIEM entirely with Docker and connected my personal Linux workstation as an agent. In this post, I’ll walk you through the process with practical commands for both Arch Linux and Debian users.&lt;/p&gt;</description>
+      <guid>https://arshimtiaz.github.io/posts/wazuh-setup/</guid>
+      <description>&lt;p&gt;&lt;img&#xA;        class=&#34;lazyload&#34;&#xA;        src=&#34;https://arshimtiaz.github.io/svg/loading.min.svg&#34;&#xA;        data-src=&#34;https://arshimtiaz.github.io/images/wazuh-header-image.jpg&#34;&#xA;        data-srcset=&#34;https://arshimtiaz.github.io/images/wazuh-header-image.jpg, https://arshimtiaz.github.io/images/wazuh-header-image.jpg 1.5x, https://arshimtiaz.github.io/images/wazuh-header-image.jpg 2x&#34;&#xA;        data-sizes=&#34;auto&#34;&#xA;        alt=&#34;/images/wazuh-header-image.jpg&#34;&#xA;        title=&#34;Wazuh&#34; /&gt;&lt;/p&gt;&#xA;&lt;p&gt;Setting up a SIEM (Security Information and Event Management) system might sound intimidating if you’re just getting started, but it’s a rewarding project that gives you real insight into how cybersecurity professionals monitor and detect threats. I recently built a Wazuh-based SIEM entirely with Docker and connected my personal Linux workstation as an agent. In this post, I’ll walk you through the process with practical commands for both Arch Linux and Debian users.&lt;/p&gt;</description>
     </item>
   </channel>
 </rss>

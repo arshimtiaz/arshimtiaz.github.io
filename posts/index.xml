@@ -1,60 +1,714 @@
 <rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
     <channel>
         <title>All Posts - Arsh Imtiaz</title>
-        <link>http://localhost:1313/posts/</link>
+        <link>https://arshimtiaz.github.io/posts/</link>
         <description>All Posts | Arsh Imtiaz</description>
-        <generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Sun, 09 Nov 2025 00:00:00 &#43;0000</lastBuildDate><atom:link href="http://localhost:1313/posts/" rel="self" type="application/rss+xml" /><item>
+        <generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Sun, 09 Nov 2025 00:00:00 &#43;0000</lastBuildDate><atom:link href="https://arshimtiaz.github.io/posts/" rel="self" type="application/rss+xml" /><item>
     <title>When Red Teaming Meets Car Hacking: Building a Virtual Vehicle Pentest Lab on My Laptop</title>
-    <link>http://localhost:1313/posts/virtual-vehicle-lab/</link>
+    <link>https://arshimtiaz.github.io/posts/virtual-vehicle-lab/</link>
     <pubDate>Sun, 09 Nov 2025 00:00:00 &#43;0000</pubDate>
     <author>Arsh Imtiaz</author>
-    <guid>http://localhost:1313/posts/virtual-vehicle-lab/</guid>
+    <guid>https://arshimtiaz.github.io/posts/virtual-vehicle-lab/</guid>
     <description><![CDATA[<div style="text-align: center;">
   
   <small>How does one emulate cars at home?</small>
 </div>
 <p>Every car hacking tool I have come across required expensive ECUs, adapters or even full test benches. Having worked with test cars before, I got an insight into how time consuming and expensive, if not difficult it is to set a working HIL (Hardware-In-Loop) setup.
-I didn&rsquo;t want to wait for hardware to understand how automotive networks behave - I wanted to simulate it.</p>]]></description>
+I didn&rsquo;t want to wait for hardware to understand how automotive networks behave - I wanted to simulate it.</p>
+<p>So, I built my own virtual car hacking network using Linux tools, a bit of Python, and some creative problem solving.</p>
+<hr>
+<h2 id="background">Background</h2>
+<p>Automotive Cybersecurity is fascinating. Being extremely niche, it isn&rsquo;t the first thing that comes to mind when someone thinks of <em>cybersecurity</em>. They imagine computers, massive server farms and a network that connects them all. But what is a modern car, if not a network of highly powerful computers, on wheels.</p>
+<p>Working with cars as a pentester has had me dealing with security at the intersection of software and hardware - but I wanted to explore the same logic on my own terms.</p>
+<p>A vehicle&rsquo;s network is split into three specific interfaces:</p>
+<ol>
+<li><strong>CAN</strong> (Controller Area Network) - the most widely used</li>
+<li><strong>LIN</strong> (Local Interconnect Network) - for low-speed/low-cost devices</li>
+<li><strong>Automotive Ethernet</strong> (100BASE-T1, 1000BASE-T1, etc.) - higher bandwidth, growing adoption</li>
+</ol>
+<p>Infotainment Systems, Sensors, ECUs, they all talk over these buses. Setting these up requires a lot of specialized hardware and software. This includes purchasing an expensive license with the already expensive hardware which is designed to simulate and control such networks. (Yes <a href="https://www.vector.com" target="_blank" rel="noopener noreffer "><em>Vector</em></a>, I&rsquo;m talking about you). These tools are brilliant, but they&rsquo;re practically out of reach when you&rsquo;re hacking solo and not backed by a corporation.</p>
+<p>So: emulate it.</p>
+<hr>
+<h2 id="the-idea">The Idea</h2>
+<p>If network penetration testers can simulate servers and routers, why can&rsquo;t car hackers simulate ECUs? After all, ECUs are basically computers that run a <em>specific</em> piece of software or a <em>specific</em> operating system on them, designed to only perform <em>specific</em> tasks.</p>
+<p>In a world where we have virtual machines helping us run multiple computers on one, I started brainstorming if it was possible to create ECUs digitally, without all the fancy expensive hardware. What would you possibly need? GPS? Wi-Fi? Bluetooth? A platform to run apps and scripts? A logger? All of this already exists on a standard laptop. The only thing that stood out to me was the communication interfaces. CAN is not used anywhere apart from automotive networks. Neither is LIN or 100Base-T1 (<em>Automotive</em> Ethernet for a reason). This made me research even more. What could possibly help me <strong>simulate</strong> CAN?</p>
+<blockquote>
+<p>&ldquo;If there&rsquo;s a will, there is a way.&rdquo;
+~ some wise person</p>
+</blockquote>
+<hr>
+<h2 id="the-build">The Build</h2>
+<p>After a bit of research, I came across <a href="https://docs.kernel.org/networking/can.html" target="_blank" rel="noopener noreffer ">SocketCAN</a>. It&rsquo;s a Linux kernel subsystem that exposes CAN interfaces like any other network device. Think CAN, but now it runs pretty much anywhere.  It allows us to create virtual CAN interfaces on Linux, or connect to physical CAN networks present on an actual car.</p>
+<p>It doesn&rsquo;t have anything to do with what flavour you choose as it is built into the kernel. It is only a matter flipping the switch and enabling it:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo modprobe vcan
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>This will help enable the vcan (virtual CAN) interface module.</p>
+<p>After this, you can create the virtual CAN interface:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo ip link add dev vcan0 <span class="nb">type</span> vcan
+</span></span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo ip link <span class="nb">set</span> up vcan0
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Run this to confirm if you&rsquo;ve got it:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">ifconfig
+</span></span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">vcan0: flags=193&lt;UP,RUNNING,NOARP&gt;  mtu 72
+</span></span><span class="line"><span class="cl">        unspec 00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00  txqueuelen 1000  (UNSPEC)
+</span></span><span class="line"><span class="cl">        RX packets 0  bytes 0 (0.0 B)
+</span></span><span class="line"><span class="cl">        RX errors 0  dropped 0  overruns 0  frame 0
+</span></span><span class="line"><span class="cl">        TX packets 0  bytes 0 (0.0 B)
+</span></span><span class="line"><span class="cl">        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>And voila! You now have a virtual CAN interface, ready to read and transmit CAN frames.</p>
+<hr>
+<h3 id="sending-packets">Sending packets</h3>
+<p>What&rsquo;s the point of creating an interface if you&rsquo;re not going to use it?
+To send packets on this interface, we have a set of can tools that you can install on pretty much any Linux machine as well.</p>
+<p>I use the <a href="https://www.blackarch.org/downloads.html#install-repo" target="_blank" rel="noopener noreffer ">Blackarch repository</a> on my Arch Linux machine. If you&rsquo;re on Debian, you can use <a href="https://www.kali.org/docs/general-use/kali-linux-sources-list-repositories/" target="_blank" rel="noopener noreffer ">Kali Linux&rsquo;s repository</a> for the same. Both of them contain the package we want to install.</p>
+<p><small> Fedora users please don&rsquo;t come after me </small></p>
+<p>Arch Linux:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo pacman -Syu
+</span></span><span class="line"><span class="cl">sudo pacman -S can-utils <span class="c1"># tools for working with CAN</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Debian:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo apt-get update <span class="o">&amp;&amp;</span> apt-get upgrade
+</span></span><span class="line"><span class="cl">sudo apt-get install can-utils
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>This will give you access to these tools:</p>
+<ol>
+<li>candump</li>
+<li>cansend</li>
+<li>canplayer</li>
+<li>cansniffer</li>
+</ol>
+<p>&hellip;and more.</p>
+<p>To send packets on the virtual bus (vcan0), use this command:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">cansend vcan0 123#AABBCCDDEEFF
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>If it doesn&rsquo;t output anything, congratulations! You&rsquo;ve sent your first CAN frame using Linux!</p>
+<p>But&hellip; how do we know that it got sent?
+We can use <code>candump</code>, which continuously listens for any CAN messages being transmitted on the bus you specify to it as an argument.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">candump vcan0
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>While this is running, send the example CAN frame with <code>cansend</code> from another terminal again. This time, you&rsquo;ll see it pop up on the listener as a properly formatted CAN frame:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">vcan0  <span class="m">123</span>   <span class="o">[</span>6<span class="o">]</span>  AA BB CC DD EE FF
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Brilliant. You&rsquo;ve now mastered the art of sending CAN frames on a bus using Linux, and only Linux.</p>
+<p>What makes this fun is you can also build your own custom logger and transmitter using Python, with the <a href="https://python-can.readthedocs.io/en/stable/" target="_blank" rel="noopener noreffer ">python-can</a> library. It can both send and listen for CAN frames on any CAN interface.</p>
+<p>Here&rsquo;s one if you want to try it out:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="ch">#!/usr/bin/env python3</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">can</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">time</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">threading</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">receiver</span><span class="p">(</span><span class="n">bus</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;&#34;&#34;Receive and print CAN messages.&#34;&#34;&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">print</span><span class="p">(</span><span class="s2">&#34;[Receiver] Listening for CAN messages...&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="n">msg</span> <span class="ow">in</span> <span class="n">bus</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&#34;[Received] ID: </span><span class="si">{</span><span class="n">msg</span><span class="o">.</span><span class="n">arbitration_id</span><span class="si">:</span><span class="s2">#04x</span><span class="si">}</span><span class="s2">, Data: </span><span class="si">{</span><span class="n">msg</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">hex</span><span class="p">()</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span><span class="si">}</span><span class="s2">&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">sender</span><span class="p">(</span><span class="n">bus</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;&#34;&#34;Send CAN messages periodically.&#34;&#34;&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">print</span><span class="p">(</span><span class="s2">&#34;[Sender] Starting message transmission...&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">msg</span> <span class="o">=</span> <span class="n">can</span><span class="o">.</span><span class="n">Message</span><span class="p">(</span><span class="n">arbitration_id</span><span class="o">=</span><span class="mh">0x123</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="p">[</span><span class="mh">0x11</span><span class="p">,</span> <span class="mh">0x22</span><span class="p">,</span> <span class="mh">0x33</span><span class="p">,</span> <span class="mh">0x44</span><span class="p">],</span> <span class="n">is_extended_id</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="k">try</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">            <span class="n">bus</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&#34;[Sent] ID: </span><span class="si">{</span><span class="n">msg</span><span class="o">.</span><span class="n">arbitration_id</span><span class="si">:</span><span class="s2">#04x</span><span class="si">}</span><span class="s2">, Data: </span><span class="si">{</span><span class="n">msg</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">hex</span><span class="p">()</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span><span class="si">}</span><span class="s2">&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="k">except</span> <span class="n">can</span><span class="o">.</span><span class="n">CanError</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">            <span class="nb">print</span><span class="p">(</span><span class="s2">&#34;[Error] Message not sent&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+</span></span><span class="line"><span class="cl">    <span class="c1"># Connect to virtual CAN interface</span>
+</span></span><span class="line"><span class="cl">    <span class="n">bus</span> <span class="o">=</span> <span class="n">can</span><span class="o">.</span><span class="n">interface</span><span class="o">.</span><span class="n">Bus</span><span class="p">(</span><span class="n">channel</span><span class="o">=</span><span class="s2">&#34;vcan0&#34;</span><span class="p">,</span> <span class="n">bustype</span><span class="o">=</span><span class="s2">&#34;socketcan&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1"># Start receiver in background thread</span>
+</span></span><span class="line"><span class="cl">    <span class="n">recv_thread</span> <span class="o">=</span> <span class="n">threading</span><span class="o">.</span><span class="n">Thread</span><span class="p">(</span><span class="n">target</span><span class="o">=</span><span class="n">receiver</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="p">(</span><span class="n">bus</span><span class="p">,),</span> <span class="n">daemon</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">recv_thread</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1"># Start sending messages</span>
+</span></span><span class="line"><span class="cl">    <span class="n">sender</span><span class="p">(</span><span class="n">bus</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&#34;__main__&#34;</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="n">main</span><span class="p">()</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>This simple program lets you prototype virtual ECUs that send/receive frames — perfect for building test scenarios.</p>
+<hr>
+<h2 id="reflection">Reflection</h2>
+<p>My reflection on this piece of work includes this:</p>
+<ol>
+<li>If I create ECUs built on either C or C++, using the same logic that a standard ECU would, I could have it generate CAN frames for specific functions and accept CAN frames to perform specific functions. This completely virtualizes the test bench and makes it portable.</li>
+<li>The presence of Python (python-can) allows us to craft custom CAN packets, which opens doors to creating a <strong>fuzzer</strong> that mutates CAN frames randomly.</li>
+<li>All of this put together gives us a basic, but robust virtual car, which can be used to practice pentesting and diagnostics(Enter, UDS).</li>
+<li>I can safely test security features without messing with actual hardware(did I tell you it was very expensive?).</li>
+<li>I can practice IDS detection in Wazuh or Suricata by integrating the CAN logs.</li>
+<li>Train myself and others without physical ECUs.</li>
+</ol>
+<p>Hacking isn&rsquo;t about fancy gear. It&rsquo;s about creativity. By virtualizing this challenge, I learned more about CAN networks, Linux Networking, and the hacker mindset in itself.</p>
+<p>If you are into automotive cybersecurity but don&rsquo;t know where to start, start by simulating - the best labs are the ones you build yourself.</p>
+<hr>
+<h2 id="whats-next">What&rsquo;s Next?</h2>
+<ol>
+<li>Create an instrument cluster/infotainment system next and connect it to my virtual network to simulate a more complete in-vehicle setup.</li>
+<li>Setup UDS (Unified Diagnostics Services) request/response handling in a virtual ECU</li>
+</ol>
+<hr>
+<p>Thanks for reading — I’ll keep posting updates as I build the next pieces (infotainment mock, UDS handlers, and a tiny fuzzer). If you want the example scripts or a reproducible repo structure, tell me and I’ll publish them on GitHub.</p>
+]]></description>
 </item>
 <item>
     <title>Why Networking Fundamentals Should Be Your First Step</title>
-    <link>http://localhost:1313/posts/networking-fundamentals/</link>
+    <link>https://arshimtiaz.github.io/posts/networking-fundamentals/</link>
     <pubDate>Wed, 06 Aug 2025 00:00:00 &#43;0100</pubDate>
     <author>Arsh Imtiaz</author>
-    <guid>http://localhost:1313/posts/networking-fundamentals/</guid>
+    <guid>https://arshimtiaz.github.io/posts/networking-fundamentals/</guid>
     <description><![CDATA[<div style="text-align: center;">
   
   <small>Networking is fun. Also, it is the part that keeps your hacks from breaking at the worst time.</small>
 </div>
 <p><big>So, you wanna be a hacker?</big></p>
-<p>Cool. I did too. I jumped into Kali, sprayed tools, and followed tutorials like a robot. Things worked, but I could not explain why. That was my first big lesson: <strong>without networking, most of security looks like magic</strong>. No magic here. Just packets, addresses, ports, and paths.</p>]]></description>
+<p>Cool. I did too. I jumped into Kali, sprayed tools, and followed tutorials like a robot. Things worked, but I could not explain why. That was my first big lesson: <strong>without networking, most of security looks like magic</strong>. No magic here. Just packets, addresses, ports, and paths.</p>
+<h2 id="the-moment-it-clicked">The moment it clicked</h2>
+<p>I kept asking myself:</p>
+<ul>
+<li>Why does a reverse shell call me back and not the other way around?</li>
+<li>What does <code>netstat -tunlp</code> actually show me?</li>
+<li>Why does <code>ping</code> sometimes fail even though the server is up?</li>
+</ul>
+<p>The answer was not a broken tool. It was me not understanding the path the packets had to travel.</p>
+<h2 id="learn-these-first">Learn these first</h2>
+<p>These are the pieces that changed my life in pentests and CTFs.</p>
+<h3 id="-the-osi-model">🔌 The OSI model</h3>
+<div style="text-align: center;">
+  
+  <small>OSI and TCP/IP from <a href="https://www.practicalnetworking.net/series/packet-traveling/osi-model/">Practical Networking</a></small>
+</div>
+<p>Think of it as a map. If you know the layer, you know where to debug.<br>
+If you want to explore it in depth, check out:</p>
+<ul>
+<li><a href="https://www.cisco.com/c/en/us/solutions/enterprise-networks/what-is-the-osi-model.html" target="_blank" rel="noopener noreffer ">Cisco OSI Model Overview</a></li>
+<li><a href="https://www.practicalnetworking.net/series/packet-traveling/" target="_blank" rel="noopener noreffer ">Packet Traveling Series by Practical Networking</a></li>
+</ul>
+<p><strong>Real world hints by layer:</strong></p>
+<ul>
+<li><strong>L1 Physical</strong> - bad cable, wrong interface, Wi-Fi channel noise. If <code>link</code> lights are off, stop blaming the firewall.</li>
+<li><strong>L2 Data Link</strong> - ARP and MAC. ARP spoofing lives here. If you see duplicate IP warnings, check the ARP table with <code>ip neigh</code>.</li>
+<li><strong>L3 Network</strong> - IP and routing. If 192.168.1.10 cannot reach 192.168.2.10, you likely need a router or a route.</li>
+<li><strong>L4 Transport</strong> - TCP vs UDP. TCP handshake fails means no state created on the server. SYNs leaving but no SYN ACK returning usually means a path or filter issue.</li>
+<li><strong>L5 Session</strong> - long lived connections. If a VPN drops every 30 minutes, look for session timers.</li>
+<li><strong>L6 Presentation</strong> - certs and encodings. TLS errors like <code>unsupported protocol</code> live here.</li>
+<li><strong>L7 Application</strong> - HTTP, DNS over HTTPS, SMTP. If the app returns 200 but nothing changes, it is probably an app logic bug, not the network.</li>
+</ul>
+<h3 id="-ip-addressing-and-subnetting">🌐 IP addressing and subnetting</h3>
+<div style="text-align: center;">
+  
+  <small>Subnetting overview from <a href="https://www.networkacademy.io/ccna/ip-subnetting/why-do-we-need-ip-subnetting">Network Academy</a></small>
+</div>
+<p>You do not need to be a human subnet calculator. You do need to know:</p>
+<ul>
+<li>Private ranges: 10.0.0.0/8, 172.16.0.0/12, 192.168.0.0/16.</li>
+<li>What a mask does. <code>/24</code> means 256 addresses, <code>/25</code> splits that in half.</li>
+<li>Simple test: put one VM on 192.168.1.10/24 and another on 192.168.2.10/24. They will not ping without a router. Add a route and watch it work.</li>
+</ul>
+<p>Want to practice subnetting?</p>
+<ul>
+<li><a href="https://www.subnetting.net/" target="_blank" rel="noopener noreffer ">Subnetting Made Easy</a></li>
+<li><a href="https://subnettingpractice.com/" target="_blank" rel="noopener noreffer ">Subnetting Practice Game</a></li>
+</ul>
+<h3 id="-ports-and-protocols-that-actually-matter">🚪 Ports and protocols that actually matter</h3>
+<div style="text-align: center;">
+  
+  <small>Know the defaults, then verify with a scan. Do not assume.</small>
+</div>
+<p>Quick cheats you will use daily:</p>
+<ul>
+<li><strong>22 SSH</strong> - remote shell. If login hangs after password, suspect TCP filtering or <code>AllowUsers</code> policy before you blame credentials.</li>
+<li><strong>80/443 HTTP/S</strong> - everything from health checks to C2 beacons rides here. Proxies often rewrite requests. Capture and compare.</li>
+<li><strong>53 DNS</strong> - resolution issues look like random failures. Test with <code>dig @resolver_ip example.com</code> to bypass system DNS.</li>
+<li><strong>445 SMB</strong> - Windows auth and file shares. If <code>smbclient</code> fails only on large files, think MTU or signing.</li>
+</ul>
+<p>More:</p>
+<ul>
+<li><a href="https://www.iana.org/assignments/service-names-port-numbers/service-names-port-numbers.xhtml" target="_blank" rel="noopener noreffer ">IANA Service Name and Transport Protocol Port Number Registry</a></li>
+</ul>
+<h3 id="-packet-flow-and-basic-tools">📦 Packet flow and basic tools</h3>
+<div style="text-align: center;">
+  
+  <small>Follow a TCP handshake. SYN, SYN ACK, ACK. It will save you hours.</small>
+</div>
+<p>Tools I use in order when something breaks:</p>
+<ol>
+<li><code>ping</code> to test reachability. If ICMP is blocked, move on.</li>
+<li><code>traceroute</code> to see the path. Sudden star means a filter or NAT.</li>
+<li><code>ss -tulnp</code> or <code>netstat -tunlp</code> to list listeners.</li>
+<li><code>tcpdump -nni eth0 port 443</code> to confirm packets leave and return.</li>
+<li>Wireshark for the story behind the packets.</li>
+</ol>
+<h3 id="-nat-dhcp-dns-routing">🔥 NAT, DHCP, DNS, routing</h3>
+<div style="text-align: center;">
+  
+</div>
+<p>This is the unsexy part that makes everything work.</p>
+<ul>
+<li><strong>NAT</strong> hides private hosts. Reverse shells fail a lot here. Use a listener on a port allowed outbound.</li>
+<li><strong>DHCP</strong> gives IPs. If two boxes fight for the same address, the lease server is probably duplicated or mis-scoped.</li>
+<li><strong>DNS</strong> is the phonebook. If a domain resolves to different IPs than you expect, check split horizon and hosts files.</li>
+<li><strong>Routing</strong> decides the next hop. Wrong default gateway is the classic silent killer.</li>
+</ul>
+<p>Learn more:</p>
+<ul>
+<li><a href="https://ipcisco.com/lesson/nat-network-address-translation/" target="_blank" rel="noopener noreffer ">NAT Explained – IPCisco</a></li>
+<li><a href="https://learn.microsoft.com/en-us/windows-server/networking/technologies/dhcp/dhcp-top" target="_blank" rel="noopener noreffer ">How DHCP Works – Microsoft Learn</a></li>
+<li><a href="https://www.cloudflare.com/learning/dns/what-is-dns/" target="_blank" rel="noopener noreffer ">DNS in detail – Cloudflare Learning</a></li>
+</ul>
+<hr>
+<h2 id="learn-stack-without-pain">Learn stack without pain</h2>
+<p>What helped me when I started:</p>
+<ul>
+<li><strong><a href="https://tryhackme.com/module/network-fundamentals" target="_blank" rel="noopener noreffer ">TryHackMe Network Fundamentals module</a></strong> – hands-on labs.</li>
+<li><strong><a href="https://www.professormesser.com/network-plus/n10-009/n10-009-video/n10-009-training-course/" target="_blank" rel="noopener noreffer ">Professor Messer Network+ videos</a></strong> – structured theory.</li>
+<li><strong><a href="https://www.netacad.com/cisco-packet-tracer" target="_blank" rel="noopener noreffer ">Packet Tracer</a></strong> or <strong><a href="https://www.gns3.com/" target="_blank" rel="noopener noreffer ">GNS3</a></strong> – virtual routers/switches without real gear.</li>
+<li><strong><a href="https://www.wireshark.org/" target="_blank" rel="noopener noreffer ">Wireshark</a></strong> – see the truth on the wire.</li>
+</ul>
+<p>If you are on Linux, make <code>nmap</code>, <code>netcat</code>, <code>ip</code>, and <code>ss</code> part of your daily toolkit.</p>
+<hr>
+<h2 id="what-to-do-right-after-reading-practical-exercises">What to do right after reading (Practical Exercises)</h2>
+<ol>
+<li>Capture your browser loading a site in Wireshark and find the three-way handshake.</li>
+<li>Split 192.168.1.0/24 into two /25s. Put two VMs on different halves and make them ping using a router VM.</li>
+<li>Run <code>ss -tulnp</code> then open a new <code>nc -lvp 4444</code> listener and watch the new entry appear.</li>
+</ol>
+<hr>
+<h2 id="why-this-matters-in-real-attacks">Why this matters in real attacks</h2>
+<p>When you understand networking:</p>
+<ul>
+<li>ARP spoofing, DNS poisoning, and MITM are not tricks. They are predictable outcomes you can detect and block.</li>
+<li>You stop pasting scripts and start fixing root causes.</li>
+<li>You can explain failures to a client in plain English and get them fixed the same day.</li>
+</ul>
+<hr>
+<h2 id="final-words">Final words</h2>
+<p>Networking is not flashy, but it is the floor under your feet. Build it solid now and future you will move faster, break less, and spend more time popping shells than debugging routes.</p>
+<hr>
+<p>If you are stuck, tell me what you tried and what you saw on the wire. I will help you untangle it step by step.</p>
+]]></description>
 </item>
 <item>
     <title>My First Wi-Fi Pentest</title>
-    <link>http://localhost:1313/posts/wifi-hacking/</link>
+    <link>https://arshimtiaz.github.io/posts/wifi-hacking/</link>
     <pubDate>Wed, 30 Jul 2025 00:00:00 &#43;0100</pubDate>
     <author>Arsh Imtiaz</author>
-    <guid>http://localhost:1313/posts/wifi-hacking/</guid>
+    <guid>https://arshimtiaz.github.io/posts/wifi-hacking/</guid>
     <description><![CDATA[<p></p>
 <h1 id="my-first-wi-fi-pentest">My First Wi-Fi Pentest</h1>
 <p>There’s a massive difference between watching pentesting videos and actually doing it. This was my first time seriously trying Wi-Fi pentesting, and it was a mix of pure excitement, a bunch of silly mistakes, and that one moment of “YES! It finally worked.”</p>
-<p><strong>Disclaimer: This is just my story, not a tutorial. Everything I did was on my own network. Don’t go around trying this on random Wi-Fi unless you like the idea of explaining yourself to law enforcement.</strong></p>]]></description>
+<p><strong>Disclaimer: This is just my story, not a tutorial. Everything I did was on my own network. Don’t go around trying this on random Wi-Fi unless you like the idea of explaining yourself to law enforcement.</strong></p>
+<hr>
+<h2 id="gearing-up">Gearing Up</h2>
+<p>My setup was simple – my Arch Linux laptop, an Alfa adapter, and the Aircrack-ng suite.</p>
+<div style="text-align: center;">
+  
+  <br>
+  <small>My trusty Alfa adapter, aka "the antenna that could"</small>
+</div>
+<p>At this point, I was overconfident. In my head, it was just: “Enable monitor mode, grab handshake, crack password. Done.”</p>
+<blockquote>
+<p>Spoiler: life doesn’t work that way.</p>
+</blockquote>
+<hr>
+<h2 id="where-i-fell-flat">Where I Fell Flat</h2>
+<p>The very first thing I did? I forgot to disable all the services that fight you for control of the adapter.<br>
+Result: Warnings everywhere, services kept messing with monitor mode.</p>
+<div style="text-align: center;">
+  
+  <br>
+  <small>When your OS says “nah”</small>
+</div>
+<p>Once I figured that out, things finally started looking cool. My terminal was scrolling with access points like some cyberpunk movie scene.</p>
+<div style="text-align: center;">
+  
+  <br>
+  <small>Access point recon (cool hackery stuff)</small>
+</div>
+<hr>
+<h2 id="the-why-is-nothing-happening-phase">The &ldquo;Why Is Nothing Happening?&rdquo; Phase</h2>
+<p>I locked onto my target, sat back, and… nothing. No handshake.</p>
+<p>Turns out, distance <em>does</em> matter. I was sitting too far from the router like some wannabe hacker in a corner. Moving closer fixed everything, and that glorious “Handshake captured!” message finally appeared.</p>
+<hr>
+<h2 id="the-brutal-reality-check">The Brutal Reality Check</h2>
+<p>Cracking it? Yeah, that part didn’t happen. My wordlist didn’t have the password (because of course it didn’t). Turns out a <a href="https://github.com/brannondorsey/naive-hashcat/releases/download/data/rockyou.txt" target="_blank" rel="noopener noreffer ">14 million password wordlist</a> doesn&rsquo;t contain the password from all over the universe. (because of course it doesn&rsquo;t).</p>
+<p>But honestly, just getting that handshake felt like a small win. I’d done the whole process myself and figured out where I’d gone wrong.</p>
+<hr>
+<h2 id="lessons-learned">Lessons Learned</h2>
+<ul>
+<li>The tools are just tools. Knowing how to troubleshoot when things fail is the real skill.</li>
+<li>Proximity is underrated. Sitting 10 feet further might be the difference between success and nothing happening.</li>
+<li>Wordlists are everything. A bad one means hours of wasted time.</li>
+<li>There are certainly <em>other methods</em> of &ldquo;getting passwords&rdquo; from your target other than using wordlists *wink* (will cover this in the future)</li>
+</ul>
+<hr>
+<h2 id="why-im-glad-i-did-it-manually">Why I’m Glad I Did It Manually</h2>
+<p>I could’ve just used <a href="https://github.com/v1s1t0r1sh3r3/airgeddon" target="_blank" rel="noopener noreffer "><strong>Airgeddon</strong></a> or some automated script, but figuring it out command by command taught me <em>why</em> things work, not just how to click buttons.</p>
+<p>Next up? I’ll see if I can get Airgeddon to make my life easier <em>without</em> making me lazy.</p>
+<hr>
+<div style="text-align: center;">
+  
+</div>
+<p>This wasn’t some cinematic “Hollywood hacking” moment. It was messy, frustrating, and way less glamorous than it looks online. But that’s what made it fun.</p>
+<p>The real flex isn’t showing commands – it’s showing that you understand <strong>what’s happening under the hood</strong> and can figure things out when they go wrong.</p>
+]]></description>
 </item>
 <item>
     <title>Docker to Detection: Setting Up Wazuh SIEM for Beginners</title>
-    <link>http://localhost:1313/posts/wazuh-setup/</link>
+    <link>https://arshimtiaz.github.io/posts/wazuh-setup/</link>
     <pubDate>Sat, 14 Jun 2025 00:00:00 &#43;0100</pubDate>
     <author>Arsh Imtiaz</author>
-    <guid>http://localhost:1313/posts/wazuh-setup/</guid>
+    <guid>https://arshimtiaz.github.io/posts/wazuh-setup/</guid>
     <description><![CDATA[<p></p>
-<p>Setting up a SIEM (Security Information and Event Management) system might sound intimidating if you’re just getting started, but it’s a rewarding project that gives you real insight into how cybersecurity professionals monitor and detect threats. I recently built a Wazuh-based SIEM entirely with Docker and connected my personal Linux workstation as an agent. In this post, I’ll walk you through the process with practical commands for both Arch Linux and Debian users.</p>]]></description>
+<p>Setting up a SIEM (Security Information and Event Management) system might sound intimidating if you’re just getting started, but it’s a rewarding project that gives you real insight into how cybersecurity professionals monitor and detect threats. I recently built a Wazuh-based SIEM entirely with Docker and connected my personal Linux workstation as an agent. In this post, I’ll walk you through the process with practical commands for both Arch Linux and Debian users.</p>
+<hr>
+<blockquote>
+<p><strong>Wazuh</strong> started as a fork of OSSEC, one of the first open-source host-based intrusion detection systems, but has evolved into a full-blown security platform with log analysis, vulnerability detection, and compliance monitoring.</p>
+</blockquote>
+<hr>
+<h2 id="system-overview">System Overview</h2>
+<p>Here’s what I used:</p>
+<ul>
+<li>Host OS: Arch Linux (but I include Debian commands too, since many readers might be on either)</li>
+<li>Deployment method: Docker (because containers make complex stacks easier to manage)</li>
+<li>Architecture: Single-node setup running Manager, Indexer, and Dashboard on one machine</li>
+<li>Agent: My own Linux workstation</li>
+<li>Use case: Personal monitoring and vulnerability detection in a home lab</li>
+</ul>
+<hr>
+<h2 id="step-1-installing-docker-and-docker-compose">Step 1: Installing Docker and Docker Compose</h2>
+<p>Before we get started, make sure Docker is installed and running. If you don’t have it, here’s how:</p>
+<p><strong>On Arch Linux:</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo pacman -S docker docker-compose
+</span></span><span class="line"><span class="cl">sudo systemctl <span class="nb">enable</span> --now docker
+</span></span><span class="line"><span class="cl">sudo usermod -aG docker <span class="nv">$USER</span>
+</span></span><span class="line"><span class="cl">newgrp docker
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><strong>On Debian or Ubuntu:</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo apt update
+</span></span><span class="line"><span class="cl">sudo apt install docker.io docker-compose
+</span></span><span class="line"><span class="cl">sudo systemctl <span class="nb">enable</span> --now docker
+</span></span><span class="line"><span class="cl">sudo usermod -aG docker <span class="nv">$USER</span>
+</span></span><span class="line"><span class="cl">newgrp docker
+</span></span></code></pre></td></tr></table>
+</div>
+</div><hr>
+<blockquote>
+<p>Docker was originally released in 2013 and revolutionized how developers package and deploy applications. Today, it’s an essential tool in cybersecurity labs for simulating complex environments quickly.</p>
+</blockquote>
+<hr>
+<h2 id="step-2-cloning-the-wazuh-docker-repository">Step 2: Cloning the Wazuh Docker Repository</h2>
+<p>Wazuh maintains an official Docker repository with all the configurations needed for different deployments. Grab the single-node setup like this:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">git clone https://github.com/wazuh/wazuh-docker -b v4.12.0
+</span></span><span class="line"><span class="cl"><span class="nb">cd</span> wazuh-docker/single-node
+</span></span></code></pre></td></tr></table>
+</div>
+</div><hr>
+<h2 id="step-3-generating-ssl-certificates">Step 3: Generating SSL Certificates</h2>
+<p>To secure communication between the components, you’ll need to generate SSL certificates. First, create the directory:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">mkdir -p config/wazuh_indexer_ssl_certs/
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Next, create the configuration files. Here’s the <strong>config/certs.yml</strong> file content:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">nodes</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">wazuh.indexer</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l">indexer</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">wazuh.manager</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l">manager</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">wazuh.dashboard</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l">dashboard</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>And the <strong>generate-indexer-certs.yml</strong> file:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">version</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;3.3&#39;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">services</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">generator</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l">wazuh/wazuh-certs-generator:0.0.2</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">hostname</span><span class="p">:</span><span class="w"> </span><span class="l">wazuh-certs-generator</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">volumes</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="l">./config/wazuh_indexer_ssl_certs/:/certificates/</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="l">./config/certs.yml:/config/certs.yml</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>Then run:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">docker-compose -f generate-indexer-certs.yml run --rm generator
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>If you get errors about overwriting files, just clear the folder and try again:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">rm -rf config/wazuh_indexer_ssl_certs/*
+</span></span><span class="line"><span class="cl">docker-compose -f generate-indexer-certs.yml run --rm generator
+</span></span></code></pre></td></tr></table>
+</div>
+</div><hr>
+<h2 id="step-4-starting-the-wazuh-stack">Step 4: Starting the Wazuh Stack</h2>
+<p>With everything set, launch the whole Wazuh environment:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">docker-compose up -d
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>This will bring up the manager, indexer, and dashboard.</p>
+<hr>
+<h2 id="step-5-accessing-the-web-dashboard">Step 5: Accessing the Web Dashboard</h2>
+<p>Open your browser and head to:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">https://&lt;your-server-ip&gt;
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>This would be localhost if you&rsquo;re setting it up locally.</p>
+<hr>
+<p>The default login credentials are:</p>
+<ul>
+<li>Username: <code>admin</code></li>
+<li>Password: <code>SecretPassword</code> (or check the <code>.env</code> file in the repo)</li>
+</ul>
+<p>Expect a warning about the self-signed certificate. This is normal. You can safely proceed for now.</p>
+<hr>
+<h2 id="adding-your-own-machine-as-an-agent">Adding Your Own Machine as an Agent</h2>
+<p>Wazuh’s strength lies in monitoring endpoints. I connected my Arch Linux workstation as an agent, but these steps work the same on Debian.</p>
+<h3 id="download-and-install-the-agent">Download and install the agent:</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">curl -sO https://packages.wazuh.com/4.12/wazuh-agent-4.12.0-linux-x86_64.tar.gz
+</span></span><span class="line"><span class="cl">tar -xvzf wazuh-agent-4.12.0-linux-x86_64.tar.gz
+</span></span><span class="line"><span class="cl"><span class="nb">cd</span> wazuh-agent-4.12.0
+</span></span><span class="line"><span class="cl">sudo ./install.sh
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="register-the-agent-with-the-manager">Register the agent with the manager:</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo /var/ossec/bin/agent-auth -m &lt;wazuh-manager-ip&gt;
+</span></span><span class="line"><span class="cl">sudo systemctl <span class="nb">enable</span> --now wazuh-agent
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>After a short while, your agent will show up in the dashboard, forwarding logs and security events.</p>
+<hr>
+<blockquote>
+<p>The first version of Wazuh was released in 2015, and it has since become one of the most widely used open-source security platforms worldwide.</p>
+</blockquote>
+<p><strong>You&rsquo;re now done!</strong> You should be able to explore the dashboard and learn all the features Wazuh has to offer.</p>
+<hr>
+<h2 id="real-world-detection-cve-2025-4598">Real-World Detection: CVE-2025-4598</h2>
+<p>Shortly after getting everything running, Wazuh’s Vulnerability Detector flagged a real systemd vulnerability on my machine (CVE-2025-4598). This was a practical example of how such tools help spot risks before attackers do.</p>
+<p><em>Don’t worry, I patched it right away. Wouldn’t want to make it too easy for you hackers, right?</em></p>
+<hr>
+<h2 id="why-this-matters">Why This Matters</h2>
+<p>Setting this up wasn’t just an academic exercise. I now have a hands-on understanding of log collection, normalization, and alerting. In fields like automotive cybersecurity, knowing what’s happening on endpoints and spotting anomalies early is crucial—and this kind of setup lets you practice those skills.</p>
+<hr>
+<h2 id="whats-next">What’s Next?</h2>
+<p>Here are some things you can try for yourself now that you&rsquo;ve got the hang of setting it up:</p>
+<ul>
+<li>Crafting custom detection rules tailored to your environment</li>
+<li>Simulating attacks to validate your alerts</li>
+<li>Adding Windows or other OS agents</li>
+<li>Expanding to multi-node deployments for scalability</li>
+</ul>
+<hr>
+<h2 id="final-thoughts">Final Thoughts</h2>
+<p>Wazuh is a fantastic project for anyone looking to deepen their cybersecurity skills. Using Docker simplifies the setup, and the dashboard delivers meaningful insights out of the box. Whether you’re a beginner or an experienced professional, experimenting with Wazuh builds a solid foundation for real-world security monitoring.</p>
+<p>Thanks for reading! Feel free to reach out if you want to discuss or share your own setups.</p>
+]]></description>
 </item>
 <item>
     <title>Welcome</title>
-    <link>http://localhost:1313/posts/welcome/</link>
+    <link>https://arshimtiaz.github.io/posts/welcome/</link>
     <pubDate>Wed, 15 Jan 2025 11:59:12 &#43;0300</pubDate>
     <author>Arsh Imtiaz</author>
-    <guid>http://localhost:1313/posts/welcome/</guid>
+    <guid>https://arshimtiaz.github.io/posts/welcome/</guid>
     <description><![CDATA[<h1 id="welcome-to-my-blog">Welcome to My Blog</h1>
 <p>Hello, and thank you for visiting my blog!</p>
 <p>I&rsquo;m Arsh Imtiaz — a cybersecurity professional passionate about ethical hacking, information security, and continuous learning in the ever-evolving world of technology.</p>
@@ -67,7 +721,20 @@ I didn&rsquo;t want to wait for hardware to understand how automotive networks b
 <li>Occasional commentary on broader tech topics, aimed at both beginners and professionals.</li>
 </ul>
 <h2 id="why-i-created-this-blog">Why I Created This Blog</h2>
-<p>I launched this blog to document my professional journey, share knowledge with the community, and foster connections with fellow security enthusiasts. Whether you&rsquo;re just starting out or looking to deepen your skills, I hope you find something valuable here.</p>]]></description>
+<p>I launched this blog to document my professional journey, share knowledge with the community, and foster connections with fellow security enthusiasts. Whether you&rsquo;re just starting out or looking to deepen your skills, I hope you find something valuable here.</p>
+<h2 id="commitment-to-authenticity">Commitment to authenticity</h2>
+<p>All posts on this blog are <strong>100% original and personally written by me</strong>. I do not use AI-generated content as I believe the value of this blog lies in geniune experience, hands-on learning and authentic sharing.</p>
+<h2 id="what-to-expect">What to Expect</h2>
+<p>Future posts will include:</p>
+<ul>
+<li>Clear, beginner-friendly guides designed to demystify cybersecurity concepts.</li>
+<li>In-depth analyses of vulnerabilities, exploits, and defensive strategies.</li>
+<li>Updates on relevant industry news and tools.</li>
+<li>A touch of humor and real-world anecdotes to keep things engaging.</li>
+</ul>
+<hr>
+<p>Thank you for visiting my blog. If you’ve come here from LinkedIn or another professional network, I appreciate you taking the time to explore my work. This space is dedicated to sharing practical insights and experiences in cybersecurity, with a focus on ethical hacking and responsible research. Feel free to connect or reach out—I’m always open to meaningful discussions and collaboration.</p>
+]]></description>
 </item>
 </channel>
 </rss>
