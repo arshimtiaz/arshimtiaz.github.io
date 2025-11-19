@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>Learning ML by Building a Tiny Password Strength Classifier - Arsh Imtiaz</title><meta name="Description" content="How I stopped overthinking and finally built a simple ML model to classify password strength"><meta property="og:url" content="http://localhost:1313/posts/index.md/">
+  <meta property="og:site_name" content="Arsh Imtiaz">
+  <meta property="og:title" content="Learning ML by Building a Tiny Password Strength Classifier">
+  <meta property="og:description" content="How I stopped overthinking and finally built a simple ML model to classify password strength">
+  <meta property="og:locale" content="en">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2025-11-19T00:00:00+00:00">
+    <meta property="article:modified_time" content="2025-11-19T00:00:00+00:00">
+    <meta property="article:tag" content="Machine-Learning">
+    <meta property="article:tag" content="Cybersecurity">
+    <meta property="article:tag" content="Passwords">
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Learning ML by Building a Tiny Password Strength Classifier">
+  <meta name="twitter:description" content="How I stopped overthinking and finally built a simple ML model to classify password strength">
+<meta name="application-name" content="Arsh Imtiaz">
+<meta name="apple-mobile-web-app-title" content="Arsh Imtiaz"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="canonical" href="http://localhost:1313/posts/index.md/" /><link rel="prev" href="http://localhost:1313/posts/virtual-vehicle-lab/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="/lib/fontawesome-free/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"></noscript><link rel="preload" href="/lib/animate/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="/lib/animate/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Learning ML by Building a Tiny Password Strength Classifier",
+        "inLanguage": "en",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "http:\/\/localhost:1313\/posts\/index.md\/"
+        },"genre": "posts","keywords": "machine-learning, cybersecurity, passwords","wordcount":  679 ,
+        "url": "http:\/\/localhost:1313\/posts\/index.md\/","datePublished": "2025-11-19T00:00:00+00:00","dateModified": "2025-11-19T00:00:00+00:00","publisher": {
+            "@type": "Organization",
+            "name": "Arsh Imtiaz","logo": "http:\/\/localhost:1313\/images\/avatar.png"},"author": {
+                "@type": "Person",
+                "name": "Arsh Imtiaz"
+            },"description": "How I stopped overthinking and finally built a simple ML model to classify password strength"
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('dark' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'dark' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="Arsh Imtiaz">Arsh Imtiaz</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/"> Home </a><a class="menu-item" href="/about/"> About </a><a class="menu-item" href="/posts/"> Blog </a><a class="menu-item" href="/contact/"> Contact </a><a class="menu-item" href="/tags/"> Tags </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="Enter search term" id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="Search">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="Clear">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a></div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="Arsh Imtiaz">Arsh Imtiaz</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="Enter search term" id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="Search">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="Clear">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        Cancel
+                    </a>
+                </div><a class="menu-item" href="/" title="">Home</a><a class="menu-item" href="/about/" title="">About</a><a class="menu-item" href="/posts/" title="">Blog</a><a class="menu-item" href="/contact/" title="">Contact</a><a class="menu-item" href="/tags/" title="">Tags</a><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a></div>
+    </div>
+</header><div class="search-dropdown desktop">
+        <div id="search-dropdown-desktop"></div>
+    </div>
+    <div class="search-dropdown mobile">
+        <div id="search-dropdown-mobile"></div>
+    </div><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">Contents</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">Learning ML by Building a Tiny Password Strength Classifier</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>Arsh Imtiaz</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2025-11-19">2025-11-19</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;679 words&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;4 minutes&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  data-kept="">
+                <div class="details-summary toc-title">
+                    <span>Contents</span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#what-i-wanted-to-build">What I wanted to build</a></li>
+    <li><a href="#creating-rules-that-didnt-fight-me">Creating rules that didn&rsquo;t fight me</a></li>
+    <li><a href="#writing-the-labeler-function">Writing the labeler function</a></li>
+    <li><a href="#turning-passwords-into-features">Turning passwords into features</a></li>
+    <li><a href="#training-the-model">Training the model</a></li>
+    <li><a href="#what-i-learned">What I learned</a></li>
+    <li><a href="#whats-next">What&rsquo;s next</a></li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><p>I finally sat down and built a machine learning model in <a href="https://jupyter.org/" target="_blank" rel="noopener noreffer "><strong>Jupyter Notebook</strong></a> that actually does something cybersecurity related. Not a big fancy neural network. Not a GPT clone. Just a tiny password strength classifier that helped me understand the full ML pipeline without frying my brain.</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/posts/my-first-ml-model/jupyter_password_ml.png"
+        data-srcset="/posts/my-first-ml-model/jupyter_password_ml.png, /posts/my-first-ml-model/jupyter_password_ml.png 1.5x, /posts/my-first-ml-model/jupyter_password_ml.png 2x"
+        data-sizes="auto"
+        alt="/posts/my-first-ml-model/jupyter_password_ml.png"
+        title="Jupyter Notebook" /></p>
+<p>This whole thing started because I kept telling myself I would learn ML one day. And one day never comes when you wait for the perfect idea. So I forced myself to build something so stupid simple that I couldn&rsquo;t run away from it.</p>
+<p>Turns out, that worked.</p>
+<hr>
+<h2 id="what-i-wanted-to-build">What I wanted to build</h2>
+<p>I wanted a model that takes a password and predicts whether it is strong or weak based on its structure. Nothing about leaks, entropy, breached databases or cracking times. Just pure structural features, built on Jupyter Notebook.</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/posts/my-first-ml-model/empty_notebook.png"
+        data-srcset="/posts/my-first-ml-model/empty_notebook.png, /posts/my-first-ml-model/empty_notebook.png 1.5x, /posts/my-first-ml-model/empty_notebook.png 2x"
+        data-sizes="auto"
+        alt="/posts/my-first-ml-model/empty_notebook.png"
+        title="Empty Notebook" /></p>
+<p>I kept it simple and picked four things to analyse:</p>
+<ul>
+<li>length</li>
+<li>uppercase letters</li>
+<li>digits</li>
+<li>symbols</li>
+</ul>
+<p>The idea was to convert each password into a set of <strong>numerical features</strong> like:</p>
+<p><code>length, has_uppercase, has_digit, has_symbol</code></p>
+<p>So a password like <code>Abc123!@</code> becomes something like <code>8, 1, 1, 1</code>.</p>
+<hr>
+<h2 id="creating-rules-that-didnt-fight-me">Creating rules that didn&rsquo;t fight me</h2>
+<p>This was the hardest part. Not the ML. Not the code. Just defining what I believe a strong password is.</p>
+<p>At first I made the rule way too strict and then changed it repeatedly. That made the dataset contradictory and the model learned nonsense. Eventually I locked in what actually made sense:</p>
+<ul>
+<li>Password must be at least 8 characters long</li>
+<li>And it must have at least 2 out of these 3:
+<ul>
+<li>uppercase</li>
+<li>digit</li>
+<li>symbol</li>
+</ul>
+</li>
+</ul>
+<p>So something short like <code>8B$</code> is weak even though it has good complexity. And something long like <code>averystrongpassword</code> is weak because it has no variety. Finally, the rules aligned with my intuition.</p>
+<hr>
+<h2 id="writing-the-labeler-function">Writing the labeler function</h2>
+<p>I wrote a tiny function that checks each password and turns it into a 0 or 1 based on the rules.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">is_strong</span><span class="p">(</span><span class="n">pw</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>  
+</span></span><span class="line"><span class="cl">	<span class="n">length_ok</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">pw</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="mi">8</span>  
+</span></span><span class="line"><span class="cl">	<span class="n">has_upper</span> <span class="o">=</span> <span class="nb">any</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">isupper</span><span class="p">()</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">pw</span><span class="p">)</span>  
+</span></span><span class="line"><span class="cl">	<span class="n">has_digit</span> <span class="o">=</span> <span class="nb">any</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">isdigit</span><span class="p">()</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">pw</span><span class="p">)</span>  
+</span></span><span class="line"><span class="cl">	<span class="n">has_symbol</span> <span class="o">=</span> <span class="nb">bool</span><span class="p">(</span><span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;[^A-Za-z0-9]&#39;</span><span class="p">,</span> <span class="n">pw</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">	
+</span></span><span class="line"><span class="cl">	<span class="k">if</span> <span class="ow">not</span> <span class="n">length_ok</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">	    <span class="k">return</span> <span class="mi">0</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="n">complexity_score</span> <span class="o">=</span> <span class="p">(</span>
+</span></span><span class="line"><span class="cl">	    <span class="nb">int</span><span class="p">(</span><span class="n">has_upper</span><span class="p">)</span> <span class="o">+</span>
+</span></span><span class="line"><span class="cl">	    <span class="nb">int</span><span class="p">(</span><span class="n">has_digit</span><span class="p">)</span> <span class="o">+</span>
+</span></span><span class="line"><span class="cl">	    <span class="nb">int</span><span class="p">(</span><span class="n">has_symbol</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">	<span class="p">)</span>
+</span></span><span class="line"><span class="cl">	
+</span></span><span class="line"><span class="cl">	<span class="k">return</span> <span class="nb">int</span><span class="p">(</span><span class="n">complexity_score</span> <span class="o">&gt;=</span> <span class="mi">2</span><span class="p">)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Once I had this, I relabeled my dataset and everything started behaving predictably.</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/posts/my-first-ml-model/labeller.png"
+        data-srcset="/posts/my-first-ml-model/labeller.png, /posts/my-first-ml-model/labeller.png 1.5x, /posts/my-first-ml-model/labeller.png 2x"
+        data-sizes="auto"
+        alt="/posts/my-first-ml-model/labeller.png"
+        title="Labeller" /></p>
+<hr>
+<h2 id="turning-passwords-into-features">Turning passwords into features</h2>
+<p>My extractor function was tiny too:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">extract_features</span><span class="p">(</span><span class="n">pw</span><span class="p">):</span>  
+</span></span><span class="line"><span class="cl">	<span class="n">length</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">pw</span><span class="p">)</span>  
+</span></span><span class="line"><span class="cl">	<span class="n">has_upper</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="nb">any</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">isupper</span><span class="p">()</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">pw</span><span class="p">))</span>  
+</span></span><span class="line"><span class="cl">	<span class="n">has_digit</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="nb">any</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">isdigit</span><span class="p">()</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">pw</span><span class="p">))</span>  
+</span></span><span class="line"><span class="cl">	<span class="n">has_symbol</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="nb">bool</span><span class="p">(</span><span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;[^A-Za-z0-9]&#39;</span><span class="p">,</span> <span class="n">pw</span><span class="p">)))</span>  
+</span></span><span class="line"><span class="cl">	
+</span></span><span class="line"><span class="cl">	<span class="k">return</span> <span class="p">[</span><span class="n">length</span><span class="p">,</span> <span class="n">has_upper</span><span class="p">,</span> <span class="n">has_digit</span><span class="p">,</span> <span class="n">has_symbol</span><span class="p">]</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/posts/my-first-ml-model/extract_features.png"
+        data-srcset="/posts/my-first-ml-model/extract_features.png, /posts/my-first-ml-model/extract_features.png 1.5x, /posts/my-first-ml-model/extract_features.png 2x"
+        data-sizes="auto"
+        alt="/posts/my-first-ml-model/extract_features.png"
+        title="Extract Features" /></p>
+<p>This gave me clean numerical data I could feed into scikit learn.</p>
+<h2 id="training-the-model">Training the model</h2>
+<p>After that, the ML part was almost boring. In a good way.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">model</span> <span class="o">=</span> <span class="n">LogisticRegression</span><span class="p">()</span>  
+</span></span><span class="line"><span class="cl"><span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>I evaluated it with <code>classification_report</code> and it performed exactly how you&rsquo;d expect on such a tiny dataset. Not perfect, but good enough to prove that:</p>
+<ul>
+<li>my labels made sense</li>
+<li>my features were consistent</li>
+<li>the model actually learned the pattern instead of memorising random junk</li>
+</ul>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/posts/my-first-ml-model/training.png"
+        data-srcset="/posts/my-first-ml-model/training.png, /posts/my-first-ml-model/training.png 1.5x, /posts/my-first-ml-model/training.png 2x"
+        data-sizes="auto"
+        alt="/posts/my-first-ml-model/training.png"
+        title="Training" /></p>
+<h2 id="what-i-learned">What I learned</h2>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/posts/my-first-ml-model/cat-soldier.gif"
+        data-srcset="/posts/my-first-ml-model/cat-soldier.gif, /posts/my-first-ml-model/cat-soldier.gif 1.5x, /posts/my-first-ml-model/cat-soldier.gif 2x"
+        data-sizes="auto"
+        alt="/posts/my-first-ml-model/cat-soldier.gif"
+        title="Me" /></p>
+<p>Honestly, the biggest lesson wasn&rsquo;t about ML. It was about myself.</p>
+<ul>
+<li>I overthink everything when I try to learn something new</li>
+<li>Simple models are the best place to start</li>
+<li>Jupyter notebooks make experimentation painless</li>
+<li>ML is not scary once you run a full cycle end to end</li>
+<li>A small dataset is actually a blessing when you&rsquo;re trying to understand the process</li>
+</ul>
+<p>This little password strength classifier is nowhere near real world use cases, but it taught me how ML actually works instead of how it works in theory.</p>
+<h2 id="whats-next">What&rsquo;s next</h2>
+<p>I might expand it with more features like:</p>
+<ul>
+<li>checking for dictionary words - because <a href="https://github.com/danielmiessler/SecLists" target="_blank" rel="noopener noreffer ">seclists</a> is very beefy</li>
+<li>repeated patterns</li>
+<li>keyboard adjacency</li>
+<li>entropy approximations</li>
+</ul>
+<p>But I&rsquo;ll do it one step at a time. The whole point of this exercise was to stop trying to build the final boss on day one.</p>
+<p>And honestly, making this tiny password checker did more for my ML understanding than any tutorial ever has.</p>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>Updated on 2025-11-19</span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="/tags/machine-learning/">Machine-Learning</a>,&nbsp;<a href="/tags/cybersecurity/">Cybersecurity</a>,&nbsp;<a href="/tags/passwords/">Passwords</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">Back</a></span>&nbsp;|&nbsp;<span><a href="/">Home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/posts/virtual-vehicle-lab/" class="prev" rel="prev" title="When Red Teaming Meets Car Hacking: Building a Virtual Vehicle Pentest Lab on My Laptop"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>When Red Teaming Meets Car Hacking: Building a Virtual Vehicle Pentest Lab on My Laptop</a></div>
+</div>
+<section id="comments">
+            <h2>Comments</h2>
+            <script src="https://utteranc.es/client.js"
+                    repo="arshimtiaz/arshimtiaz.github.io"
+                    issue-term="pathname"
+                    label="blog-comments"
+                    theme="dark-blue"
+                    crossorigin="anonymous"
+                    async>
+            </script>
+        </section>
+    </article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2023 - 2025</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank"></a></span>&nbsp;|&nbsp;<span class="license">All Rights Reserved</span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="Back to Top">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="View Comments">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/katex/katex.min.css"><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/twemoji/twemoji.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js"></script><script type="text/javascript" src="/lib/katex/contrib/auto-render.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"Copy to clipboard","maxShownLines":50},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":true,"left":"\\begin{equation}","right":"\\end{equation}"},{"display":true,"left":"\\begin{equation*}","right":"\\end{equation*}"},{"display":true,"left":"\\begin{align}","right":"\\end{align}"},{"display":true,"left":"\\begin{align*}","right":"\\end{align*}"},{"display":true,"left":"\\begin{alignat}","right":"\\end{alignat}"},{"display":true,"left":"\\begin{alignat*}","right":"\\end{alignat*}"},{"display":true,"left":"\\begin{gather}","right":"\\end{gather}"},{"display":true,"left":"\\begin{CD}","right":"\\end{CD}"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"highlightTag":"em","lunrIndexURL":"/index.json","maxResultLength":10,"noResultsFound":"No results found","snippetLength":30,"type":"lunr"},"twemoji":true};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

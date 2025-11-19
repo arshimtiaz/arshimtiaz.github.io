@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Beginner-Project on Arsh Imtiaz</title>
+    <link>http://localhost:1313/tags/beginner-project/</link>
+    <description>Recent content in Beginner-Project on Arsh Imtiaz</description>
+    <generator>Hugo</generator>
+    <language>en</language>
+    <lastBuildDate>Wed, 19 Nov 2025 00:00:00 +0000</lastBuildDate>
+    <atom:link href="http://localhost:1313/tags/beginner-project/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Building My First Stupid Simple ML Model</title>
+      <link>http://localhost:1313/posts/index.md/</link>
+      <pubDate>Wed, 19 Nov 2025 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/posts/index.md/</guid>
+      <description>&lt;hr&gt;&#xA;&lt;h2 id=&#34;tags-machine-learning-cybersecurity-passwords&#34;&gt;title: &amp;ldquo;Learning ML by Building a Tiny Password Strength Classifier&amp;rdquo;&#xA;date: 2025-11-19&#xA;description: &amp;ldquo;How I stopped overthinking and finally built a simple ML model to classify password strength&amp;rdquo;&#xA;author: &amp;ldquo;Arsh Imtiaz&amp;rdquo;&#xA;tags: [&amp;ldquo;machine-learning&amp;rdquo;, &amp;ldquo;cybersecurity&amp;rdquo;, &amp;ldquo;passwords&amp;rdquo;]&lt;/h2&gt;&#xA;&lt;h1 id=&#34;learning-ml-by-building-a-tiny-password-strength-classifier&#34;&gt;Learning ML by Building a Tiny Password Strength Classifier&lt;/h1&gt;&#xA;&lt;p&gt;I finally sat down and built a machine learning model in &lt;a href=&#34;https://jupyter.org/&#34; target=&#34;_blank&#34; rel=&#34;noopener noreffer &#34;&gt;&lt;strong&gt;Jupyter Notebook&lt;/strong&gt;&lt;/a&gt; that actually does something cybersecurity related. Not a big fancy neural network. Not a GPT clone. Just a tiny password strength classifier that helped me understand the full ML pipeline without frying my brain.&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>
