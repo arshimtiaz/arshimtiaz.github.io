@@ -2,25 +2,25 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Wifi on Arsh Imtiaz</title>
-    <link>http://localhost:1313/tags/wifi/</link>
+    <link>https://arshimtiaz.github.io/tags/wifi/</link>
     <description>Recent content in Wifi on Arsh Imtiaz</description>
     <generator>Hugo</generator>
     <language>en</language>
     <lastBuildDate>Sat, 15 Nov 2025 03:26:42 +0000</lastBuildDate>
-    <atom:link href="http://localhost:1313/tags/wifi/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://arshimtiaz.github.io/tags/wifi/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>When Red Teaming Meets Car Hacking: Building a Virtual Vehicle Pentest Lab on My Laptop</title>
-      <link>http://localhost:1313/posts/virtual-vehicle-lab/</link>
+      <link>https://arshimtiaz.github.io/posts/virtual-vehicle-lab/</link>
       <pubDate>Sun, 09 Nov 2025 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/posts/virtual-vehicle-lab/</guid>
+      <guid>https://arshimtiaz.github.io/posts/virtual-vehicle-lab/</guid>
       <description>&lt;div style=&#34;text-align: center;&#34;&gt;&#xA;  &lt;img src=&#34;assets/car_hacking.png&#34; alt=&#34;Networking is fun&#34; width=&#34;100%&#34;&gt;&#xA;  &lt;small&gt;How does one emulate cars at home?&lt;/small&gt;&#xA;&lt;/div&gt;&#xA;&lt;p&gt;Every car hacking tool I have come across required expensive ECUs, adapters or even full test benches. Having worked with test cars before, I got an insight into how time consuming and expensive, if not difficult it is to set a working HIL (Hardware-In-Loop) setup.&#xA;I didn&amp;rsquo;t want to wait for hardware to understand how automotive networks behave - I wanted to simulate it.&lt;/p&gt;</description>
     </item>
     <item>
       <title>My First Wi-Fi Pentest</title>
-      <link>http://localhost:1313/posts/wifi-hacking/</link>
+      <link>https://arshimtiaz.github.io/posts/wifi-hacking/</link>
       <pubDate>Wed, 30 Jul 2025 00:00:00 +0100</pubDate>
-      <guid>http://localhost:1313/posts/wifi-hacking/</guid>
-      <description>&lt;p&gt;&lt;img&#xA;        class=&#34;lazyload&#34;&#xA;        src=&#34;http://localhost:1313/svg/loading.min.svg&#34;&#xA;        data-src=&#34;http://localhost:1313/images/wifi-pent.png&#34;&#xA;        data-srcset=&#34;http://localhost:1313/images/wifi-pent.png, http://localhost:1313/images/wifi-pent.png 1.5x, http://localhost:1313/images/wifi-pent.png 2x&#34;&#xA;        data-sizes=&#34;auto&#34;&#xA;        alt=&#34;/images/wifi-pent.png&#34;&#xA;        title=&#34;Wi-Fi Pentesting&#34; /&gt;&lt;/p&gt;&#xA;&lt;h1 id=&#34;my-first-wi-fi-pentest&#34;&gt;My First Wi-Fi Pentest&lt;/h1&gt;&#xA;&lt;p&gt;There’s a massive difference between watching pentesting videos and actually doing it. This was my first time seriously trying Wi-Fi pentesting, and it was a mix of pure excitement, a bunch of silly mistakes, and that one moment of “YES! It finally worked.”&lt;/p&gt;&#xA;&lt;p&gt;&lt;strong&gt;Disclaimer: This is just my story, not a tutorial. Everything I did was on my own network. Don’t go around trying this on random Wi-Fi unless you like the idea of explaining yourself to law enforcement.&lt;/strong&gt;&lt;/p&gt;</description>
+      <guid>https://arshimtiaz.github.io/posts/wifi-hacking/</guid>
+      <description>&lt;p&gt;&lt;img&#xA;        class=&#34;lazyload&#34;&#xA;        src=&#34;https://arshimtiaz.github.io/svg/loading.min.svg&#34;&#xA;        data-src=&#34;https://arshimtiaz.github.io/images/wifi-pent.png&#34;&#xA;        data-srcset=&#34;https://arshimtiaz.github.io/images/wifi-pent.png, https://arshimtiaz.github.io/images/wifi-pent.png 1.5x, https://arshimtiaz.github.io/images/wifi-pent.png 2x&#34;&#xA;        data-sizes=&#34;auto&#34;&#xA;        alt=&#34;/images/wifi-pent.png&#34;&#xA;        title=&#34;Wi-Fi Pentesting&#34; /&gt;&lt;/p&gt;&#xA;&lt;h1 id=&#34;my-first-wi-fi-pentest&#34;&gt;My First Wi-Fi Pentest&lt;/h1&gt;&#xA;&lt;p&gt;There’s a massive difference between watching pentesting videos and actually doing it. This was my first time seriously trying Wi-Fi pentesting, and it was a mix of pure excitement, a bunch of silly mistakes, and that one moment of “YES! It finally worked.”&lt;/p&gt;&#xA;&lt;p&gt;&lt;strong&gt;Disclaimer: This is just my story, not a tutorial. Everything I did was on my own network. Don’t go around trying this on random Wi-Fi unless you like the idea of explaining yourself to law enforcement.&lt;/strong&gt;&lt;/p&gt;</description>
     </item>
   </channel>
 </rss>

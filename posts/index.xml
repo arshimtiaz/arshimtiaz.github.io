@@ -1,14 +1,14 @@
 <rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
     <channel>
         <title>All Posts - Arsh Imtiaz</title>
-        <link>http://localhost:1313/posts/</link>
+        <link>https://arshimtiaz.github.io/posts/</link>
         <description>All Posts | Arsh Imtiaz</description>
-        <generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Wed, 19 Nov 2025 00:00:00 &#43;0000</lastBuildDate><atom:link href="http://localhost:1313/posts/" rel="self" type="application/rss+xml" /><item>
+        <generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Wed, 19 Nov 2025 00:00:00 &#43;0000</lastBuildDate><atom:link href="https://arshimtiaz.github.io/posts/" rel="self" type="application/rss+xml" /><item>
     <title>Learning ML by Building a Tiny Password Strength Classifier</title>
-    <link>http://localhost:1313/posts/index.md/</link>
+    <link>https://arshimtiaz.github.io/posts/index.md/</link>
     <pubDate>Wed, 19 Nov 2025 00:00:00 &#43;0000</pubDate>
     <author>Arsh Imtiaz</author>
-    <guid>http://localhost:1313/posts/index.md/</guid>
+    <guid>https://arshimtiaz.github.io/posts/index.md/</guid>
     <description><![CDATA[<p>I finally sat down and built a machine learning model in <a href="https://jupyter.org/" target="_blank" rel="noopener noreffer "><strong>Jupyter Notebook</strong></a> that actually does something cybersecurity related. Not a big fancy neural network. Not a GPT clone. Just a tiny password strength classifier that helped me understand the full ML pipeline without frying my brain.</p>
 <p></p>
 <p>This whole thing started because I kept telling myself I would learn ML one day. And one day never comes when you wait for the perfect idea. So I forced myself to build something so stupid simple that I couldn&rsquo;t run away from it.</p>
@@ -154,10 +154,10 @@
 </item>
 <item>
     <title>When Red Teaming Meets Car Hacking: Building a Virtual Vehicle Pentest Lab on My Laptop</title>
-    <link>http://localhost:1313/posts/virtual-vehicle-lab/</link>
+    <link>https://arshimtiaz.github.io/posts/virtual-vehicle-lab/</link>
     <pubDate>Sun, 09 Nov 2025 00:00:00 &#43;0000</pubDate>
     <author>Arsh Imtiaz</author>
-    <guid>http://localhost:1313/posts/virtual-vehicle-lab/</guid>
+    <guid>https://arshimtiaz.github.io/posts/virtual-vehicle-lab/</guid>
     <description><![CDATA[<div style="text-align: center;">
   
   <small>How does one emulate cars at home?</small>
@@ -415,10 +415,10 @@ We can use <code>candump</code>, which continuously listens for any CAN messages
 </item>
 <item>
     <title>Why Networking Fundamentals Should Be Your First Step</title>
-    <link>http://localhost:1313/posts/networking-fundamentals/</link>
+    <link>https://arshimtiaz.github.io/posts/networking-fundamentals/</link>
     <pubDate>Wed, 06 Aug 2025 00:00:00 &#43;0100</pubDate>
     <author>Arsh Imtiaz</author>
-    <guid>http://localhost:1313/posts/networking-fundamentals/</guid>
+    <guid>https://arshimtiaz.github.io/posts/networking-fundamentals/</guid>
     <description><![CDATA[<div style="text-align: center;">
   
   <small>Networking is fun. Also, it is the part that keeps your hacks from breaking at the worst time.</small>
@@ -552,10 +552,10 @@ If you want to explore it in depth, check out:</p>
 </item>
 <item>
     <title>My First Wi-Fi Pentest</title>
-    <link>http://localhost:1313/posts/wifi-hacking/</link>
+    <link>https://arshimtiaz.github.io/posts/wifi-hacking/</link>
     <pubDate>Wed, 30 Jul 2025 00:00:00 &#43;0100</pubDate>
     <author>Arsh Imtiaz</author>
-    <guid>http://localhost:1313/posts/wifi-hacking/</guid>
+    <guid>https://arshimtiaz.github.io/posts/wifi-hacking/</guid>
     <description><![CDATA[<p></p>
 <h1 id="my-first-wi-fi-pentest">My First Wi-Fi Pentest</h1>
 <p>There’s a massive difference between watching pentesting videos and actually doing it. This was my first time seriously trying Wi-Fi pentesting, and it was a mix of pure excitement, a bunch of silly mistakes, and that one moment of “YES! It finally worked.”</p>
@@ -617,10 +617,10 @@ Result: Warnings everywhere, services kept messing with monitor mode.</p>
 </item>
 <item>
     <title>Docker to Detection: Setting Up Wazuh SIEM for Beginners</title>
-    <link>http://localhost:1313/posts/wazuh-setup/</link>
+    <link>https://arshimtiaz.github.io/posts/wazuh-setup/</link>
     <pubDate>Sat, 14 Jun 2025 00:00:00 &#43;0100</pubDate>
     <author>Arsh Imtiaz</author>
-    <guid>http://localhost:1313/posts/wazuh-setup/</guid>
+    <guid>https://arshimtiaz.github.io/posts/wazuh-setup/</guid>
     <description><![CDATA[<p></p>
 <p>Setting up a SIEM (Security Information and Event Management) system might sound intimidating if you’re just getting started, but it’s a rewarding project that gives you real insight into how cybersecurity professionals monitor and detect threats. I recently built a Wazuh-based SIEM entirely with Docker and connected my personal Linux workstation as an agent. In this post, I’ll walk you through the process with practical commands for both Arch Linux and Debian users.</p>
 <hr>
@@ -854,10 +854,10 @@ Result: Warnings everywhere, services kept messing with monitor mode.</p>
 </item>
 <item>
     <title>Welcome</title>
-    <link>http://localhost:1313/posts/welcome/</link>
+    <link>https://arshimtiaz.github.io/posts/welcome/</link>
     <pubDate>Wed, 15 Jan 2025 11:59:12 &#43;0300</pubDate>
     <author>Arsh Imtiaz</author>
-    <guid>http://localhost:1313/posts/welcome/</guid>
+    <guid>https://arshimtiaz.github.io/posts/welcome/</guid>
     <description><![CDATA[<h1 id="welcome-to-my-blog">Welcome to My Blog</h1>
 <p>Hello, and thank you for visiting my blog!</p>
 <p>I&rsquo;m Arsh Imtiaz — a cybersecurity professional passionate about ethical hacking, information security, and continuous learning in the ever-evolving world of technology.</p>
