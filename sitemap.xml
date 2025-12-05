@@ -2,13 +2,13 @@
     xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
     xmlns:xhtml="http://www.w3.org/1999/xhtml"
     ><url>
-            <loc>https://arshimtiaz.github.io/</loc><lastmod>2025-12-01T16:42:28&#43;00:00</lastmod><changefreq>monthly</changefreq><priority>1</priority></url><url>
-            <loc>https://arshimtiaz.github.io/tags/cybersecurity/</loc><lastmod>2025-11-19T01:12:29&#43;00:00</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url><url>
-            <loc>https://arshimtiaz.github.io/posts/index.md/</loc><lastmod>2025-11-19T01:12:29&#43;00:00</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url><url>
-            <loc>https://arshimtiaz.github.io/tags/machine-learning/</loc><lastmod>2025-11-19T01:12:29&#43;00:00</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url><url>
-            <loc>https://arshimtiaz.github.io/tags/passwords/</loc><lastmod>2025-11-19T01:12:29&#43;00:00</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url><url>
-            <loc>https://arshimtiaz.github.io/posts/</loc><lastmod>2025-11-19T01:12:29&#43;00:00</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url><url>
-            <loc>https://arshimtiaz.github.io/tags/</loc><lastmod>2025-11-19T01:12:29&#43;00:00</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url><url>
+            <loc>https://arshimtiaz.github.io/</loc><lastmod>2025-12-05T15:50:42&#43;00:00</lastmod><changefreq>monthly</changefreq><priority>1</priority></url><url>
+            <loc>https://arshimtiaz.github.io/tags/cybersecurity/</loc><lastmod>2025-12-05T15:50:42&#43;00:00</lastmod><changefreq>monthly</changefreq><priority>1</priority></url><url>
+            <loc>https://arshimtiaz.github.io/posts/my-first-ml-model/</loc><lastmod>2025-12-05T15:50:42&#43;00:00</lastmod><changefreq>monthly</changefreq><priority>1</priority></url><url>
+            <loc>https://arshimtiaz.github.io/tags/machine-learning/</loc><lastmod>2025-12-05T15:50:42&#43;00:00</lastmod><changefreq>monthly</changefreq><priority>1</priority></url><url>
+            <loc>https://arshimtiaz.github.io/tags/passwords/</loc><lastmod>2025-12-05T15:50:42&#43;00:00</lastmod><changefreq>monthly</changefreq><priority>1</priority></url><url>
+            <loc>https://arshimtiaz.github.io/posts/</loc><lastmod>2025-12-05T15:50:42&#43;00:00</lastmod><changefreq>monthly</changefreq><priority>1</priority></url><url>
+            <loc>https://arshimtiaz.github.io/tags/</loc><lastmod>2025-12-05T15:50:42&#43;00:00</lastmod><changefreq>monthly</changefreq><priority>1</priority></url><url>
             <loc>https://arshimtiaz.github.io/tags/homelab/</loc><lastmod>2025-11-15T03:26:42&#43;00:00</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url><url>
             <loc>https://arshimtiaz.github.io/tags/networking/</loc><lastmod>2025-11-15T03:26:42&#43;00:00</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url><url>
             <loc>https://arshimtiaz.github.io/tags/pentesting/</loc><lastmod>2025-11-15T03:26:42&#43;00:00</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url><url>

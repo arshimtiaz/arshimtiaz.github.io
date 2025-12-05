@@ -6,13 +6,13 @@
     <description>Recent content in Machine-Learning on Arsh Imtiaz</description>
     <generator>Hugo</generator>
     <language>en</language>
-    <lastBuildDate>Wed, 19 Nov 2025 01:12:29 +0000</lastBuildDate>
+    <lastBuildDate>Fri, 05 Dec 2025 15:50:42 +0000</lastBuildDate>
     <atom:link href="https://arshimtiaz.github.io/tags/machine-learning/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Learning ML by Building a Tiny Password Strength Classifier</title>
-      <link>https://arshimtiaz.github.io/posts/index.md/</link>
+      <link>https://arshimtiaz.github.io/posts/my-first-ml-model/</link>
       <pubDate>Wed, 19 Nov 2025 00:00:00 +0000</pubDate>
-      <guid>https://arshimtiaz.github.io/posts/index.md/</guid>
+      <guid>https://arshimtiaz.github.io/posts/my-first-ml-model/</guid>
       <description>&lt;p&gt;I finally sat down and built a machine learning model in &lt;a href=&#34;https://jupyter.org/&#34; target=&#34;_blank&#34; rel=&#34;noopener noreffer &#34;&gt;&lt;strong&gt;Jupyter Notebook&lt;/strong&gt;&lt;/a&gt; that actually does something cybersecurity related. Not a big fancy neural network. Not a GPT clone. Just a tiny password strength classifier that helped me understand the full ML pipeline without frying my brain.&lt;/p&gt;&#xA;&lt;p&gt;&lt;img&#xA;        class=&#34;lazyload&#34;&#xA;        src=&#34;https://arshimtiaz.github.io/svg/loading.min.svg&#34;&#xA;        data-src=&#34;https://arshimtiaz.github.io/posts/my-first-ml-model/jupyter_password_ml.png&#34;&#xA;        data-srcset=&#34;https://arshimtiaz.github.io/posts/my-first-ml-model/jupyter_password_ml.png, https://arshimtiaz.github.io/posts/my-first-ml-model/jupyter_password_ml.png 1.5x, https://arshimtiaz.github.io/posts/my-first-ml-model/jupyter_password_ml.png 2x&#34;&#xA;        data-sizes=&#34;auto&#34;&#xA;        alt=&#34;/posts/my-first-ml-model/jupyter_password_ml.png&#34;&#xA;        title=&#34;Jupyter Notebook&#34; /&gt;&lt;/p&gt;&#xA;&lt;p&gt;This whole thing started because I kept telling myself I would learn ML one day. And one day never comes when you wait for the perfect idea. So I forced myself to build something so stupid simple that I couldn&amp;rsquo;t run away from it.&lt;/p&gt;</description>
     </item>
   </channel>
