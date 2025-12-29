@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Ai on Arsh Imtiaz</title>
+    <link>https://arshimtiaz.github.io/tags/ai/</link>
+    <description>Recent content in Ai on Arsh Imtiaz</description>
+    <generator>Hugo</generator>
+    <language>en</language>
+    <lastBuildDate>Mon, 29 Dec 2025 00:00:00 +0000</lastBuildDate>
+    <atom:link href="https://arshimtiaz.github.io/tags/ai/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>The First Time It Finally Clicked</title>
+      <link>https://arshimtiaz.github.io/posts/ollama-api-integration/</link>
+      <pubDate>Mon, 29 Dec 2025 00:00:00 +0000</pubDate>
+      <guid>https://arshimtiaz.github.io/posts/ollama-api-integration/</guid>
+      <description>&lt;figure&gt;&lt;a class=&#34;lightgallery&#34; href=&#34;https://arshimtiaz.github.io/images/ai-integration-header.svg&#34; title=&#34;AI Integration&#34; data-thumbnail=&#34;/images/ai-integration-header.svg&#34; data-sub-html=&#34;&lt;h2&gt;Local model, real system, clean output.&lt;/h2&gt;&#34;&gt;&#xA;        &lt;img&#xA;            class=&#34;lazyload&#34;&#xA;            src=&#34;https://arshimtiaz.github.io/svg/loading.min.svg&#34;&#xA;            data-src=&#34;https://arshimtiaz.github.io/images/ai-integration-header.svg&#34;&#xA;            data-srcset=&#34;https://arshimtiaz.github.io/images/ai-integration-header.svg, https://arshimtiaz.github.io/images/ai-integration-header.svg 1.5x, https://arshimtiaz.github.io/images/ai-integration-header.svg 2x&#34;&#xA;            data-sizes=&#34;auto&#34;&#xA;            alt=&#34;AI Integration&#34; /&gt;&#xA;    &lt;/a&gt;&lt;figcaption class=&#34;image-caption&#34;&gt;Local model, real system, clean output.&lt;/figcaption&gt;&#xA;    &lt;/figure&gt;&#xA;&lt;h1 id=&#34;ollama--apis-my-first-real-ai-integration&#34;&gt;Ollama + APIs: My First Real AI Integration&lt;/h1&gt;&#xA;&lt;p&gt;I have used AI tools before. But this post is about the &lt;em&gt;first time I actually integrated AI&lt;/em&gt; into an app and felt the whole thing click.&lt;br&gt;&#xA;Not just &amp;ldquo;ask a model a question.&amp;rdquo; I mean an API that &lt;em&gt;uses&lt;/em&gt; a model and does something useful with it.&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

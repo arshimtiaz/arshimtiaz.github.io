@@ -123,25 +123,31 @@
     <li><a href="#why-im-glad-i-did-it-manually">Why I’m Glad I Did It Manually</a></li>
   </ul>
 </nav></div>
-            </div><div class="content" id="content"><p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="/images/wifi-pent.png"
-        data-srcset="/images/wifi-pent.png, /images/wifi-pent.png 1.5x, /images/wifi-pent.png 2x"
-        data-sizes="auto"
-        alt="/images/wifi-pent.png"
-        title="Wi-Fi Pentesting" /></p>
+            </div><div class="content" id="content"><a class="lightgallery" href="/images/wifi-pent.png" title="Wi-Fi Pentesting" data-thumbnail="/images/wifi-pent.png">
+        <img
+            class="lazyload"
+            src="/svg/loading.min.svg"
+            data-src="/images/wifi-pent.png"
+            data-srcset="/images/wifi-pent.png, /images/wifi-pent.png 1.5x, /images/wifi-pent.png 2x"
+            data-sizes="auto"
+            alt="Wi-Fi Pentesting" />
+    </a>
 <h1 id="my-first-wi-fi-pentest">My First Wi-Fi Pentest</h1>
 <p>There’s a massive difference between watching pentesting videos and actually doing it. This was my first time seriously trying Wi-Fi pentesting, and it was a mix of pure excitement, a bunch of silly mistakes, and that one moment of “YES! It finally worked.”</p>
 <p><strong>Disclaimer: This is just my story, not a tutorial. Everything I did was on my own network. Don’t go around trying this on random Wi-Fi unless you like the idea of explaining yourself to law enforcement.</strong></p>
 <hr>
 <h2 id="gearing-up">Gearing Up</h2>
 <p>My setup was simple – my Arch Linux laptop, an Alfa adapter, and the Aircrack-ng suite.</p>
-<div style="text-align: center;">
-  <img src="/images/adapter.png" alt="Alfa AWUS036ACS" width="60%">
-  <br>
-  <small>My trusty Alfa adapter, aka "the antenna that could"</small>
-</div>
+<figure><a class="lightgallery" href="/images/adapter.png" title="Alfa AWUS036ACS" data-thumbnail="/images/adapter.png" data-sub-html="<h2>My trusty Alfa adapter, aka &ldquo;the antenna that could&rdquo;</h2>">
+        <img
+            class="lazyload"
+            src="/svg/loading.min.svg"
+            data-src="/images/adapter.png"
+            data-srcset="/images/adapter.png, /images/adapter.png 1.5x, /images/adapter.png 2x"
+            data-sizes="auto"
+            alt="Alfa AWUS036ACS" />
+    </a><figcaption class="image-caption">My trusty Alfa adapter, aka &ldquo;the antenna that could&rdquo;</figcaption>
+    </figure>
 <p>At this point, I was overconfident. In my head, it was just: “Enable monitor mode, grab handshake, crack password. Done.”</p>
 <blockquote>
 <p>Spoiler: life doesn’t work that way.</p>
@@ -150,17 +156,27 @@
 <h2 id="where-i-fell-flat">Where I Fell Flat</h2>
 <p>The very first thing I did? I forgot to disable all the services that fight you for control of the adapter.<br>
 Result: Warnings everywhere, services kept messing with monitor mode.</p>
-<div style="text-align: center;">
-  <img src="/images/airmon-ng.png" alt="warnings everywhere" width="100%">
-  <br>
-  <small>When your OS says “nah”</small>
-</div>
+<figure><a class="lightgallery" href="/images/airmon-ng.png" title="warnings everywhere" data-thumbnail="/images/airmon-ng.png" data-sub-html="<h2>When your OS says &ldquo;nah&rdquo;</h2>">
+        <img
+            class="lazyload"
+            src="/svg/loading.min.svg"
+            data-src="/images/airmon-ng.png"
+            data-srcset="/images/airmon-ng.png, /images/airmon-ng.png 1.5x, /images/airmon-ng.png 2x"
+            data-sizes="auto"
+            alt="warnings everywhere" />
+    </a><figcaption class="image-caption">When your OS says &ldquo;nah&rdquo;</figcaption>
+    </figure>
 <p>Once I figured that out, things finally started looking cool. My terminal was scrolling with access points like some cyberpunk movie scene.</p>
-<div style="text-align: center;">
-  <img src="/images/airodump-ng.png" alt="warnings everywhere" width="100%">
-  <br>
-  <small>Access point recon (cool hackery stuff)</small>
-</div>
+<figure><a class="lightgallery" href="/images/airodump-ng.png" title="warnings everywhere" data-thumbnail="/images/airodump-ng.png" data-sub-html="<h2>Access point recon (cool hackery stuff)</h2>">
+        <img
+            class="lazyload"
+            src="/svg/loading.min.svg"
+            data-src="/images/airodump-ng.png"
+            data-srcset="/images/airodump-ng.png, /images/airodump-ng.png 1.5x, /images/airodump-ng.png 2x"
+            data-sizes="auto"
+            alt="warnings everywhere" />
+    </a><figcaption class="image-caption">Access point recon (cool hackery stuff)</figcaption>
+    </figure>
 <hr>
 <h2 id="the-why-is-nothing-happening-phase">The &ldquo;Why Is Nothing Happening?&rdquo; Phase</h2>
 <p>I locked onto my target, sat back, and… nothing. No handshake.</p>
@@ -182,9 +198,15 @@ Result: Warnings everywhere, services kept messing with monitor mode.</p>
 <p>I could’ve just used <a href="https://github.com/v1s1t0r1sh3r3/airgeddon" target="_blank" rel="noopener noreffer "><strong>Airgeddon</strong></a> or some automated script, but figuring it out command by command taught me <em>why</em> things work, not just how to click buttons.</p>
 <p>Next up? I’ll see if I can get Airgeddon to make my life easier <em>without</em> making me lazy.</p>
 <hr>
-<div style="text-align: center;">
-  <img src="/images/hackerman.gif" alt="Hackerman">
-</div>
+<a class="lightgallery" href="/images/hackerman.gif" title="Hackerman" data-thumbnail="/images/hackerman.gif">
+        <img
+            class="lazyload"
+            src="/svg/loading.min.svg"
+            data-src="/images/hackerman.gif"
+            data-srcset="/images/hackerman.gif, /images/hackerman.gif 1.5x, /images/hackerman.gif 2x"
+            data-sizes="auto"
+            alt="Hackerman" />
+    </a>
 <p>This wasn’t some cinematic “Hollywood hacking” moment. It was messy, frustrating, and way less glamorous than it looks online. But that’s what made it fun.</p>
 <p>The real flex isn’t showing commands – it’s showing that you understand <strong>what’s happening under the hood</strong> and can figure things out when they go wrong.</p>
 </div><div class="post-footer" id="post-footer">
@@ -233,5 +255,5 @@ Result: Warnings everywhere, services kept messing with monitor mode.</p>
             </a><a href="#" id="view-comments" class="fixed-button" title="View Comments">
                 <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
             </a>
-        </div><link rel="stylesheet" href="/lib/katex/katex.min.css"><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/twemoji/twemoji.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js"></script><script type="text/javascript" src="/lib/katex/contrib/auto-render.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"Copy to clipboard","maxShownLines":50},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":true,"left":"\\begin{equation}","right":"\\end{equation}"},{"display":true,"left":"\\begin{equation*}","right":"\\end{equation*}"},{"display":true,"left":"\\begin{align}","right":"\\end{align}"},{"display":true,"left":"\\begin{align*}","right":"\\end{align*}"},{"display":true,"left":"\\begin{alignat}","right":"\\end{alignat}"},{"display":true,"left":"\\begin{alignat*}","right":"\\end{alignat*}"},{"display":true,"left":"\\begin{gather}","right":"\\end{gather}"},{"display":true,"left":"\\begin{CD}","right":"\\end{CD}"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"highlightTag":"em","lunrIndexURL":"/index.json","maxResultLength":10,"noResultsFound":"No results found","snippetLength":30,"type":"lunr"},"twemoji":true};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+        </div><link rel="stylesheet" href="/lib/lightgallery/css/lightgallery-bundle.min.css"><link rel="stylesheet" href="/lib/katex/katex.min.css"><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/twemoji/twemoji.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lightgallery.min.js"></script><script type="text/javascript" src="/lib/lightgallery/plugins/thumbnail/lg-thumbnail.min.js"></script><script type="text/javascript" src="/lib/lightgallery/plugins/zoom/lg-zoom.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js"></script><script type="text/javascript" src="/lib/katex/contrib/auto-render.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"Copy to clipboard","maxShownLines":50},"lightgallery":true,"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":true,"left":"\\begin{equation}","right":"\\end{equation}"},{"display":true,"left":"\\begin{equation*}","right":"\\end{equation*}"},{"display":true,"left":"\\begin{align}","right":"\\end{align}"},{"display":true,"left":"\\begin{align*}","right":"\\end{align*}"},{"display":true,"left":"\\begin{alignat}","right":"\\end{alignat}"},{"display":true,"left":"\\begin{alignat*}","right":"\\end{alignat*}"},{"display":true,"left":"\\begin{gather}","right":"\\end{gather}"},{"display":true,"left":"\\begin{CD}","right":"\\end{CD}"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"highlightTag":"em","lunrIndexURL":"/index.json","maxResultLength":10,"noResultsFound":"No results found","snippetLength":30,"type":"lunr"},"twemoji":true};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
 </html>
