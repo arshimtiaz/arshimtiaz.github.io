@@ -178,27 +178,27 @@ I started thinking <strong>&ldquo;AI as a function in a system.&rdquo;</strong><
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="n">app</span> <span class="o">=</span> <span class="n">Flask</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="nd">@app.post</span><span class="p">(</span>\<span class="s2">&#34;/ask</span><span class="se">\&#34;</span><span class="s2">)</span>
+</span></span><span class="line"><span class="cl"><span class="nd">@app.post</span><span class="p">(</span><span class="s2">&#34;/ask&#34;</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">ask</span><span class="p">():</span>
 </span></span><span class="line"><span class="cl">    <span class="n">payload</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">get_json</span><span class="p">(</span><span class="n">silent</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> <span class="ow">or</span> <span class="p">{}</span>
-</span></span><span class="line"><span class="cl">    <span class="n">prompt</span> <span class="o">=</span> <span class="n">payload</span><span class="o">.</span><span class="n">get</span><span class="p">(</span>\<span class="s2">&#34;prompt</span><span class="se">\&#34;</span><span class="s2">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">prompt</span> <span class="o">=</span> <span class="n">payload</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&#34;prompt&#34;</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="ow">not</span> <span class="n">prompt</span><span class="p">:</span>
-</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">jsonify</span><span class="p">({</span>\<span class="s2">&#34;error</span><span class="se">\&#34;</span><span class="s2">: </span><span class="se">\&#34;</span><span class="s2">Missing prompt</span><span class="se">\&#34;</span><span class="s2">}), 400</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">jsonify</span><span class="p">({</span><span class="s2">&#34;error&#34;</span><span class="p">:</span> <span class="s2">&#34;Missing prompt&#34;</span><span class="p">}),</span> <span class="mi">400</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">    <span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">post</span><span class="p">(</span>
-</span></span><span class="line"><span class="cl">        \<span class="s2">&#34;http://localhost:11434/api/generate</span><span class="se">\&#34;</span><span class="s2">,</span>
+</span></span><span class="line"><span class="cl">        <span class="s2">&#34;http://localhost:11434/api/generate&#34;</span><span class="p">,</span>
 </span></span><span class="line"><span class="cl">        <span class="n">json</span><span class="o">=</span><span class="p">{</span>
-</span></span><span class="line"><span class="cl">            \<span class="s2">&#34;model</span><span class="se">\&#34;</span><span class="s2">: </span><span class="se">\&#34;</span><span class="s2">llama3</span><span class="se">\&#34;</span><span class="s2">,</span>
-</span></span><span class="line"><span class="cl">            \<span class="s2">&#34;prompt</span><span class="se">\&#34;</span><span class="s2">: prompt,</span>
-</span></span><span class="line"><span class="cl">            \<span class="s2">&#34;stream</span><span class="se">\&#34;</span><span class="s2">: False</span>
+</span></span><span class="line"><span class="cl">            <span class="s2">&#34;model&#34;</span><span class="p">:</span> <span class="s2">&#34;llama3&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="s2">&#34;prompt&#34;</span><span class="p">:</span> <span class="n">prompt</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="s2">&#34;stream&#34;</span><span class="p">:</span> <span class="kc">False</span>
 </span></span><span class="line"><span class="cl">        <span class="p">},</span>
 </span></span><span class="line"><span class="cl">        <span class="n">timeout</span><span class="o">=</span><span class="mi">60</span>
 </span></span><span class="line"><span class="cl">    <span class="p">)</span>
 </span></span><span class="line"><span class="cl">    <span class="n">data</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
-</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">jsonify</span><span class="p">({</span>\<span class="s2">&#34;answer</span><span class="se">\&#34;</span><span class="s2">: data.get(</span><span class="se">\&#34;</span><span class="s2">response</span><span class="se">\&#34;</span><span class="s2">, </span><span class="se">\&#34;\&#34;</span><span class="s2">)})</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">jsonify</span><span class="p">({</span><span class="s2">&#34;answer&#34;</span><span class="p">:</span> <span class="n">data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&#34;response&#34;</span><span class="p">,</span> <span class="s2">&#34;&#34;</span><span class="p">)})</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> \<span class="s2">&#34;__main__</span><span class="se">\&#34;</span><span class="s2">:</span>
-</span></span><span class="line"><span class="cl">    <span class="n">app</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">host</span><span class="o">=</span>\<span class="s2">&#34;0.0.0.0</span><span class="se">\&#34;</span><span class="s2">, port=3000, debug=False)</span>
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&#34;__main__&#34;</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="n">app</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">host</span><span class="o">=</span><span class="s2">&#34;0.0.0.0&#34;</span><span class="p">,</span> <span class="n">port</span><span class="o">=</span><span class="mi">3000</span><span class="p">,</span> <span class="n">debug</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 </span></span></code></pre></td></tr></table>
 </div>
 </div><p>Now you have a real API endpoint that uses AI.<br>
