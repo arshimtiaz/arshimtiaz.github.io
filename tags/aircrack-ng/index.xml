@@ -1,19 +1,71 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>Aircrack-Ng on Arsh Imtiaz</title>
-    <link>https://arshimtiaz.github.io/tags/aircrack-ng/</link>
-    <description>Recent content in Aircrack-Ng on Arsh Imtiaz</description>
-    <generator>Hugo</generator>
-    <language>en</language>
-    <lastBuildDate>Sun, 10 Aug 2025 11:36:25 +0100</lastBuildDate>
-    <atom:link href="https://arshimtiaz.github.io/tags/aircrack-ng/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>My First Wi-Fi Pentest</title>
-      <link>https://arshimtiaz.github.io/posts/wifi-hacking/</link>
-      <pubDate>Wed, 30 Jul 2025 00:00:00 +0100</pubDate>
-      <guid>https://arshimtiaz.github.io/posts/wifi-hacking/</guid>
-      <description>&lt;a class=&#34;lightgallery&#34; href=&#34;https://arshimtiaz.github.io/images/wifi-pent.png&#34; title=&#34;Wi-Fi Pentesting&#34; data-thumbnail=&#34;/images/wifi-pent.png&#34;&gt;&#xA;        &lt;img&#xA;            class=&#34;lazyload&#34;&#xA;            src=&#34;https://arshimtiaz.github.io/svg/loading.min.svg&#34;&#xA;            data-src=&#34;https://arshimtiaz.github.io/images/wifi-pent.png&#34;&#xA;            data-srcset=&#34;https://arshimtiaz.github.io/images/wifi-pent.png, https://arshimtiaz.github.io/images/wifi-pent.png 1.5x, https://arshimtiaz.github.io/images/wifi-pent.png 2x&#34;&#xA;            data-sizes=&#34;auto&#34;&#xA;            alt=&#34;Wi-Fi Pentesting&#34; /&gt;&#xA;    &lt;/a&gt;&#xA;&lt;h1 id=&#34;my-first-wi-fi-pentest&#34;&gt;My First Wi-Fi Pentest&lt;/h1&gt;&#xA;&lt;p&gt;There’s a massive difference between watching pentesting videos and actually doing it. This was my first time seriously trying Wi-Fi pentesting, and it was a mix of pure excitement, a bunch of silly mistakes, and that one moment of “YES! It finally worked.”&lt;/p&gt;&#xA;&lt;p&gt;&lt;strong&gt;Disclaimer: This is just my story, not a tutorial. Everything I did was on my own network. Don’t go around trying this on random Wi-Fi unless you like the idea of explaining yourself to law enforcement.&lt;/strong&gt;&lt;/p&gt;</description>
-    </item>
-  </channel>
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>Aircrack-Ng - Tag - Arsh Imtiaz</title>
+        <link>https://arshimtiaz.github.io/tags/aircrack-ng/</link>
+        <description>Aircrack-Ng - Tag - Arsh Imtiaz</description>
+        <generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Wed, 30 Jul 2025 00:00:00 &#43;0100</lastBuildDate><atom:link href="https://arshimtiaz.github.io/tags/aircrack-ng/" rel="self" type="application/rss+xml" /><item>
+    <title>My First Wi-Fi Pentest</title>
+    <link>https://arshimtiaz.github.io/posts/my-first-wi-fi-pentest/</link>
+    <pubDate>Wed, 30 Jul 2025 00:00:00 &#43;0100</pubDate>
+    <author>Arsh Imtiaz</author>
+    <guid>https://arshimtiaz.github.io/posts/my-first-wi-fi-pentest/</guid>
+    <description><![CDATA[<a class="lightgallery" href="/images/wifi-pent.png" title="Wi-Fi Pentesting" data-thumbnail="/images/wifi-pent.png">
+        
+    </a>
+<h1 id="my-first-wi-fi-pentest">My First Wi-Fi Pentest</h1>
+<p>There’s a massive difference between watching pentesting videos and actually doing it. This was my first time seriously trying Wi-Fi pentesting, and it was a mix of pure excitement, a bunch of silly mistakes, and that one moment of “YES! It finally worked.”</p>
+<p><strong>Disclaimer: This is just my story, not a tutorial. Everything I did was on my own network. Don’t go around trying this on random Wi-Fi unless you like the idea of explaining yourself to law enforcement.</strong></p>
+<hr>
+<h2 id="gearing-up">Gearing Up</h2>
+<p>My setup was simple – my Arch Linux laptop, an Alfa adapter, and the Aircrack-ng suite.</p>
+<figure><a class="lightgallery" href="/images/adapter.png" title="Alfa AWUS036ACS" data-thumbnail="/images/adapter.png" data-sub-html="<h2>My trusty Alfa adapter, aka &ldquo;the antenna that could&rdquo;</h2>">
+        
+    </a><figcaption class="image-caption">My trusty Alfa adapter, aka &ldquo;the antenna that could&rdquo;</figcaption>
+    </figure>
+<p>At this point, I was overconfident. In my head, it was just: “Enable monitor mode, grab handshake, crack password. Done.”</p>
+<blockquote>
+<p>Spoiler: life doesn’t work that way.</p>
+</blockquote>
+<hr>
+<h2 id="where-i-fell-flat">Where I Fell Flat</h2>
+<p>The very first thing I did? I forgot to disable all the services that fight you for control of the adapter.<br>
+Result: Warnings everywhere, services kept messing with monitor mode.</p>
+<figure><a class="lightgallery" href="/images/airmon-ng.png" title="warnings everywhere" data-thumbnail="/images/airmon-ng.png" data-sub-html="<h2>When your OS says &ldquo;nah&rdquo;</h2>">
+        
+    </a><figcaption class="image-caption">When your OS says &ldquo;nah&rdquo;</figcaption>
+    </figure>
+<p>Once I figured that out, things finally started looking cool. My terminal was scrolling with access points like some cyberpunk movie scene.</p>
+<figure><a class="lightgallery" href="/images/airodump-ng.png" title="warnings everywhere" data-thumbnail="/images/airodump-ng.png" data-sub-html="<h2>Access point recon (cool hackery stuff)</h2>">
+        
+    </a><figcaption class="image-caption">Access point recon (cool hackery stuff)</figcaption>
+    </figure>
+<hr>
+<h2 id="the-why-is-nothing-happening-phase">The &ldquo;Why Is Nothing Happening?&rdquo; Phase</h2>
+<p>I locked onto my target, sat back, and… nothing. No handshake.</p>
+<p>Turns out, distance <em>does</em> matter. I was sitting too far from the router like some wannabe hacker in a corner. Moving closer fixed everything, and that glorious “Handshake captured!” message finally appeared.</p>
+<hr>
+<h2 id="the-brutal-reality-check">The Brutal Reality Check</h2>
+<p>Cracking it? Yeah, that part didn’t happen. My wordlist didn’t have the password (because of course it didn’t). Turns out a <a href="https://github.com/brannondorsey/naive-hashcat/releases/download/data/rockyou.txt" target="_blank" rel="noopener noreffer ">14 million password wordlist</a> doesn&rsquo;t contain the password from all over the universe. (because of course it doesn&rsquo;t).</p>
+<p>But honestly, just getting that handshake felt like a small win. I’d done the whole process myself and figured out where I’d gone wrong.</p>
+<hr>
+<h2 id="lessons-learned">Lessons Learned</h2>
+<ul>
+<li>The tools are just tools. Knowing how to troubleshoot when things fail is the real skill.</li>
+<li>Proximity is underrated. Sitting 10 feet further might be the difference between success and nothing happening.</li>
+<li>Wordlists are everything. A bad one means hours of wasted time.</li>
+<li>There are certainly <em>other methods</em> of &ldquo;getting passwords&rdquo; from your target other than using wordlists *wink* (will cover this in the future)</li>
+</ul>
+<hr>
+<h2 id="why-im-glad-i-did-it-manually">Why I’m Glad I Did It Manually</h2>
+<p>I could’ve just used <a href="https://github.com/v1s1t0r1sh3r3/airgeddon" target="_blank" rel="noopener noreffer "><strong>Airgeddon</strong></a> or some automated script, but figuring it out command by command taught me <em>why</em> things work, not just how to click buttons.</p>
+<p>Next up? I’ll see if I can get Airgeddon to make my life easier <em>without</em> making me lazy.</p>
+<hr>
+<a class="lightgallery" href="/images/hackerman.gif" title="Hackerman" data-thumbnail="/images/hackerman.gif">
+        
+    </a>
+<p>This wasn’t some cinematic “Hollywood hacking” moment. It was messy, frustrating, and way less glamorous than it looks online. But that’s what made it fun.</p>
+<p>The real flex isn’t showing commands – it’s showing that you understand <strong>what’s happening under the hood</strong> and can figure things out when they go wrong.</p>
+]]></description>
+</item>
+</channel>
 </rss>

@@ -1,0 +1,228 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>Red Teaming - Tag - Arsh Imtiaz</title>
+        <link>https://arshimtiaz.github.io/tags/red-teaming/</link>
+        <description>Red Teaming - Tag - Arsh Imtiaz</description>
+        <generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Sat, 14 Feb 2026 02:05:32 &#43;0000</lastBuildDate><atom:link href="https://arshimtiaz.github.io/tags/red-teaming/" rel="self" type="application/rss+xml" /><item>
+    <title>Breaking Access Control Safely: Building a Transaction System Attack Lab</title>
+    <link>https://arshimtiaz.github.io/posts/breaking-access-control-safely-building-a-transaction-system-attack-lab/</link>
+    <pubDate>Sat, 14 Feb 2026 02:05:32 &#43;0000</pubDate>
+    <author>Arsh Imtiaz</author>
+    <guid>https://arshimtiaz.github.io/posts/breaking-access-control-safely-building-a-transaction-system-attack-lab/</guid>
+    <description><![CDATA[<figure><a class="lightgallery" href="assets/transaction_lab_header.png" title="Transaction System Attack Lab" data-thumbnail="assets/transaction_lab_header.png" data-sub-html="<h2>Modelling broken access control in a small transaction system</h2>">
+        
+    </a><figcaption class="image-caption">Modelling broken access control in a small transaction system</figcaption>
+    </figure>
+<h1 id="why-build-another-lab">Why build another lab?</h1>
+<p>Broken access control (especially IDOR-style issues) keeps showing up in real systems – often in places that look &ldquo;boring&rdquo; on the surface: balance checks, transaction history, admin tools, internal APIs.</p>
+<p>I wanted a small, opinionated lab that behaves more like the systems I see in the real world than a typical CTF challenge. Something I could:</p>
+<ul>
+<li>use to explain attack paths to engineers,</li>
+<li>talk through in interviews without referencing client work,</li>
+<li>and extend over time with new scenarios.</li>
+</ul>
+<p>So I built a <strong>Transaction System Attack Lab</strong> – a tiny, multi-service platform that exposes a very real class of bug: object-level authorization failures on account data.</p>
+<hr>
+<h2 id="high-level-idea">High-level idea</h2>
+<p>Instead of a single monolith, the lab is split into three FastAPI services:</p>
+<ul>
+<li><strong>auth-service</strong> – issues JWTs with <code>sub = user_id</code> and a simple <code>role</code>.</li>
+<li><strong>accounts-service</strong> – exposes <code>GET /accounts/{id}/balance</code> and <code>POST /accounts/transfer</code>.</li>
+<li><strong>audit-service</strong> – receives security/audit events (designed to talk about logging and detection).</li>
+</ul>
+<a class="lightgallery" href="/images/architecture.png" title="Transaction System Attack Lab architecture" data-thumbnail="/images/architecture.png">
+        
+    </a>
+<p>The interesting bit is not the framework – it&rsquo;s the <strong>trust boundaries</strong>:</p>
+<ul>
+<li>Client ↔ auth-service (where identity is established)</li>
+<li>auth-service ↔ accounts-service (where identity is consumed)</li>
+<li>accounts-service ↔ audit-service (where we decide what to log and how).</li>
+</ul>
+<hr>
+<h2 id="the-vulnerable-pattern-idor--broken-access-control">The vulnerable pattern (IDOR / broken access control)</h2>
+<p>The core bug I wanted to model is very simple:</p>
+<blockquote>
+<p>The API lets you reference an account by ID, but never checks whether that account actually belongs to you.</p>
+</blockquote>
+<p>In the lab, accounts are stored like this:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">ACCOUNTS</span> <span class="o">=</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="mi">2001</span><span class="p">:</span> <span class="n">Account</span><span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="mi">2001</span><span class="p">,</span> <span class="n">owner_user_id</span><span class="o">=</span><span class="mi">1001</span><span class="p">,</span> <span class="n">balance</span><span class="o">=</span><span class="mf">1000.0</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">    <span class="mi">2002</span><span class="p">:</span> <span class="n">Account</span><span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="mi">2002</span><span class="p">,</span> <span class="n">owner_user_id</span><span class="o">=</span><span class="mi">1002</span><span class="p">,</span> <span class="n">balance</span><span class="o">=</span><span class="mf">500.0</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">    <span class="mi">2003</span><span class="p">:</span> <span class="n">Account</span><span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="mi">2003</span><span class="p">,</span> <span class="n">owner_user_id</span><span class="o">=</span><span class="mi">1002</span><span class="p">,</span> <span class="n">balance</span><span class="o">=</span><span class="mf">2500.0</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>The vulnerable endpoint looks up the account by ID and returns it:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="nd">@app.get</span><span class="p">(</span><span class="s2">&#34;/accounts/</span><span class="si">{account_id}</span><span class="s2">/balance&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="k">async</span> <span class="k">def</span> <span class="nf">get_balance</span><span class="p">(</span><span class="n">account_id</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">token</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="n">Depends</span><span class="p">(</span><span class="n">decode_token</span><span class="p">)):</span>
+</span></span><span class="line"><span class="cl">    <span class="n">acct</span> <span class="o">=</span> <span class="n">ACCOUNTS</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">account_id</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="ow">not</span> <span class="n">acct</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="k">raise</span> <span class="n">HTTPException</span><span class="p">(</span><span class="n">status_code</span><span class="o">=</span><span class="mi">404</span><span class="p">,</span> <span class="n">detail</span><span class="o">=</span><span class="s2">&#34;Account not found&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1"># Deliberately missing ownership check</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="s2">&#34;account_id&#34;</span><span class="p">:</span> <span class="n">acct</span><span class="o">.</span><span class="n">id</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="s2">&#34;owner_user_id&#34;</span><span class="p">:</span> <span class="n">acct</span><span class="o">.</span><span class="n">owner_user_id</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="s2">&#34;balance&#34;</span><span class="p">:</span> <span class="n">acct</span><span class="o">.</span><span class="n">balance</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>The token already tells us who the caller is (<code>token[&quot;sub&quot;]</code>), but the handler never uses it.</p>
+<p>This is the essence of an IDOR-style bug: <strong>the application trusts an object identifier without enforcing object-level authorization</strong>.</p>
+<hr>
+<h2 id="walking-attack-path-01">Walking Attack Path 01</h2>
+<p>The first documented scenario is in the repo as:</p>
+<ul>
+<li><code>docs/attack-path-01-idor-broken-access-control.md</code></li>
+</ul>
+<p>The flow is intentionally close to how a real test would look:</p>
+<ol>
+<li>
+<p><strong>Login as a normal user</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">curl -s -X POST http://localhost:8001/login <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>  -H <span class="s2">&#34;Content-Type: application/json&#34;</span> <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>  -d <span class="s1">&#39;{&#34;username&#34;: &#34;alice&#34;, &#34;password&#34;: &#34;password123&#34;}&#39;</span> <span class="p">|</span> jq
+</span></span></code></pre></td></tr></table>
+</div>
+</div></li>
+<li>
+<p><strong>Confirm your own account works</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="nv">TOKEN</span><span class="o">=</span><span class="s2">&#34;&lt;paste the access_token&gt;&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">curl -s http://localhost:8002/accounts/2001/balance <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>  -H <span class="s2">&#34;Authorization: Bearer </span><span class="nv">$TOKEN</span><span class="s2">&#34;</span> <span class="p">|</span> jq
+</span></span></code></pre></td></tr></table>
+</div>
+</div></li>
+<li>
+<p><strong>Probe other IDs</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">curl -s http://localhost:8002/accounts/2002/balance <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>  -H <span class="s2">&#34;Authorization: Bearer </span><span class="nv">$TOKEN</span><span class="s2">&#34;</span> <span class="p">|</span> jq
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Even though Alice owns account <code>2001</code>, she can read balances for <code>2002</code> and <code>2003</code>, which belong to a different user.</p>
+</li>
+<li>
+<p><strong>Automate the search</strong></p>
+<p>To make it feel more like a real engagement, I wired a small helper script:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">./scripts/exploit/idor_enumeration.py --start <span class="m">2000</span> --end <span class="m">2010</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Under the hood it:</p>
+<ul>
+<li>logs in to auth-service to get a JWT,</li>
+<li>loops over account IDs,</li>
+<li>prints <code>[HIT]</code> when the API leaks data.</li>
+</ul>
+</li>
+</ol>
+<a class="lightgallery" href="/diagrams/attack-path-01.png" title="Attack Path 01 – Broken access control on accounts" data-thumbnail="/diagrams/attack-path-01.png">
+        
+    </a>
+<hr>
+<h2 id="fixing-it-and-why-it-matters">Fixing it (and why it matters)</h2>
+<p>The fix is deliberately boring, because that&rsquo;s what most real security fixes look like:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">caller_user_id</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">token</span><span class="p">[</span><span class="s2">&#34;sub&#34;</span><span class="p">])</span>
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="n">acct</span><span class="o">.</span><span class="n">owner_user_id</span> <span class="o">!=</span> <span class="n">caller_user_id</span> <span class="ow">and</span> <span class="n">token</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&#34;role&#34;</span><span class="p">)</span> <span class="o">!=</span> <span class="s2">&#34;admin&#34;</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="k">raise</span> <span class="n">HTTPException</span><span class="p">(</span><span class="n">status_code</span><span class="o">=</span><span class="mi">403</span><span class="p">,</span> <span class="n">detail</span><span class="o">=</span><span class="s2">&#34;Forbidden&#34;</span><span class="p">)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>The important part is the <strong>thinking</strong> around it:</p>
+<ul>
+<li>Where does identity come from (auth-service)?</li>
+<li>Where is it consumed (accounts-service)?</li>
+<li>Do we enforce ownership every time we touch something user-specific?</li>
+<li>Do we log enough context to spot weird access patterns later?</li>
+</ul>
+<p>In <code>docs/detection-and-mitigation.md</code> I sketched out logging fields and detection ideas, e.g.:</p>
+<ul>
+<li>a single <code>user_id</code> touching lots of different <code>account_id</code> values in a short window,</li>
+<li>repeated access to non-existent accounts,</li>
+<li>correlating access patterns with other events from the same user/session.</li>
+</ul>
+<hr>
+<h2 id="why-this-helps-me-as-a-practitioner">Why this helps me as a practitioner</h2>
+<p>I built this lab for three reasons:</p>
+<ol>
+<li>
+<p><strong>Storytelling</strong> – It&rsquo;s much easier to talk about broken access control when you can point to a tiny system and say: <em>&ldquo;here is the exact place it went wrong, here is the exploit, and here is the fix&rdquo;</em>.</p>
+</li>
+<li>
+<p><strong>Interview signal</strong> – This repo is public, so I can:</p>
+<ul>
+<li>walk hiring managers through the architecture and attack path,</li>
+<li>show that I think about both offense (finding the bug) and defense (logging, detection, and mitigations).</li>
+</ul>
+</li>
+<li>
+<p><strong>Extensibility</strong> – The roadmap includes future scenarios like webhook issues, race conditions on transfers, and misuse of internal tooling. I can grow this over time as I see more real-world patterns.</p>
+</li>
+</ol>
+<p>If you want to read the code or run the lab yourself, it&rsquo;s here:</p>
+<ul>
+<li>GitHub: <a href="https://github.com/c0ncatenate/transaction-system-attack-lab" target="_blank" rel="noopener noreffer ">https://github.com/c0ncatenate/transaction-system-attack-lab</a></li>
+</ul>
+<p>As always, everything is for educational use only – <strong>only test systems you have explicit permission to attack</strong>.</p>
+]]></description>
+</item>
+</channel>
+</rss>

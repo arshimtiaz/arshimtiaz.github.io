@@ -1,19 +1,40 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>Ctfs on Arsh Imtiaz</title>
-    <link>https://arshimtiaz.github.io/tags/ctfs/</link>
-    <description>Recent content in Ctfs on Arsh Imtiaz</description>
-    <generator>Hugo</generator>
-    <language>en</language>
-    <lastBuildDate>Sat, 15 Nov 2025 03:26:42 +0000</lastBuildDate>
-    <atom:link href="https://arshimtiaz.github.io/tags/ctfs/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>Welcome</title>
-      <link>https://arshimtiaz.github.io/posts/welcome/</link>
-      <pubDate>Wed, 15 Jan 2025 11:59:12 +0300</pubDate>
-      <guid>https://arshimtiaz.github.io/posts/welcome/</guid>
-      <description>&lt;h1 id=&#34;welcome-to-my-blog&#34;&gt;Welcome to My Blog&lt;/h1&gt;&#xA;&lt;p&gt;Hello, and thank you for visiting my blog!&lt;/p&gt;&#xA;&lt;p&gt;I&amp;rsquo;m Arsh Imtiaz — a cybersecurity professional passionate about ethical hacking, information security, and continuous learning in the ever-evolving world of technology.&lt;/p&gt;&#xA;&lt;h2 id=&#34;about-this-blog&#34;&gt;About This Blog&lt;/h2&gt;&#xA;&lt;p&gt;This space is dedicated to sharing insights, experiences, and practical knowledge related to cybersecurity and ethical hacking. Here, you’ll find:&lt;/p&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;&lt;strong&gt;Technical write-ups and tutorials&lt;/strong&gt; covering various tools, techniques, and challenges.&lt;/li&gt;&#xA;&lt;li&gt;&lt;strong&gt;Personal reflections&lt;/strong&gt; on projects, learning journeys, and industry trends.&lt;/li&gt;&#xA;&lt;li&gt;&lt;strong&gt;CTF walkthroughs and writeups&lt;/strong&gt; from platforms like TryHackMe and HackTheBox.&lt;/li&gt;&#xA;&lt;li&gt;Occasional commentary on broader tech topics, aimed at both beginners and professionals.&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;h2 id=&#34;why-i-created-this-blog&#34;&gt;Why I Created This Blog&lt;/h2&gt;&#xA;&lt;p&gt;I launched this blog to document my professional journey, share knowledge with the community, and foster connections with fellow security enthusiasts. Whether you&amp;rsquo;re just starting out or looking to deepen your skills, I hope you find something valuable here.&lt;/p&gt;</description>
-    </item>
-  </channel>
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>Ctfs - Tag - Arsh Imtiaz</title>
+        <link>https://arshimtiaz.github.io/tags/ctfs/</link>
+        <description>Ctfs - Tag - Arsh Imtiaz</description>
+        <generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Wed, 15 Jan 2025 11:59:12 &#43;0300</lastBuildDate><atom:link href="https://arshimtiaz.github.io/tags/ctfs/" rel="self" type="application/rss+xml" /><item>
+    <title>Welcome</title>
+    <link>https://arshimtiaz.github.io/posts/welcome/</link>
+    <pubDate>Wed, 15 Jan 2025 11:59:12 &#43;0300</pubDate>
+    <author>Arsh Imtiaz</author>
+    <guid>https://arshimtiaz.github.io/posts/welcome/</guid>
+    <description><![CDATA[<h1 id="welcome-to-my-blog">Welcome to My Blog</h1>
+<p>Hello, and thank you for visiting my blog!</p>
+<p>I&rsquo;m Arsh Imtiaz — a cybersecurity professional passionate about ethical hacking, information security, and continuous learning in the ever-evolving world of technology.</p>
+<h2 id="about-this-blog">About This Blog</h2>
+<p>This space is dedicated to sharing insights, experiences, and practical knowledge related to cybersecurity and ethical hacking. Here, you’ll find:</p>
+<ul>
+<li><strong>Technical write-ups and tutorials</strong> covering various tools, techniques, and challenges.</li>
+<li><strong>Personal reflections</strong> on projects, learning journeys, and industry trends.</li>
+<li><strong>CTF walkthroughs and writeups</strong> from platforms like TryHackMe and HackTheBox.</li>
+<li>Occasional commentary on broader tech topics, aimed at both beginners and professionals.</li>
+</ul>
+<h2 id="why-i-created-this-blog">Why I Created This Blog</h2>
+<p>I launched this blog to document my professional journey, share knowledge with the community, and foster connections with fellow security enthusiasts. Whether you&rsquo;re just starting out or looking to deepen your skills, I hope you find something valuable here.</p>
+<h2 id="commitment-to-authenticity">Commitment to authenticity</h2>
+<p>All posts on this blog are <strong>100% original and personally written by me</strong>. I do not use AI-generated content as I believe the value of this blog lies in geniune experience, hands-on learning and authentic sharing.</p>
+<h2 id="what-to-expect">What to Expect</h2>
+<p>Future posts will include:</p>
+<ul>
+<li>Clear, beginner-friendly guides designed to demystify cybersecurity concepts.</li>
+<li>In-depth analyses of vulnerabilities, exploits, and defensive strategies.</li>
+<li>Updates on relevant industry news and tools.</li>
+<li>A touch of humor and real-world anecdotes to keep things engaging.</li>
+</ul>
+<hr>
+<p>Thank you for visiting my blog. If you’ve come here from LinkedIn or another professional network, I appreciate you taking the time to explore my work. This space is dedicated to sharing practical insights and experiences in cybersecurity, with a focus on ethical hacking and responsible research. Feel free to connect or reach out—I’m always open to meaningful discussions and collaboration.</p>
+]]></description>
+</item>
+</channel>
 </rss>

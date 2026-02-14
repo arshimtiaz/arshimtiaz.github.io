@@ -1,26 +1,332 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>Wifi on Arsh Imtiaz</title>
-    <link>https://arshimtiaz.github.io/tags/wifi/</link>
-    <description>Recent content in Wifi on Arsh Imtiaz</description>
-    <generator>Hugo</generator>
-    <language>en</language>
-    <lastBuildDate>Sat, 15 Nov 2025 03:26:42 +0000</lastBuildDate>
-    <atom:link href="https://arshimtiaz.github.io/tags/wifi/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>When Red Teaming Meets Car Hacking: Building a Virtual Vehicle Pentest Lab on My Laptop</title>
-      <link>https://arshimtiaz.github.io/posts/virtual-vehicle-lab/</link>
-      <pubDate>Sun, 09 Nov 2025 00:00:00 +0000</pubDate>
-      <guid>https://arshimtiaz.github.io/posts/virtual-vehicle-lab/</guid>
-      <description>&lt;figure&gt;&lt;a class=&#34;lightgallery&#34; href=&#34;https://arshimtiaz.github.io/posts/virtual-vehicle-lab/assets/car_hacking.png&#34; title=&#34;Networking is fun&#34; data-thumbnail=&#34;/posts/virtual-vehicle-lab/assets/car_hacking.png&#34; data-sub-html=&#34;&lt;h2&gt;How does one emulate cars at home?&lt;/h2&gt;&#34;&gt;&#xA;        &lt;img&#xA;            class=&#34;lazyload&#34;&#xA;            src=&#34;https://arshimtiaz.github.io/svg/loading.min.svg&#34;&#xA;            data-src=&#34;https://arshimtiaz.github.io/posts/virtual-vehicle-lab/assets/car_hacking.png&#34;&#xA;            data-srcset=&#34;https://arshimtiaz.github.io/posts/virtual-vehicle-lab/assets/car_hacking.png, https://arshimtiaz.github.io/posts/virtual-vehicle-lab/assets/car_hacking.png 1.5x, https://arshimtiaz.github.io/posts/virtual-vehicle-lab/assets/car_hacking.png 2x&#34;&#xA;            data-sizes=&#34;auto&#34;&#xA;            alt=&#34;Networking is fun&#34; width=&#34;1536&#34; height=&#34;1024&#34; /&gt;&#xA;    &lt;/a&gt;&lt;figcaption class=&#34;image-caption&#34;&gt;How does one emulate cars at home?&lt;/figcaption&gt;&#xA;    &lt;/figure&gt;&#xA;&lt;p&gt;Every car hacking tool I have come across required expensive ECUs, adapters or even full test benches. Having worked with test cars before, I got an insight into how time consuming and expensive, if not difficult it is to set a working HIL (Hardware-In-Loop) setup.&#xA;I didn&amp;rsquo;t want to wait for hardware to understand how automotive networks behave - I wanted to simulate it.&lt;/p&gt;</description>
-    </item>
-    <item>
-      <title>My First Wi-Fi Pentest</title>
-      <link>https://arshimtiaz.github.io/posts/wifi-hacking/</link>
-      <pubDate>Wed, 30 Jul 2025 00:00:00 +0100</pubDate>
-      <guid>https://arshimtiaz.github.io/posts/wifi-hacking/</guid>
-      <description>&lt;a class=&#34;lightgallery&#34; href=&#34;https://arshimtiaz.github.io/images/wifi-pent.png&#34; title=&#34;Wi-Fi Pentesting&#34; data-thumbnail=&#34;/images/wifi-pent.png&#34;&gt;&#xA;        &lt;img&#xA;            class=&#34;lazyload&#34;&#xA;            src=&#34;https://arshimtiaz.github.io/svg/loading.min.svg&#34;&#xA;            data-src=&#34;https://arshimtiaz.github.io/images/wifi-pent.png&#34;&#xA;            data-srcset=&#34;https://arshimtiaz.github.io/images/wifi-pent.png, https://arshimtiaz.github.io/images/wifi-pent.png 1.5x, https://arshimtiaz.github.io/images/wifi-pent.png 2x&#34;&#xA;            data-sizes=&#34;auto&#34;&#xA;            alt=&#34;Wi-Fi Pentesting&#34; /&gt;&#xA;    &lt;/a&gt;&#xA;&lt;h1 id=&#34;my-first-wi-fi-pentest&#34;&gt;My First Wi-Fi Pentest&lt;/h1&gt;&#xA;&lt;p&gt;There’s a massive difference between watching pentesting videos and actually doing it. This was my first time seriously trying Wi-Fi pentesting, and it was a mix of pure excitement, a bunch of silly mistakes, and that one moment of “YES! It finally worked.”&lt;/p&gt;&#xA;&lt;p&gt;&lt;strong&gt;Disclaimer: This is just my story, not a tutorial. Everything I did was on my own network. Don’t go around trying this on random Wi-Fi unless you like the idea of explaining yourself to law enforcement.&lt;/strong&gt;&lt;/p&gt;</description>
-    </item>
-  </channel>
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>Wifi - Tag - Arsh Imtiaz</title>
+        <link>https://arshimtiaz.github.io/tags/wifi/</link>
+        <description>Wifi - Tag - Arsh Imtiaz</description>
+        <generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Sun, 09 Nov 2025 00:00:00 &#43;0000</lastBuildDate><atom:link href="https://arshimtiaz.github.io/tags/wifi/" rel="self" type="application/rss+xml" /><item>
+    <title>When Red Teaming Meets Car Hacking: Building a Virtual Vehicle Pentest Lab on My Laptop</title>
+    <link>https://arshimtiaz.github.io/posts/when-red-teaming-meets-car-hacking-building-a-virtual-vehicle-pentest-lab-on-my-laptop/</link>
+    <pubDate>Sun, 09 Nov 2025 00:00:00 &#43;0000</pubDate>
+    <author>Arsh Imtiaz</author>
+    <guid>https://arshimtiaz.github.io/posts/when-red-teaming-meets-car-hacking-building-a-virtual-vehicle-pentest-lab-on-my-laptop/</guid>
+    <description><![CDATA[<figure><a class="lightgallery" href="/posts/when-red-teaming-meets-car-hacking-building-a-virtual-vehicle-pentest-lab-on-my-laptop/assets/car_hacking.png" title="Networking is fun" data-thumbnail="/posts/when-red-teaming-meets-car-hacking-building-a-virtual-vehicle-pentest-lab-on-my-laptop/assets/car_hacking.png" data-sub-html="<h2>How does one emulate cars at home?</h2>">
+        
+    </a><figcaption class="image-caption">How does one emulate cars at home?</figcaption>
+    </figure>
+<p>Every car hacking tool I have come across required expensive ECUs, adapters or even full test benches. Having worked with test cars before, I got an insight into how time consuming and expensive, if not difficult it is to set a working HIL (Hardware-In-Loop) setup.
+I didn&rsquo;t want to wait for hardware to understand how automotive networks behave - I wanted to simulate it.</p>
+<p>So, I built my own virtual car hacking network using Linux tools, a bit of Python, and some creative problem solving.</p>
+<hr>
+<h2 id="background">Background</h2>
+<p>Automotive Cybersecurity is fascinating. Being extremely niche, it isn&rsquo;t the first thing that comes to mind when someone thinks of <em>cybersecurity</em>. They imagine computers, massive server farms and a network that connects them all. But what is a modern car, if not a network of highly powerful computers, on wheels.</p>
+<p>Working with cars as a pentester has had me dealing with security at the intersection of software and hardware - but I wanted to explore the same logic on my own terms.</p>
+<p>A vehicle&rsquo;s network is split into three specific interfaces:</p>
+<ol>
+<li><strong>CAN</strong> (Controller Area Network) - the most widely used</li>
+<li><strong>LIN</strong> (Local Interconnect Network) - for low-speed/low-cost devices</li>
+<li><strong>Automotive Ethernet</strong> (100BASE-T1, 1000BASE-T1, etc.) - higher bandwidth, growing adoption</li>
+</ol>
+<p>Infotainment Systems, Sensors, ECUs, they all talk over these buses. Setting these up requires a lot of specialized hardware and software. This includes purchasing an expensive license with the already expensive hardware which is designed to simulate and control such networks. (Yes <a href="https://www.vector.com" target="_blank" rel="noopener noreffer "><em>Vector</em></a>, I&rsquo;m talking about you). These tools are brilliant, but they&rsquo;re practically out of reach when you&rsquo;re hacking solo and not backed by a corporation.</p>
+<p>So: emulate it.</p>
+<hr>
+<h2 id="the-idea">The Idea</h2>
+<p>If network penetration testers can simulate servers and routers, why can&rsquo;t car hackers simulate ECUs? After all, ECUs are basically computers that run a <em>specific</em> piece of software or a <em>specific</em> operating system on them, designed to only perform <em>specific</em> tasks.</p>
+<p>In a world where we have virtual machines helping us run multiple computers on one, I started brainstorming if it was possible to create ECUs digitally, without all the fancy expensive hardware. What would you possibly need? GPS? Wi-Fi? Bluetooth? A platform to run apps and scripts? A logger? All of this already exists on a standard laptop. The only thing that stood out to me was the communication interfaces. CAN is not used anywhere apart from automotive networks. Neither is LIN or 100Base-T1 (<em>Automotive</em> Ethernet for a reason). This made me research even more. What could possibly help me <strong>simulate</strong> CAN?</p>
+<blockquote>
+<p>&ldquo;If there&rsquo;s a will, there is a way.&rdquo;
+~ some wise person</p>
+</blockquote>
+<hr>
+<h2 id="the-build">The Build</h2>
+<p>After a bit of research, I came across <a href="https://docs.kernel.org/networking/can.html" target="_blank" rel="noopener noreffer ">SocketCAN</a>. It&rsquo;s a Linux kernel subsystem that exposes CAN interfaces like any other network device. Think CAN, but now it runs pretty much anywhere.  It allows us to create virtual CAN interfaces on Linux, or connect to physical CAN networks present on an actual car.</p>
+<p>It doesn&rsquo;t have anything to do with what flavour you choose as it is built into the kernel. It is only a matter flipping the switch and enabling it:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo modprobe vcan
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>This will help enable the vcan (virtual CAN) interface module.</p>
+<p>After this, you can create the virtual CAN interface:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo ip link add dev vcan0 <span class="nb">type</span> vcan
+</span></span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo ip link <span class="nb">set</span> up vcan0
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Run this to confirm if you&rsquo;ve got it:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">ifconfig
+</span></span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">vcan0: flags=193&lt;UP,RUNNING,NOARP&gt;  mtu 72
+</span></span><span class="line"><span class="cl">        unspec 00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00  txqueuelen 1000  (UNSPEC)
+</span></span><span class="line"><span class="cl">        RX packets 0  bytes 0 (0.0 B)
+</span></span><span class="line"><span class="cl">        RX errors 0  dropped 0  overruns 0  frame 0
+</span></span><span class="line"><span class="cl">        TX packets 0  bytes 0 (0.0 B)
+</span></span><span class="line"><span class="cl">        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>And voila! You now have a virtual CAN interface, ready to read and transmit CAN frames.</p>
+<hr>
+<h3 id="sending-packets">Sending packets</h3>
+<p>What&rsquo;s the point of creating an interface if you&rsquo;re not going to use it?
+To send packets on this interface, we have a set of can tools that you can install on pretty much any Linux machine as well.</p>
+<p>I use the <a href="https://www.blackarch.org/downloads.html#install-repo" target="_blank" rel="noopener noreffer ">Blackarch repository</a> on my Arch Linux machine. If you&rsquo;re on Debian, you can use <a href="https://www.kali.org/docs/general-use/kali-linux-sources-list-repositories/" target="_blank" rel="noopener noreffer ">Kali Linux&rsquo;s repository</a> for the same. Both of them contain the package we want to install.</p>
+<p><small> Fedora users please don&rsquo;t come after me </small></p>
+<p>Arch Linux:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo pacman -Syu
+</span></span><span class="line"><span class="cl">sudo pacman -S can-utils <span class="c1"># tools for working with CAN</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Debian:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo apt-get update <span class="o">&amp;&amp;</span> apt-get upgrade
+</span></span><span class="line"><span class="cl">sudo apt-get install can-utils
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>This will give you access to these tools:</p>
+<ol>
+<li>candump</li>
+<li>cansend</li>
+<li>canplayer</li>
+<li>cansniffer</li>
+</ol>
+<p>&hellip;and more.</p>
+<p>To send packets on the virtual bus (vcan0), use this command:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">cansend vcan0 123#AABBCCDDEEFF
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>If it doesn&rsquo;t output anything, congratulations! You&rsquo;ve sent your first CAN frame using Linux!</p>
+<p>But&hellip; how do we know that it got sent?
+We can use <code>candump</code>, which continuously listens for any CAN messages being transmitted on the bus you specify to it as an argument.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">candump vcan0
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>While this is running, send the example CAN frame with <code>cansend</code> from another terminal again. This time, you&rsquo;ll see it pop up on the listener as a properly formatted CAN frame:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">vcan0  <span class="m">123</span>   <span class="o">[</span>6<span class="o">]</span>  AA BB CC DD EE FF
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Brilliant. You&rsquo;ve now mastered the art of sending CAN frames on a bus using Linux, and only Linux.</p>
+<p>What makes this fun is you can also build your own custom logger and transmitter using Python, with the <a href="https://python-can.readthedocs.io/en/stable/" target="_blank" rel="noopener noreffer ">python-can</a> library. It can both send and listen for CAN frames on any CAN interface.</p>
+<p>Here&rsquo;s one if you want to try it out:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="ch">#!/usr/bin/env python3</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">can</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">time</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">threading</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">receiver</span><span class="p">(</span><span class="n">bus</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;&#34;&#34;Receive and print CAN messages.&#34;&#34;&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">print</span><span class="p">(</span><span class="s2">&#34;[Receiver] Listening for CAN messages...&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="n">msg</span> <span class="ow">in</span> <span class="n">bus</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&#34;[Received] ID: </span><span class="si">{</span><span class="n">msg</span><span class="o">.</span><span class="n">arbitration_id</span><span class="si">:</span><span class="s2">#04x</span><span class="si">}</span><span class="s2">, Data: </span><span class="si">{</span><span class="n">msg</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">hex</span><span class="p">()</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span><span class="si">}</span><span class="s2">&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">sender</span><span class="p">(</span><span class="n">bus</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;&#34;&#34;Send CAN messages periodically.&#34;&#34;&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">print</span><span class="p">(</span><span class="s2">&#34;[Sender] Starting message transmission...&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">msg</span> <span class="o">=</span> <span class="n">can</span><span class="o">.</span><span class="n">Message</span><span class="p">(</span><span class="n">arbitration_id</span><span class="o">=</span><span class="mh">0x123</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="p">[</span><span class="mh">0x11</span><span class="p">,</span> <span class="mh">0x22</span><span class="p">,</span> <span class="mh">0x33</span><span class="p">,</span> <span class="mh">0x44</span><span class="p">],</span> <span class="n">is_extended_id</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="k">try</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">            <span class="n">bus</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&#34;[Sent] ID: </span><span class="si">{</span><span class="n">msg</span><span class="o">.</span><span class="n">arbitration_id</span><span class="si">:</span><span class="s2">#04x</span><span class="si">}</span><span class="s2">, Data: </span><span class="si">{</span><span class="n">msg</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">hex</span><span class="p">()</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span><span class="si">}</span><span class="s2">&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="k">except</span> <span class="n">can</span><span class="o">.</span><span class="n">CanError</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">            <span class="nb">print</span><span class="p">(</span><span class="s2">&#34;[Error] Message not sent&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+</span></span><span class="line"><span class="cl">    <span class="c1"># Connect to virtual CAN interface</span>
+</span></span><span class="line"><span class="cl">    <span class="n">bus</span> <span class="o">=</span> <span class="n">can</span><span class="o">.</span><span class="n">interface</span><span class="o">.</span><span class="n">Bus</span><span class="p">(</span><span class="n">channel</span><span class="o">=</span><span class="s2">&#34;vcan0&#34;</span><span class="p">,</span> <span class="n">bustype</span><span class="o">=</span><span class="s2">&#34;socketcan&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1"># Start receiver in background thread</span>
+</span></span><span class="line"><span class="cl">    <span class="n">recv_thread</span> <span class="o">=</span> <span class="n">threading</span><span class="o">.</span><span class="n">Thread</span><span class="p">(</span><span class="n">target</span><span class="o">=</span><span class="n">receiver</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="p">(</span><span class="n">bus</span><span class="p">,),</span> <span class="n">daemon</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">recv_thread</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1"># Start sending messages</span>
+</span></span><span class="line"><span class="cl">    <span class="n">sender</span><span class="p">(</span><span class="n">bus</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&#34;__main__&#34;</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="n">main</span><span class="p">()</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>This simple program lets you prototype virtual ECUs that send/receive frames — perfect for building test scenarios.</p>
+<hr>
+<h2 id="reflection">Reflection</h2>
+<p>My reflection on this piece of work includes this:</p>
+<ol>
+<li>If I create ECUs built on either C or C++, using the same logic that a standard ECU would, I could have it generate CAN frames for specific functions and accept CAN frames to perform specific functions. This completely virtualizes the test bench and makes it portable.</li>
+<li>The presence of Python (python-can) allows us to craft custom CAN packets, which opens doors to creating a <strong>fuzzer</strong> that mutates CAN frames randomly.</li>
+<li>All of this put together gives us a basic, but robust virtual car, which can be used to practice pentesting and diagnostics(Enter, UDS).</li>
+<li>I can safely test security features without messing with actual hardware(did I tell you it was very expensive?).</li>
+<li>I can practice IDS detection in Wazuh or Suricata by integrating the CAN logs.</li>
+<li>Train myself and others without physical ECUs.</li>
+</ol>
+<p>Hacking isn&rsquo;t about fancy gear. It&rsquo;s about creativity. By virtualizing this challenge, I learned more about CAN networks, Linux Networking, and the hacker mindset in itself.</p>
+<p>If you are into automotive cybersecurity but don&rsquo;t know where to start, start by simulating - the best labs are the ones you build yourself.</p>
+<hr>
+<h2 id="whats-next">What&rsquo;s Next?</h2>
+<ol>
+<li>Create an instrument cluster/infotainment system next and connect it to my virtual network to simulate a more complete in-vehicle setup.</li>
+<li>Setup UDS (Unified Diagnostics Services) request/response handling in a virtual ECU</li>
+</ol>
+<hr>
+<p>Thanks for reading — I’ll keep posting updates as I build the next pieces (infotainment mock, UDS handlers, and a tiny fuzzer). If you want the example scripts or a reproducible repo structure, tell me and I’ll publish them on GitHub.</p>
+]]></description>
+</item>
+<item>
+    <title>My First Wi-Fi Pentest</title>
+    <link>https://arshimtiaz.github.io/posts/my-first-wi-fi-pentest/</link>
+    <pubDate>Wed, 30 Jul 2025 00:00:00 &#43;0100</pubDate>
+    <author>Arsh Imtiaz</author>
+    <guid>https://arshimtiaz.github.io/posts/my-first-wi-fi-pentest/</guid>
+    <description><![CDATA[<a class="lightgallery" href="/images/wifi-pent.png" title="Wi-Fi Pentesting" data-thumbnail="/images/wifi-pent.png">
+        
+    </a>
+<h1 id="my-first-wi-fi-pentest">My First Wi-Fi Pentest</h1>
+<p>There’s a massive difference between watching pentesting videos and actually doing it. This was my first time seriously trying Wi-Fi pentesting, and it was a mix of pure excitement, a bunch of silly mistakes, and that one moment of “YES! It finally worked.”</p>
+<p><strong>Disclaimer: This is just my story, not a tutorial. Everything I did was on my own network. Don’t go around trying this on random Wi-Fi unless you like the idea of explaining yourself to law enforcement.</strong></p>
+<hr>
+<h2 id="gearing-up">Gearing Up</h2>
+<p>My setup was simple – my Arch Linux laptop, an Alfa adapter, and the Aircrack-ng suite.</p>
+<figure><a class="lightgallery" href="/images/adapter.png" title="Alfa AWUS036ACS" data-thumbnail="/images/adapter.png" data-sub-html="<h2>My trusty Alfa adapter, aka &ldquo;the antenna that could&rdquo;</h2>">
+        
+    </a><figcaption class="image-caption">My trusty Alfa adapter, aka &ldquo;the antenna that could&rdquo;</figcaption>
+    </figure>
+<p>At this point, I was overconfident. In my head, it was just: “Enable monitor mode, grab handshake, crack password. Done.”</p>
+<blockquote>
+<p>Spoiler: life doesn’t work that way.</p>
+</blockquote>
+<hr>
+<h2 id="where-i-fell-flat">Where I Fell Flat</h2>
+<p>The very first thing I did? I forgot to disable all the services that fight you for control of the adapter.<br>
+Result: Warnings everywhere, services kept messing with monitor mode.</p>
+<figure><a class="lightgallery" href="/images/airmon-ng.png" title="warnings everywhere" data-thumbnail="/images/airmon-ng.png" data-sub-html="<h2>When your OS says &ldquo;nah&rdquo;</h2>">
+        
+    </a><figcaption class="image-caption">When your OS says &ldquo;nah&rdquo;</figcaption>
+    </figure>
+<p>Once I figured that out, things finally started looking cool. My terminal was scrolling with access points like some cyberpunk movie scene.</p>
+<figure><a class="lightgallery" href="/images/airodump-ng.png" title="warnings everywhere" data-thumbnail="/images/airodump-ng.png" data-sub-html="<h2>Access point recon (cool hackery stuff)</h2>">
+        
+    </a><figcaption class="image-caption">Access point recon (cool hackery stuff)</figcaption>
+    </figure>
+<hr>
+<h2 id="the-why-is-nothing-happening-phase">The &ldquo;Why Is Nothing Happening?&rdquo; Phase</h2>
+<p>I locked onto my target, sat back, and… nothing. No handshake.</p>
+<p>Turns out, distance <em>does</em> matter. I was sitting too far from the router like some wannabe hacker in a corner. Moving closer fixed everything, and that glorious “Handshake captured!” message finally appeared.</p>
+<hr>
+<h2 id="the-brutal-reality-check">The Brutal Reality Check</h2>
+<p>Cracking it? Yeah, that part didn’t happen. My wordlist didn’t have the password (because of course it didn’t). Turns out a <a href="https://github.com/brannondorsey/naive-hashcat/releases/download/data/rockyou.txt" target="_blank" rel="noopener noreffer ">14 million password wordlist</a> doesn&rsquo;t contain the password from all over the universe. (because of course it doesn&rsquo;t).</p>
+<p>But honestly, just getting that handshake felt like a small win. I’d done the whole process myself and figured out where I’d gone wrong.</p>
+<hr>
+<h2 id="lessons-learned">Lessons Learned</h2>
+<ul>
+<li>The tools are just tools. Knowing how to troubleshoot when things fail is the real skill.</li>
+<li>Proximity is underrated. Sitting 10 feet further might be the difference between success and nothing happening.</li>
+<li>Wordlists are everything. A bad one means hours of wasted time.</li>
+<li>There are certainly <em>other methods</em> of &ldquo;getting passwords&rdquo; from your target other than using wordlists *wink* (will cover this in the future)</li>
+</ul>
+<hr>
+<h2 id="why-im-glad-i-did-it-manually">Why I’m Glad I Did It Manually</h2>
+<p>I could’ve just used <a href="https://github.com/v1s1t0r1sh3r3/airgeddon" target="_blank" rel="noopener noreffer "><strong>Airgeddon</strong></a> or some automated script, but figuring it out command by command taught me <em>why</em> things work, not just how to click buttons.</p>
+<p>Next up? I’ll see if I can get Airgeddon to make my life easier <em>without</em> making me lazy.</p>
+<hr>
+<a class="lightgallery" href="/images/hackerman.gif" title="Hackerman" data-thumbnail="/images/hackerman.gif">
+        
+    </a>
+<p>This wasn’t some cinematic “Hollywood hacking” moment. It was messy, frustrating, and way less glamorous than it looks online. But that’s what made it fun.</p>
+<p>The real flex isn’t showing commands – it’s showing that you understand <strong>what’s happening under the hood</strong> and can figure things out when they go wrong.</p>
+]]></description>
+</item>
+</channel>
 </rss>

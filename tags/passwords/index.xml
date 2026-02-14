@@ -1,19 +1,168 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>Passwords on Arsh Imtiaz</title>
-    <link>https://arshimtiaz.github.io/tags/passwords/</link>
-    <description>Recent content in Passwords on Arsh Imtiaz</description>
-    <generator>Hugo</generator>
-    <language>en</language>
-    <lastBuildDate>Fri, 05 Dec 2025 15:50:42 +0000</lastBuildDate>
-    <atom:link href="https://arshimtiaz.github.io/tags/passwords/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>Learning ML by Building a Tiny Password Strength Classifier</title>
-      <link>https://arshimtiaz.github.io/posts/my-first-ml-model/</link>
-      <pubDate>Wed, 19 Nov 2025 00:00:00 +0000</pubDate>
-      <guid>https://arshimtiaz.github.io/posts/my-first-ml-model/</guid>
-      <description>&lt;p&gt;I finally sat down and built a machine learning model in &lt;a href=&#34;https://jupyter.org/&#34; target=&#34;_blank&#34; rel=&#34;noopener noreffer &#34;&gt;&lt;strong&gt;Jupyter Notebook&lt;/strong&gt;&lt;/a&gt; that actually does something cybersecurity related. Not a big fancy neural network. Not a GPT clone. Just a tiny password strength classifier that helped me understand the full ML pipeline without frying my brain.&lt;/p&gt;&#xA;&lt;a class=&#34;lightgallery&#34; href=&#34;https://arshimtiaz.github.io/posts/my-first-ml-model/jupyter_password_ml.png&#34; title=&#34;Jupyter Notebook&#34; data-thumbnail=&#34;/posts/my-first-ml-model/jupyter_password_ml.png&#34;&gt;&#xA;        &lt;img&#xA;            class=&#34;lazyload&#34;&#xA;            src=&#34;https://arshimtiaz.github.io/svg/loading.min.svg&#34;&#xA;            data-src=&#34;https://arshimtiaz.github.io/posts/my-first-ml-model/jupyter_password_ml.png&#34;&#xA;            data-srcset=&#34;https://arshimtiaz.github.io/posts/my-first-ml-model/jupyter_password_ml.png, https://arshimtiaz.github.io/posts/my-first-ml-model/jupyter_password_ml.png 1.5x, https://arshimtiaz.github.io/posts/my-first-ml-model/jupyter_password_ml.png 2x&#34;&#xA;            data-sizes=&#34;auto&#34;&#xA;            alt=&#34;Jupyter Notebook&#34; /&gt;&#xA;    &lt;/a&gt;&#xA;&lt;p&gt;This whole thing started because I kept telling myself I would learn ML one day. And one day never comes when you wait for the perfect idea. So I forced myself to build something so stupid simple that I couldn&amp;rsquo;t run away from it.&lt;/p&gt;</description>
-    </item>
-  </channel>
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>Passwords - Tag - Arsh Imtiaz</title>
+        <link>https://arshimtiaz.github.io/tags/passwords/</link>
+        <description>Passwords - Tag - Arsh Imtiaz</description>
+        <generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Wed, 19 Nov 2025 00:00:00 &#43;0000</lastBuildDate><atom:link href="https://arshimtiaz.github.io/tags/passwords/" rel="self" type="application/rss+xml" /><item>
+    <title>Learning ML by Building a Tiny Password Strength Classifier</title>
+    <link>https://arshimtiaz.github.io/posts/learning-ml-by-building-a-tiny-password-strength-classifier/</link>
+    <pubDate>Wed, 19 Nov 2025 00:00:00 &#43;0000</pubDate>
+    <author>Arsh Imtiaz</author>
+    <guid>https://arshimtiaz.github.io/posts/learning-ml-by-building-a-tiny-password-strength-classifier/</guid>
+    <description><![CDATA[<p>I finally sat down and built a machine learning model in <a href="https://jupyter.org/" target="_blank" rel="noopener noreffer "><strong>Jupyter Notebook</strong></a> that actually does something cybersecurity related. Not a big fancy neural network. Not a GPT clone. Just a tiny password strength classifier that helped me understand the full ML pipeline without frying my brain.</p>
+<a class="lightgallery" href="/posts/my-first-ml-model/jupyter_password_ml.png" title="Jupyter Notebook" data-thumbnail="/posts/my-first-ml-model/jupyter_password_ml.png">
+        
+    </a>
+<p>This whole thing started because I kept telling myself I would learn ML one day. And one day never comes when you wait for the perfect idea. So I forced myself to build something so stupid simple that I couldn&rsquo;t run away from it.</p>
+<p>Turns out, that worked.</p>
+<hr>
+<h2 id="what-i-wanted-to-build">What I wanted to build</h2>
+<p>I wanted a model that takes a password and predicts whether it is strong or weak based on its structure. Nothing about leaks, entropy, breached databases or cracking times. Just pure structural features, built on Jupyter Notebook.</p>
+<a class="lightgallery" href="/posts/my-first-ml-model/empty_notebook.png" title="Empty Notebook" data-thumbnail="/posts/my-first-ml-model/empty_notebook.png">
+        
+    </a>
+<p>I kept it simple and picked four things to analyse:</p>
+<ul>
+<li>length</li>
+<li>uppercase letters</li>
+<li>digits</li>
+<li>symbols</li>
+</ul>
+<p>The idea was to convert each password into a set of <strong>numerical features</strong> like:</p>
+<p><code>length, has_uppercase, has_digit, has_symbol</code></p>
+<p>So a password like <code>Abc123!@</code> becomes something like <code>8, 1, 1, 1</code>.</p>
+<hr>
+<h2 id="creating-rules-that-didnt-fight-me">Creating rules that didn&rsquo;t fight me</h2>
+<p>This was the hardest part. Not the ML. Not the code. Just defining what I believe a strong password is.</p>
+<p>At first I made the rule way too strict and then changed it repeatedly. That made the dataset contradictory and the model learned nonsense. Eventually I locked in what actually made sense:</p>
+<ul>
+<li>Password must be at least 8 characters long</li>
+<li>And it must have at least 2 out of these 3:
+<ul>
+<li>uppercase</li>
+<li>digit</li>
+<li>symbol</li>
+</ul>
+</li>
+</ul>
+<p>So something short like <code>8B$</code> is weak even though it has good complexity. And something long like <code>averystrongpassword</code> is weak because it has no variety. Finally, the rules aligned with my intuition.</p>
+<hr>
+<h2 id="writing-the-labeler-function">Writing the labeler function</h2>
+<p>I wrote a tiny function that checks each password and turns it into a 0 or 1 based on the rules.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">is_strong</span><span class="p">(</span><span class="n">pw</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>  
+</span></span><span class="line"><span class="cl">	<span class="n">length_ok</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">pw</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="mi">8</span>  
+</span></span><span class="line"><span class="cl">	<span class="n">has_upper</span> <span class="o">=</span> <span class="nb">any</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">isupper</span><span class="p">()</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">pw</span><span class="p">)</span>  
+</span></span><span class="line"><span class="cl">	<span class="n">has_digit</span> <span class="o">=</span> <span class="nb">any</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">isdigit</span><span class="p">()</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">pw</span><span class="p">)</span>  
+</span></span><span class="line"><span class="cl">	<span class="n">has_symbol</span> <span class="o">=</span> <span class="nb">bool</span><span class="p">(</span><span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;[^A-Za-z0-9]&#39;</span><span class="p">,</span> <span class="n">pw</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">	
+</span></span><span class="line"><span class="cl">	<span class="k">if</span> <span class="ow">not</span> <span class="n">length_ok</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">	    <span class="k">return</span> <span class="mi">0</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="n">complexity_score</span> <span class="o">=</span> <span class="p">(</span>
+</span></span><span class="line"><span class="cl">	    <span class="nb">int</span><span class="p">(</span><span class="n">has_upper</span><span class="p">)</span> <span class="o">+</span>
+</span></span><span class="line"><span class="cl">	    <span class="nb">int</span><span class="p">(</span><span class="n">has_digit</span><span class="p">)</span> <span class="o">+</span>
+</span></span><span class="line"><span class="cl">	    <span class="nb">int</span><span class="p">(</span><span class="n">has_symbol</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">	<span class="p">)</span>
+</span></span><span class="line"><span class="cl">	
+</span></span><span class="line"><span class="cl">	<span class="k">return</span> <span class="nb">int</span><span class="p">(</span><span class="n">complexity_score</span> <span class="o">&gt;=</span> <span class="mi">2</span><span class="p">)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Once I had this, I relabeled my dataset and everything started behaving predictably.</p>
+<a class="lightgallery" href="/posts/my-first-ml-model/labeller.png" title="Labeller" data-thumbnail="/posts/my-first-ml-model/labeller.png">
+        
+    </a>
+<hr>
+<h2 id="turning-passwords-into-features">Turning passwords into features</h2>
+<p>My extractor function was tiny too:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">extract_features</span><span class="p">(</span><span class="n">pw</span><span class="p">):</span>  
+</span></span><span class="line"><span class="cl">	<span class="n">length</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">pw</span><span class="p">)</span>  
+</span></span><span class="line"><span class="cl">	<span class="n">has_upper</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="nb">any</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">isupper</span><span class="p">()</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">pw</span><span class="p">))</span>  
+</span></span><span class="line"><span class="cl">	<span class="n">has_digit</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="nb">any</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">isdigit</span><span class="p">()</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">pw</span><span class="p">))</span>  
+</span></span><span class="line"><span class="cl">	<span class="n">has_symbol</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="nb">bool</span><span class="p">(</span><span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;[^A-Za-z0-9]&#39;</span><span class="p">,</span> <span class="n">pw</span><span class="p">)))</span>  
+</span></span><span class="line"><span class="cl">	
+</span></span><span class="line"><span class="cl">	<span class="k">return</span> <span class="p">[</span><span class="n">length</span><span class="p">,</span> <span class="n">has_upper</span><span class="p">,</span> <span class="n">has_digit</span><span class="p">,</span> <span class="n">has_symbol</span><span class="p">]</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><a class="lightgallery" href="/posts/my-first-ml-model/extract_features.png" title="Extract Features" data-thumbnail="/posts/my-first-ml-model/extract_features.png">
+        
+    </a>
+<p>This gave me clean numerical data I could feed into scikit learn.</p>
+<h2 id="training-the-model">Training the model</h2>
+<p>After that, the ML part was almost boring. In a good way.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">model</span> <span class="o">=</span> <span class="n">LogisticRegression</span><span class="p">()</span>  
+</span></span><span class="line"><span class="cl"><span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>I evaluated it with <code>classification_report</code> and it performed exactly how you&rsquo;d expect on such a tiny dataset. Not perfect, but good enough to prove that:</p>
+<ul>
+<li>my labels made sense</li>
+<li>my features were consistent</li>
+<li>the model actually learned the pattern instead of memorising random junk</li>
+</ul>
+<a class="lightgallery" href="/posts/my-first-ml-model/training.png" title="Training" data-thumbnail="/posts/my-first-ml-model/training.png">
+        
+    </a>
+<h2 id="what-i-learned">What I learned</h2>
+<a class="lightgallery" href="/posts/my-first-ml-model/cat-soldier.gif" title="Me" data-thumbnail="/posts/my-first-ml-model/cat-soldier.gif">
+        
+    </a>
+<p>Honestly, the biggest lesson wasn&rsquo;t about ML. It was about myself.</p>
+<ul>
+<li>I overthink everything when I try to learn something new</li>
+<li>Simple models are the best place to start</li>
+<li>Jupyter notebooks make experimentation painless</li>
+<li>ML is not scary once you run a full cycle end to end</li>
+<li>A small dataset is actually a blessing when you&rsquo;re trying to understand the process</li>
+</ul>
+<p>This little password strength classifier is nowhere near real world use cases, but it taught me how ML actually works instead of how it works in theory.</p>
+<h2 id="whats-next">What&rsquo;s next</h2>
+<p>I might expand it with more features like:</p>
+<ul>
+<li>checking for dictionary words - because <a href="https://github.com/danielmiessler/SecLists" target="_blank" rel="noopener noreffer ">seclists</a> is very beefy</li>
+<li>repeated patterns</li>
+<li>keyboard adjacency</li>
+<li>entropy approximations</li>
+</ul>
+<p>But I&rsquo;ll do it one step at a time. The whole point of this exercise was to stop trying to build the final boss on day one.</p>
+<p>And honestly, making this tiny password checker did more for my ML understanding than any tutorial ever has.</p>
+]]></description>
+</item>
+</channel>
 </rss>

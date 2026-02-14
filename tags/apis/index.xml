@@ -1,19 +1,375 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>Apis on Arsh Imtiaz</title>
-    <link>https://arshimtiaz.github.io/tags/apis/</link>
-    <description>Recent content in Apis on Arsh Imtiaz</description>
-    <generator>Hugo</generator>
-    <language>en</language>
-    <lastBuildDate>Mon, 29 Dec 2025 00:00:00 +0000</lastBuildDate>
-    <atom:link href="https://arshimtiaz.github.io/tags/apis/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>The First Time It Finally Clicked</title>
-      <link>https://arshimtiaz.github.io/posts/ollama-api-integration/</link>
-      <pubDate>Mon, 29 Dec 2025 00:00:00 +0000</pubDate>
-      <guid>https://arshimtiaz.github.io/posts/ollama-api-integration/</guid>
-      <description>&lt;figure&gt;&lt;a class=&#34;lightgallery&#34; href=&#34;https://arshimtiaz.github.io/images/ai-integration-header.svg&#34; title=&#34;AI Integration&#34; data-thumbnail=&#34;/images/ai-integration-header.svg&#34; data-sub-html=&#34;&lt;h2&gt;Local model, real system, clean output.&lt;/h2&gt;&#34;&gt;&#xA;        &lt;img&#xA;            class=&#34;lazyload&#34;&#xA;            src=&#34;https://arshimtiaz.github.io/svg/loading.min.svg&#34;&#xA;            data-src=&#34;https://arshimtiaz.github.io/images/ai-integration-header.svg&#34;&#xA;            data-srcset=&#34;https://arshimtiaz.github.io/images/ai-integration-header.svg, https://arshimtiaz.github.io/images/ai-integration-header.svg 1.5x, https://arshimtiaz.github.io/images/ai-integration-header.svg 2x&#34;&#xA;            data-sizes=&#34;auto&#34;&#xA;            alt=&#34;AI Integration&#34; /&gt;&#xA;    &lt;/a&gt;&lt;figcaption class=&#34;image-caption&#34;&gt;Local model, real system, clean output.&lt;/figcaption&gt;&#xA;    &lt;/figure&gt;&#xA;&lt;h1 id=&#34;ollama--apis-my-first-real-ai-integration&#34;&gt;Ollama + APIs: My First Real AI Integration&lt;/h1&gt;&#xA;&lt;p&gt;I have used AI tools before. But this post is about the &lt;em&gt;first time I actually integrated AI&lt;/em&gt; into an app and felt the whole thing click.&lt;br&gt;&#xA;Not just &amp;ldquo;ask a model a question.&amp;rdquo; I mean an API that &lt;em&gt;uses&lt;/em&gt; a model and does something useful with it.&lt;/p&gt;</description>
-    </item>
-  </channel>
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>Apis - Tag - Arsh Imtiaz</title>
+        <link>https://arshimtiaz.github.io/tags/apis/</link>
+        <description>Apis - Tag - Arsh Imtiaz</description>
+        <generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Mon, 29 Dec 2025 00:00:00 &#43;0000</lastBuildDate><atom:link href="https://arshimtiaz.github.io/tags/apis/" rel="self" type="application/rss+xml" /><item>
+    <title>The First Time It Finally Clicked</title>
+    <link>https://arshimtiaz.github.io/posts/the-first-time-it-finally-clicked/</link>
+    <pubDate>Mon, 29 Dec 2025 00:00:00 &#43;0000</pubDate>
+    <author>Arsh Imtiaz</author>
+    <guid>https://arshimtiaz.github.io/posts/the-first-time-it-finally-clicked/</guid>
+    <description><![CDATA[<figure><a class="lightgallery" href="/images/ai-integration-header.svg" title="AI Integration" data-thumbnail="/images/ai-integration-header.svg" data-sub-html="<h2>Local model, real system, clean output.</h2>">
+        
+    </a><figcaption class="image-caption">Local model, real system, clean output.</figcaption>
+    </figure>
+<h1 id="ollama--apis-my-first-real-ai-integration">Ollama + APIs: My First Real AI Integration</h1>
+<p>I have used AI tools before. But this post is about the <em>first time I actually integrated AI</em> into an app and felt the whole thing click.<br>
+Not just &ldquo;ask a model a question.&rdquo; I mean an API that <em>uses</em> a model and does something useful with it.</p>
+<p>The two pieces that made it real for me:</p>
+<ul>
+<li><strong>Ollama</strong> for local models</li>
+<li><strong>APIs</strong> to make the AI actually useful inside a system</li>
+</ul>
+<p>This is not a step-by-step tutorial. It is a learning story, what worked, what broke, and how it finally came together.</p>
+<hr>
+<h2 id="why-ollama">Why Ollama?</h2>
+<p>I wanted something local, fast, and easy to swap models without rebuilding my entire app.</p>
+<p>Ollama gave me:</p>
+<ul>
+<li>Local inference without a monthly bill</li>
+<li>Simple model switching</li>
+<li>A clean REST API I could hit from anything</li>
+</ul>
+<p>Bonus: If you are already building tooling or demos, having the model local means you control latency, limits, and privacy.</p>
+<p>I know there are solid commercial options too: AWS Bedrock, Azure OpenAI, OpenAI&rsquo;s APIs, Anthropic, and more. Those are great when you need scale, managed infra, or compliance. I picked Ollama for this project because I wanted to learn the integration flow without burning credits, and I wanted full control over the models and the data path. Also because my GPU could actually run it without sounding like a jet engine (for once).</p>
+<div class="details admonition note open">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-pencil-alt fa-fw" aria-hidden="true"></i>Local vs Cloud<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content">Local is perfect for learning and fast iteration. Cloud is better when you need scale, uptime, or enterprise compliance.</div>
+        </div>
+    </div>
+<figure><a class="lightgallery" href="/images/local-vs-cloud.svg" title="Local vs cloud AI tradeoffs" data-thumbnail="/images/local-vs-cloud.svg" data-sub-html="<h2>Local keeps you fast and private. Cloud scales when you need it.</h2>">
+        
+    </a><figcaption class="image-caption">Local keeps you fast and private. Cloud scales when you need it.</figcaption>
+    </figure>
+<hr>
+<h2 id="the-mental-model-that-helped-me">The mental model that helped me</h2>
+<p>I stopped thinking &ldquo;chatbot.&rdquo;<br>
+I started thinking <strong>&ldquo;AI as a function in a system.&rdquo;</strong></p>
+<p>Your API takes inputs, runs logic, calls Ollama, and returns something useful.</p>
+<p>That is the entire loop.</p>
+<p>Here is a plain example that made it click for me:</p>
+<ul>
+<li>Input: raw log snippet + a short user question</li>
+<li>API: adds context (service name, environment, expected format)</li>
+<li>Output: a clean JSON response I can actually use in an app</li>
+</ul>
+<p>For example, instead of asking a vague question, I pass a tiny contract like this:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">Role: SOC analyst
+</span></span><span class="line"><span class="cl">Task: Summarize this alert and recommend next steps.
+</span></span><span class="line"><span class="cl">Constraints: No guessing. Use only the provided log.
+</span></span><span class="line"><span class="cl">Output: JSON with keys: summary, severity, next_steps
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Now I can plug the output into a UI, ticket, or report without manual cleanup.</p>
+<figure><a class="lightgallery" href="/images/ollama-api-flow.svg" title="Ollama &#43; API flow" data-thumbnail="/images/ollama-api-flow.svg" data-sub-html="<h2>Input in, logic in the middle, model on call, useful output out.</h2>">
+        
+    </a><figcaption class="image-caption">Input in, logic in the middle, model on call, useful output out.</figcaption>
+    </figure>
+<hr>
+<h2 id="minimal-setup-i-used">Minimal setup I used</h2>
+<ul>
+<li>Ollama running locally</li>
+<li>A tiny Python API</li>
+<li><code>requests</code> to call the model endpoint</li>
+<li>JSON response back to the client</li>
+</ul>
+<h3 id="start-ollama">Start Ollama</h3>
+<p>I run it as a systemd service instead of launching it manually.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo systemctl <span class="nb">enable</span> --now ollama
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Pull a model:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">ollama pull llama3
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Run a quick test:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">ollama run llama3
+</span></span></code></pre></td></tr></table>
+</div>
+</div><hr>
+<h2 id="the-api-call-this-is-the-moment-it-clicked">The API call (this is the moment it clicked)</h2>
+<p>Ollama exposes a simple API. You just POST a prompt.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">curl http://localhost:11434/api/generate -d <span class="s1">&#39;{
+</span></span></span><span class="line"><span class="cl"><span class="s1">  &#34;model&#34;: &#34;llama3&#34;,
+</span></span></span><span class="line"><span class="cl"><span class="s1">  &#34;prompt&#34;: &#34;Explain NAT like I am debugging a reverse shell.&#34;
+</span></span></span><span class="line"><span class="cl"><span class="s1">}&#39;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>It returns a stream of JSON. If you want a single response, add:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="line"><span class="cl"><span class="s2">&#34;stream&#34;</span><span class="err">:</span> <span class="kc">false</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><hr>
+<h2 id="my-tiny-python-api-trimmed-down">My tiny Python API (trimmed down)</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">flask</span> <span class="kn">import</span> <span class="n">Flask</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="n">jsonify</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">requests</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">app</span> <span class="o">=</span> <span class="n">Flask</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nd">@app.post</span><span class="p">(</span><span class="s2">&#34;/ask&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">ask</span><span class="p">():</span>
+</span></span><span class="line"><span class="cl">    <span class="n">payload</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">get_json</span><span class="p">(</span><span class="n">silent</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> <span class="ow">or</span> <span class="p">{}</span>
+</span></span><span class="line"><span class="cl">    <span class="n">prompt</span> <span class="o">=</span> <span class="n">payload</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&#34;prompt&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="ow">not</span> <span class="n">prompt</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">jsonify</span><span class="p">({</span><span class="s2">&#34;error&#34;</span><span class="p">:</span> <span class="s2">&#34;Missing prompt&#34;</span><span class="p">}),</span> <span class="mi">400</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">post</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">        <span class="s2">&#34;http://localhost:11434/api/generate&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="n">json</span><span class="o">=</span><span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="s2">&#34;model&#34;</span><span class="p">:</span> <span class="s2">&#34;llama3&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="s2">&#34;prompt&#34;</span><span class="p">:</span> <span class="n">prompt</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="s2">&#34;stream&#34;</span><span class="p">:</span> <span class="kc">False</span>
+</span></span><span class="line"><span class="cl">        <span class="p">},</span>
+</span></span><span class="line"><span class="cl">        <span class="n">timeout</span><span class="o">=</span><span class="mi">60</span>
+</span></span><span class="line"><span class="cl">    <span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">data</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">jsonify</span><span class="p">({</span><span class="s2">&#34;answer&#34;</span><span class="p">:</span> <span class="n">data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&#34;response&#34;</span><span class="p">,</span> <span class="s2">&#34;&#34;</span><span class="p">)})</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&#34;__main__&#34;</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="n">app</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">host</span><span class="o">=</span><span class="s2">&#34;0.0.0.0&#34;</span><span class="p">,</span> <span class="n">port</span><span class="o">=</span><span class="mi">3000</span><span class="p">,</span> <span class="n">debug</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Now you have a real API endpoint that uses AI.<br>
+No magic. Just a normal service that happens to be powered by a model.</p>
+<div class="details admonition tip open">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-lightbulb fa-fw" aria-hidden="true"></i>Shortcut<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content">For local experiments, go direct to the Ollama API and keep the app layer for when you need guardrails or multi-client access.</div>
+        </div>
+    </div>
+<hr>
+<h2 id="why-structure-matters">Why Structure Matters</h2>
+<figure><a class="lightgallery" href="/images/prompt-structure.svg" title="Prompt structure for reliable outputs" data-thumbnail="/images/prompt-structure.svg" data-sub-html="<h2>Clear roles, constraints, and formats turn raw model text into usable results.</h2>">
+        
+    </a><figcaption class="image-caption">Clear roles, constraints, and formats turn raw model text into usable results.</figcaption>
+    </figure>
+<p>Here is a quick before/after that shows why structure matters:</p>
+<p><strong>Before (messy):</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">Explain this log and tell me what to do.
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><strong>After (usable):</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">Role</span><span class="p">:</span><span class="w"> </span><span class="l">Incident responder</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">Task</span><span class="p">:</span><span class="w"> </span><span class="l">Summarize this log and list 3 next steps.</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">Constraints</span><span class="p">:</span><span class="w"> </span><span class="l">Keep it under 60 words.</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">Output: JSON keys</span><span class="p">:</span><span class="w"> </span><span class="l">summary, next_steps</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><hr>
+<h3 id="summary-example">Summary Example</h3>
+<p><strong>Input data (from your system):</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">2025-12-29T08:41:12Z web01 nginx[4132]</span><span class="p">:</span><span class="w"> </span><span class="m">192.0.2.14</span><span class="w"> </span>- - <span class="s2">&#34;POST /login HTTP/1.1&#34;</span><span class="w"> </span><span class="m">401</span><span class="w"> </span><span class="m">612</span><span class="w"> </span><span class="s2">&#34;-&#34;</span><span class="w"> </span><span class="s2">&#34;Mozilla/5.0&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">2025-12-29T08:41:18Z web01 nginx[4132]</span><span class="p">:</span><span class="w"> </span><span class="m">192.0.2.14</span><span class="w"> </span>- - <span class="s2">&#34;POST /login HTTP/1.1&#34;</span><span class="w"> </span><span class="m">401</span><span class="w"> </span><span class="m">612</span><span class="w"> </span><span class="s2">&#34;-&#34;</span><span class="w"> </span><span class="s2">&#34;Mozilla/5.0&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">2025-12-29T08:41:24Z web01 nginx[4132]</span><span class="p">:</span><span class="w"> </span><span class="m">192.0.2.14</span><span class="w"> </span>- - <span class="s2">&#34;POST /login HTTP/1.1&#34;</span><span class="w"> </span><span class="m">401</span><span class="w"> </span><span class="m">612</span><span class="w"> </span><span class="s2">&#34;-&#34;</span><span class="w"> </span><span class="s2">&#34;Mozilla/5.0&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">2025-12-29T08:41:31Z web01 nginx[4132]</span><span class="p">:</span><span class="w"> </span><span class="m">192.0.2.14</span><span class="w"> </span>- - <span class="s2">&#34;POST /login HTTP/1.1&#34;</span><span class="w"> </span><span class="m">401</span><span class="w"> </span><span class="m">612</span><span class="w"> </span><span class="s2">&#34;-&#34;</span><span class="w"> </span><span class="s2">&#34;Mozilla/5.0&#34;</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p><strong>Structured prompt you send to Ollama:</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">Role</span><span class="p">:</span><span class="w"> </span><span class="l">Security analyst</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">Task</span><span class="p">:</span><span class="w"> </span><span class="l">Summarize the activity and recommend next steps.</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">Context</span><span class="p">:</span><span class="w"> </span><span class="l">These are auth failures on a public web app.</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">Constraints</span><span class="p">:</span><span class="w"> </span><span class="kc">No</span><span class="w"> </span><span class="l">guessing. Use only the log lines. Keep it concise.</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">Output: JSON with keys</span><span class="p">:</span><span class="w"> </span><span class="l">summary, severity, indicators, next_steps</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">Logs</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="l">&lt;paste logs here&gt;</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p><strong>Why this works:</strong></p>
+<ul>
+<li>The role sets the tone (security analyst, not &ldquo;creative writer&rdquo;).</li>
+<li>The context removes ambiguity (auth failures on a public app).</li>
+<li>Constraints reduce hallucination (only log lines).</li>
+<li>The output contract makes the response machine-friendly.</li>
+</ul>
+<p><strong>Example response you can actually use:</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;summary&#34;</span><span class="p">:</span> <span class="s2">&#34;Four failed login attempts from 192.0.2.14 to /login within 20 seconds.&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;severity&#34;</span><span class="p">:</span> <span class="s2">&#34;low&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;indicators&#34;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&#34;192.0.2.14&#34;</span><span class="p">,</span> <span class="s2">&#34;/login&#34;</span><span class="p">,</span> <span class="s2">&#34;401&#34;</span><span class="p">],</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;next_steps&#34;</span><span class="p">:</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;Check if the IP repeats across other hosts or time windows.&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;Review account lockout policy for repeated failures.&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;Add the IP to a temporary watchlist if failures continue.&#34;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Now your API can return this JSON straight into a ticketing system, a dashboard, or a Slack alert without hand-editing.</p>
+<div class="details admonition tip open">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-lightbulb fa-fw" aria-hidden="true"></i>Related<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content">If you are into detection labs, my <a href="https://arshimtiaz.github.io/posts/wazuh-setup/" target="_blank" rel="noopener noreffer ">Wazuh post</a> might be a fun next read.</div>
+        </div>
+    </div>
+<hr>
+<h2 id="what-i-learned-the-hard-way">What I learned the hard way</h2>
+<ul>
+<li><strong>You need structure.</strong> Raw model text is messy. I started wrapping prompts with output requirements and it got way better.</li>
+<li><strong>Latency matters.</strong> Even local models can feel slow if you do not manage prompt size.</li>
+<li><strong>Security is still security.</strong> This is still an API. Validate inputs, rate limit, log requests.</li>
+</ul>
+<p>AI does not replace good engineering. It just adds a powerful function call in the middle.</p>
+<div class="details admonition warning open">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-exclamation-triangle fa-fw" aria-hidden="true"></i>Do not skip this<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content">If your prompt is vague, your output will be vague. Structure is the cheapest reliability upgrade you can make.</div>
+        </div>
+    </div>
+<hr>
+<h2 id="practical-use-cases-i-am-building-next">Practical use cases I am building next</h2>
+<ul>
+<li>Summarize logs into incident notes</li>
+<li>Auto-tag security alerts</li>
+<li>Generate draft incident reports</li>
+<li>Turn raw terminal output into explanations for non-technical teams</li>
+</ul>
+<p>These are not &ldquo;chatbot&rdquo; tasks. They are <em>workflow</em> tasks.</p>
+<hr>
+<h2 id="final-thoughts">Final thoughts</h2>
+<p>This was the first time I felt like AI was not a toy but a <strong>real system component</strong>.<br>
+Ollama made it local and easy. The API made it usable.</p>
+<p>If you are learning AI integration, my honest advice is:</p>
+<ul>
+<li>Build something small</li>
+<li>Make it usable</li>
+<li>Then make it smarter</li>
+</ul>
+<p>Because once AI becomes an API, you can wire it into anything.</p>
+<div class="details admonition success open">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-check-circle fa-fw" aria-hidden="true"></i>Takeaway<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content">Treat the model like a dependency, not a magic box. The more deliberate your inputs, the more usable your outputs.</div>
+        </div>
+    </div>
+<hr>
+<p>If you want to compare notes or want help debugging your integration, reach out. I am still learning too, and that is the fun part.</p>
+]]></description>
+</item>
+</channel>
 </rss>

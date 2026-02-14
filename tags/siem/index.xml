@@ -1,19 +1,246 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>SIEM on Arsh Imtiaz</title>
-    <link>https://arshimtiaz.github.io/tags/siem/</link>
-    <description>Recent content in SIEM on Arsh Imtiaz</description>
-    <generator>Hugo</generator>
-    <language>en</language>
-    <lastBuildDate>Sun, 10 Aug 2025 11:36:25 +0100</lastBuildDate>
-    <atom:link href="https://arshimtiaz.github.io/tags/siem/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>Docker to Detection: Setting Up Wazuh SIEM for Beginners</title>
-      <link>https://arshimtiaz.github.io/posts/wazuh-setup/</link>
-      <pubDate>Sat, 14 Jun 2025 00:00:00 +0100</pubDate>
-      <guid>https://arshimtiaz.github.io/posts/wazuh-setup/</guid>
-      <description>&lt;a class=&#34;lightgallery&#34; href=&#34;https://arshimtiaz.github.io/images/wazuh-header-image.jpg&#34; title=&#34;Wazuh&#34; data-thumbnail=&#34;/images/wazuh-header-image.jpg&#34;&gt;&#xA;        &lt;img&#xA;            class=&#34;lazyload&#34;&#xA;            src=&#34;https://arshimtiaz.github.io/svg/loading.min.svg&#34;&#xA;            data-src=&#34;https://arshimtiaz.github.io/images/wazuh-header-image.jpg&#34;&#xA;            data-srcset=&#34;https://arshimtiaz.github.io/images/wazuh-header-image.jpg, https://arshimtiaz.github.io/images/wazuh-header-image.jpg 1.5x, https://arshimtiaz.github.io/images/wazuh-header-image.jpg 2x&#34;&#xA;            data-sizes=&#34;auto&#34;&#xA;            alt=&#34;Wazuh&#34; /&gt;&#xA;    &lt;/a&gt;&#xA;&lt;p&gt;Setting up a SIEM (Security Information and Event Management) system might sound intimidating if you’re just getting started, but it’s a rewarding project that gives you real insight into how cybersecurity professionals monitor and detect threats. I recently built a Wazuh-based SIEM entirely with Docker and connected my personal Linux workstation as an agent. In this post, I’ll walk you through the process with practical commands for both Arch Linux and Debian users.&lt;/p&gt;</description>
-    </item>
-  </channel>
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>SIEM - Tag - Arsh Imtiaz</title>
+        <link>https://arshimtiaz.github.io/tags/siem/</link>
+        <description>SIEM - Tag - Arsh Imtiaz</description>
+        <generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Sat, 14 Jun 2025 00:00:00 &#43;0100</lastBuildDate><atom:link href="https://arshimtiaz.github.io/tags/siem/" rel="self" type="application/rss+xml" /><item>
+    <title>Docker to Detection: Setting Up Wazuh SIEM for Beginners</title>
+    <link>https://arshimtiaz.github.io/posts/docker-to-detection-setting-up-wazuh-siem-for-beginners/</link>
+    <pubDate>Sat, 14 Jun 2025 00:00:00 &#43;0100</pubDate>
+    <author>Arsh Imtiaz</author>
+    <guid>https://arshimtiaz.github.io/posts/docker-to-detection-setting-up-wazuh-siem-for-beginners/</guid>
+    <description><![CDATA[<a class="lightgallery" href="/images/wazuh-header-image.jpg" title="Wazuh" data-thumbnail="/images/wazuh-header-image.jpg">
+        
+    </a>
+<p>Setting up a SIEM (Security Information and Event Management) system might sound intimidating if you’re just getting started, but it’s a rewarding project that gives you real insight into how cybersecurity professionals monitor and detect threats. I recently built a Wazuh-based SIEM entirely with Docker and connected my personal Linux workstation as an agent. In this post, I’ll walk you through the process with practical commands for both Arch Linux and Debian users.</p>
+<hr>
+<blockquote>
+<p><strong>Wazuh</strong> started as a fork of OSSEC, one of the first open-source host-based intrusion detection systems, but has evolved into a full-blown security platform with log analysis, vulnerability detection, and compliance monitoring.</p>
+</blockquote>
+<hr>
+<h2 id="system-overview">System Overview</h2>
+<p>Here’s what I used:</p>
+<ul>
+<li>Host OS: Arch Linux (but I include Debian commands too, since many readers might be on either)</li>
+<li>Deployment method: Docker (because containers make complex stacks easier to manage)</li>
+<li>Architecture: Single-node setup running Manager, Indexer, and Dashboard on one machine</li>
+<li>Agent: My own Linux workstation</li>
+<li>Use case: Personal monitoring and vulnerability detection in a home lab</li>
+</ul>
+<hr>
+<h2 id="step-1-installing-docker-and-docker-compose">Step 1: Installing Docker and Docker Compose</h2>
+<p>Before we get started, make sure Docker is installed and running. If you don’t have it, here’s how:</p>
+<p><strong>On Arch Linux:</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo pacman -S docker docker-compose
+</span></span><span class="line"><span class="cl">sudo systemctl <span class="nb">enable</span> --now docker
+</span></span><span class="line"><span class="cl">sudo usermod -aG docker <span class="nv">$USER</span>
+</span></span><span class="line"><span class="cl">newgrp docker
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><strong>On Debian or Ubuntu:</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo apt update
+</span></span><span class="line"><span class="cl">sudo apt install docker.io docker-compose
+</span></span><span class="line"><span class="cl">sudo systemctl <span class="nb">enable</span> --now docker
+</span></span><span class="line"><span class="cl">sudo usermod -aG docker <span class="nv">$USER</span>
+</span></span><span class="line"><span class="cl">newgrp docker
+</span></span></code></pre></td></tr></table>
+</div>
+</div><hr>
+<blockquote>
+<p>Docker was originally released in 2013 and revolutionized how developers package and deploy applications. Today, it’s an essential tool in cybersecurity labs for simulating complex environments quickly.</p>
+</blockquote>
+<hr>
+<h2 id="step-2-cloning-the-wazuh-docker-repository">Step 2: Cloning the Wazuh Docker Repository</h2>
+<p>Wazuh maintains an official Docker repository with all the configurations needed for different deployments. Grab the single-node setup like this:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">git clone https://github.com/wazuh/wazuh-docker -b v4.12.0
+</span></span><span class="line"><span class="cl"><span class="nb">cd</span> wazuh-docker/single-node
+</span></span></code></pre></td></tr></table>
+</div>
+</div><hr>
+<h2 id="step-3-generating-ssl-certificates">Step 3: Generating SSL Certificates</h2>
+<p>To secure communication between the components, you’ll need to generate SSL certificates. First, create the directory:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">mkdir -p config/wazuh_indexer_ssl_certs/
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Next, create the configuration files. Here’s the <strong>config/certs.yml</strong> file content:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">nodes</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">wazuh.indexer</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l">indexer</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">wazuh.manager</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l">manager</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">wazuh.dashboard</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l">dashboard</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>And the <strong>generate-indexer-certs.yml</strong> file:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">version</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;3.3&#39;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">services</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">generator</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l">wazuh/wazuh-certs-generator:0.0.2</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">hostname</span><span class="p">:</span><span class="w"> </span><span class="l">wazuh-certs-generator</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">volumes</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="l">./config/wazuh_indexer_ssl_certs/:/certificates/</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="l">./config/certs.yml:/config/certs.yml</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>Then run:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">docker-compose -f generate-indexer-certs.yml run --rm generator
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>If you get errors about overwriting files, just clear the folder and try again:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">rm -rf config/wazuh_indexer_ssl_certs/*
+</span></span><span class="line"><span class="cl">docker-compose -f generate-indexer-certs.yml run --rm generator
+</span></span></code></pre></td></tr></table>
+</div>
+</div><hr>
+<h2 id="step-4-starting-the-wazuh-stack">Step 4: Starting the Wazuh Stack</h2>
+<p>With everything set, launch the whole Wazuh environment:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">docker-compose up -d
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>This will bring up the manager, indexer, and dashboard.</p>
+<hr>
+<h2 id="step-5-accessing-the-web-dashboard">Step 5: Accessing the Web Dashboard</h2>
+<p>Open your browser and head to:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">https://&lt;your-server-ip&gt;
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>This would be localhost if you&rsquo;re setting it up locally.</p>
+<hr>
+<p>The default login credentials are:</p>
+<ul>
+<li>Username: <code>admin</code></li>
+<li>Password: <code>SecretPassword</code> (or check the <code>.env</code> file in the repo)</li>
+</ul>
+<p>Expect a warning about the self-signed certificate. This is normal. You can safely proceed for now.</p>
+<hr>
+<h2 id="adding-your-own-machine-as-an-agent">Adding Your Own Machine as an Agent</h2>
+<p>Wazuh’s strength lies in monitoring endpoints. I connected my Arch Linux workstation as an agent, but these steps work the same on Debian.</p>
+<h3 id="download-and-install-the-agent">Download and install the agent:</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">curl -sO https://packages.wazuh.com/4.12/wazuh-agent-4.12.0-linux-x86_64.tar.gz
+</span></span><span class="line"><span class="cl">tar -xvzf wazuh-agent-4.12.0-linux-x86_64.tar.gz
+</span></span><span class="line"><span class="cl"><span class="nb">cd</span> wazuh-agent-4.12.0
+</span></span><span class="line"><span class="cl">sudo ./install.sh
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="register-the-agent-with-the-manager">Register the agent with the manager:</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo /var/ossec/bin/agent-auth -m &lt;wazuh-manager-ip&gt;
+</span></span><span class="line"><span class="cl">sudo systemctl <span class="nb">enable</span> --now wazuh-agent
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>After a short while, your agent will show up in the dashboard, forwarding logs and security events.</p>
+<hr>
+<blockquote>
+<p>The first version of Wazuh was released in 2015, and it has since become one of the most widely used open-source security platforms worldwide.</p>
+</blockquote>
+<p><strong>You&rsquo;re now done!</strong> You should be able to explore the dashboard and learn all the features Wazuh has to offer.</p>
+<hr>
+<h2 id="real-world-detection-cve-2025-4598">Real-World Detection: CVE-2025-4598</h2>
+<p>Shortly after getting everything running, Wazuh’s Vulnerability Detector flagged a real systemd vulnerability on my machine (CVE-2025-4598). This was a practical example of how such tools help spot risks before attackers do.</p>
+<p><em>Don’t worry, I patched it right away. Wouldn’t want to make it too easy for you hackers, right?</em></p>
+<hr>
+<h2 id="why-this-matters">Why This Matters</h2>
+<p>Setting this up wasn’t just an academic exercise. I now have a hands-on understanding of log collection, normalization, and alerting. In fields like automotive cybersecurity, knowing what’s happening on endpoints and spotting anomalies early is crucial—and this kind of setup lets you practice those skills.</p>
+<hr>
+<h2 id="whats-next">What’s Next?</h2>
+<p>Here are some things you can try for yourself now that you&rsquo;ve got the hang of setting it up:</p>
+<ul>
+<li>Crafting custom detection rules tailored to your environment</li>
+<li>Simulating attacks to validate your alerts</li>
+<li>Adding Windows or other OS agents</li>
+<li>Expanding to multi-node deployments for scalability</li>
+</ul>
+<hr>
+<h2 id="final-thoughts">Final Thoughts</h2>
+<p>Wazuh is a fantastic project for anyone looking to deepen their cybersecurity skills. Using Docker simplifies the setup, and the dashboard delivers meaningful insights out of the box. Whether you’re a beginner or an experienced professional, experimenting with Wazuh builds a solid foundation for real-world security monitoring.</p>
+<p>Thanks for reading! Feel free to reach out if you want to discuss or share your own setups.</p>
+]]></description>
+</item>
+</channel>
 </rss>
