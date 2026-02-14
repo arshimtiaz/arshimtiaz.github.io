@@ -9,7 +9,7 @@
     <pubDate>Sat, 14 Feb 2026 02:05:32 &#43;0000</pubDate>
     <author>Arsh Imtiaz</author>
     <guid>https://arshimtiaz.github.io/posts/breaking-access-control-safely-building-a-transaction-system-attack-lab/</guid>
-    <description><![CDATA[<figure><a class="lightgallery" href="assets/transaction_lab_header.png" title="Transaction System Attack Lab" data-thumbnail="assets/transaction_lab_header.png" data-sub-html="<h2>Modelling broken access control in a small transaction system</h2>">
+    <description><![CDATA[<figure><a class="lightgallery" href="./transaction_lab_header.svg" title="Transaction System Attack Lab" data-thumbnail="./transaction_lab_header.svg" data-sub-html="<h2>Modelling broken access control in a small transaction system</h2>">
         
     </a><figcaption class="image-caption">Modelling broken access control in a small transaction system</figcaption>
     </figure>
@@ -168,7 +168,7 @@
 </ul>
 </li>
 </ol>
-<a class="lightgallery" href="/diagrams/attack-path-01.png" title="Attack Path 01 – Broken access control on accounts" data-thumbnail="/diagrams/attack-path-01.png">
+<a class="lightgallery" href="/images/attack-path-01.png" title="Attack Path 01 – Broken access control on accounts" data-thumbnail="/images/attack-path-01.png">
         
     </a>
 <hr>
