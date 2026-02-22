@@ -1,101 +1,112 @@
-<svg xmlns="http://www.w3.org/2000/svg" style="background:#0b1020" width="900" height="420" viewBox="0 0 900 420" role="img" aria-labelledby="title desc">
-  <title id="title">LLM Agent Skill Supply Chain Architecture</title>
-  <desc id="desc">Diagram showing user, agent, skills, local resources and attacker-controlled endpoint, highlighting the malicious skill path.</desc>
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="420" viewBox="0 0 1200 420" role="img" aria-label="LLM agent skill supply chain" style="background:#0b1020">
   <defs>
-    <linearGradient id="gradTrusted" x1="0" x2="1" y1="0" y2="1">
-      <stop offset="0%" stop-color="#1d3557"/>
-      <stop offset="100%" stop-color="#457b9d"/>
+    <linearGradient id="panel" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0ea5e9" stop-opacity="0.18"/>
+      <stop offset="100%" stop-color="#22c55e" stop-opacity="0.18"/>
     </linearGradient>
-    <linearGradient id="gradSkill" x1="0" x2="1" y1="0" y2="1">
-      <stop offset="0%" stop-color="#264653"/>
-      <stop offset="100%" stop-color="#2a9d8f"/>
+    <linearGradient id="trusted" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0f766e"/>
+      <stop offset="100%" stop-color="#22c55e"/>
     </linearGradient>
-    <linearGradient id="gradMalicious" x1="0" x2="1" y1="0" y2="1">
-      <stop offset="0%" stop-color="#9b2226"/>
-      <stop offset="100%" stop-color="#e63946"/>
+    <linearGradient id="agent" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#1d4ed8"/>
+      <stop offset="100%" stop-color="#22c55e"/>
+    </linearGradient>
+    <linearGradient id="malicious" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#b91c1c"/>
+      <stop offset="100%" stop-color="#f97373"/>
     </linearGradient>
     <style>
-      .box { rx: 10; ry: 10; stroke: #111827; stroke-width: 1.2; }
-      .label { font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; font-size: 13px; fill: #111827; }
-      .label-small { font-size: 11px; fill: #374151; }
-      .title { font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; font-size: 18px; font-weight: 600; fill: #111827; }
-      .subtitle { font-size: 12px; fill: #4b5563; }
-      .arrow { stroke-width: 1.6; marker-end: url(#arrowHead); }
+      .mono { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace; }
+      .title { font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; fill:#e2e8f0; font-size:24px; font-weight:600; }
+      .subtitle { font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; fill:#94a3b8; font-size:14px; }
+      .label { font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; fill:#e2e8f0; font-size:14px; font-weight:500; }
+      .small { font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; fill:#9ca3af; font-size:12px; }
+      .panel-outline { stroke:#1f2937; stroke-width:1.2; }
     </style>
-    <marker id="arrowHead" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M 0 0 L 10 5 L 0 10 z" fill="#4b5563" />
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#38bdf8" />
+    </marker>
+    <marker id="arrow-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#f97373" />
     </marker>
   </defs>
 
   <!-- Title -->
-  <text x="30" y="32" class="title">LLM Agent Skill Supply Chain</text>
-  <text x="30" y="52" class="subtitle">Malicious skills sit between the agent and your local resources</text>
+  <text x="70" y="60" class="title">LLM Agent Skill Supply Chain</text>
+  <text x="70" y="84" class="subtitle">Malicious skills hide between the agent and your local resources.</text>
 
-  <!-- User -->
-  <rect x="40" y="90" width="120" height="70" class="box" fill="#1f2933" />
-  <text x="100" y="120" text-anchor="middle" class="label">Developer</text>
-  <text x="100" y="140" text-anchor="middle" class="label-small">Prompts / questions</text>
+  <!-- Main panels background -->
+  <g class="panel-outline">
+    <rect x="60" y="120" width="260" height="190" rx="18" fill="url(#panel)" />
+    <rect x="360" y="120" width="260" height="190" rx="18" fill="url(#panel)" />
+    <rect x="660" y="120" width="220" height="190" rx="18" fill="url(#panel)" />
+    <rect x="920" y="170" width="210" height="140" rx="18" fill="#111827" />
+  </g>
 
-  <!-- Agent core -->
-  <rect x="210" y="80" width="170" height="90" class="box" fill="url(#gradTrusted)" />
-  <text x="295" y="115" text-anchor="middle" class="label" fill="#0b1020">LLM Agent</text>
-  <text x="295" y="135" text-anchor="middle" class="label-small" fill="#1f2933">planning, tool selection, memory</text>
+  <!-- Developer -->
+  <rect x="80" y="150" width="140" height="70" rx="12" fill="#020617" stroke="#1e293b" stroke-width="1" />
+  <text x="150" y="175" text-anchor="middle" class="label">Developer</text>
+  <text x="150" y="195" text-anchor="middle" class="small">prompts / questions</text>
 
-  <!-- Tools / Skills group -->
-  <rect x="420" y="60" width="190" height="130" class="box" fill="#f3f4f6" />
-  <text x="515" y="85" text-anchor="middle" class="label">Skills / Tools</text>
+  <!-- Agent -->
+  <rect x="215" y="150" width="180" height="120" rx="14" fill="url(#agent)" stroke="#1e293b" stroke-width="1" />
+  <text x="305" y="180" text-anchor="middle" class="label">LLM Agent</text>
+  <text x="305" y="200" text-anchor="middle" class="small">planning, tool selection, memory</text>
+
+  <!-- Skills panel label -->
+  <text x="490" y="145" text-anchor="middle" class="label">Skills / Tools</text>
 
   <!-- Legit skill -->
-  <rect x="435" y="100" width="160" height="34" class="box" fill="url(#gradSkill)" />
-  <text x="515" y="121" text-anchor="middle" class="label" fill="#0b1020">Legitimate code search</text>
+  <rect x="380" y="165" width="220" height="55" rx="10" fill="url(#trusted)" stroke="#0f766e" stroke-width="1" />
+  <text x="490" y="195" text-anchor="middle" class="label">Legitimate code search</text>
+  <text x="490" y="212" text-anchor="middle" class="small">expected behavior: scoped search</text>
 
   <!-- Malicious skill -->
-  <rect x="435" y="142" width="160" height="34" class="box" fill="url(#gradMalicious)" />
-  <text x="515" y="162" text-anchor="middle" class="label" fill="#0b1020">Malicious code search (trojan)</text>
+  <rect x="380" y="235" width="220" height="55" rx="10" fill="url(#malicious)" stroke="#b91c1c" stroke-width="1" />
+  <text x="490" y="262" text-anchor="middle" class="label">Malicious code search (trojan)</text>
+  <text x="490" y="279" text-anchor="middle" class="small">hidden behavior: repo scan + exfil</text>
 
   <!-- Local resources -->
-  <rect x="650" y="80" width="200" height="80" class="box" fill="#d1fae5" />
-  <text x="750" y="108" text-anchor="middle" class="label">Local resources</text>
-  <text x="750" y="128" text-anchor="middle" class="label-small">codebase, configs, secrets, docs</text>
+  <rect x="680" y="150" width="190" height="80" rx="12" fill="#022c22" stroke="#059669" stroke-width="1" />
+  <text x="775" y="178" text-anchor="middle" class="label">Local resources</text>
+  <text x="775" y="196" text-anchor="middle" class="small">codebase, configs, secrets, docs</text>
 
-  <!-- Attacker endpoint -->
-  <rect x="680" y="190" width="170" height="70" class="box" fill="#fee2e2" />
-  <text x="765" y="218" text-anchor="middle" class="label">Attacker-controlled API</text>
-  <text x="765" y="238" text-anchor="middle" class="label-small">exfil server on the Internet</text>
+  <!-- Attacker -->
+  <rect x="940" y="190" width="180" height="90" rx="12" fill="#450a0a" stroke="#f97373" stroke-width="1" />
+  <text x="1030" y="215" text-anchor="middle" class="label">Attacker-controlled API</text>
+  <text x="1030" y="235" text-anchor="middle" class="small">exfil / C2 server on the Internet</text>
 
-  <!-- Arrows -->
-  <!-- User -> Agent -->
-  <line x1="160" y1="125" x2="210" y2="125" class="arrow" stroke="#4b5563" />
+  <!-- Arrows: user -> agent -> skills -->
+  <line x1="220" y1="185" x2="215" y2="185" stroke="#38bdf8" stroke-width="2" marker-end="url(#arrow)" />
+  <line x1="395" y1="192" x2="380" y2="192" stroke="#38bdf8" stroke-width="2" marker-end="url(#arrow)" />
+  <line x1="395" y1="262" x2="380" y2="262" stroke="#38bdf8" stroke-width="2" marker-end="url(#arrow)" />
 
-  <!-- Agent -> Skills -->
-  <line x1="380" y1="110" x2="420" y2="110" class="arrow" stroke="#4b5563" />
-  <line x1="380" y1="150" x2="420" y2="150" class="arrow" stroke="#4b5563" />
+  <!-- Arrows: legit skill <-> local resources -->
+  <line x1="600" y1="192" x2="680" y2="192" stroke="#22c55e" stroke-width="2" marker-end="url(#arrow)" />
+  <text x="640" y="185" text-anchor="middle" class="small" fill="#4ade80">intended code search</text>
 
-  <!-- Skills -> Local resources (legit) -->
-  <line x1="595" y1="117" x2="650" y2="117" class="arrow" stroke="#10b981" />
-  <text x="622" y="110" text-anchor="middle" class="label-small" fill="#059669">code search</text>
+  <!-- Arrows: malicious skill -> local resources -->
+  <line x1="600" y1="262" x2="680" y2="262" stroke="#f97373" stroke-width="2" marker-end="url(#arrow-red)" />
+  <text x="640" y="255" text-anchor="middle" class="small" fill="#fecaca">wide repo scan</text>
 
-  <!-- Malicious skill -> Local resources -->
-  <line x1="595" y1="159" x2="650" y2="159" class="arrow" stroke="#ef4444" />
-  <text x="622" y="176" text-anchor="middle" class="label-small" fill="#b91c1c">wide repo scan</text>
-
-  <!-- Malicious skill -> Attacker -->
-  <path d="M595 159 C 640 210 650 210 680 225" fill="none" stroke="#b91c1c" class="arrow" />
-  <text x="640" y="210" class="label-small" fill="#b91c1c">silent HTTPS exfil</text>
+  <!-- Arrow: malicious skill -> attacker -->
+  <path d="M600 262 C 720 320 840 320 940 240" fill="none" stroke="#f97373" stroke-width="2" marker-end="url(#arrow-red)" />
+  <text x="780" y="315" text-anchor="middle" class="small" fill="#fecaca">silent HTTPS exfil</text>
 
   <!-- Legend -->
-  <rect x="40" y="290" width="820" height="100" rx="12" ry="12" fill="#0b1020" stroke="#e5e7eb" />
-  <text x="60" y="312" class="label">Legend</text>
+  <rect x="70" y="340" width="1060" height="60" rx="14" fill="#020617" stroke="#1f2937" stroke-width="1" />
+  <text x="90" y="360" class="small" fill="#9ca3af">Legend</text>
 
-  <rect x="60" y="325" width="18" height="12" class="box" fill="url(#gradSkill)" />
-  <text x="86" y="335" class="label-small">Trusted / benign skill</text>
+  <rect x="90" y="370" width="16" height="10" rx="3" fill="url(#trusted)" stroke="#0f766e" stroke-width="0.8" />
+  <text x="115" y="378" class="small">Trusted / benign skill</text>
 
-  <rect x="250" y="325" width="18" height="12" class="box" fill="url(#gradMalicious)" />
-  <text x="276" y="335" class="label-small">Malicious or compromised skill</text>
+  <rect x="290" y="370" width="16" height="10" rx="3" fill="url(#malicious)" stroke="#b91c1c" stroke-width="0.8" />
+  <text x="315" y="378" class="small">Malicious or compromised skill</text>
 
-  <line x1="60" y1="355" x2="90" y2="355" stroke="#10b981" stroke-width="2" marker-end="url(#arrowHead)" />
-  <text x="100" y="359" class="label-small">Intended data flow</text>
+  <line x1="520" y1="375" x2="550" y2="375" stroke="#22c55e" stroke-width="2" marker-end="url(#arrow)" />
+  <text x="560" y="378" class="small">Intended data flow</text>
 
-  <line x1="250" y1="355" x2="280" y2="355" stroke="#ef4444" stroke-width="2" marker-end="url(#arrowHead)" />
-  <text x="290" y="359" class="label-small">Silent exfiltration path</text>
+  <line x1="740" y1="375" x2="770" y2="375" stroke="#f97373" stroke-width="2" marker-end="url(#arrow-red)" />
+  <text x="780" y="378" class="small">Silent exfiltration path</text>
 </svg>
