@@ -1,615 +1,22 @@
 <rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
     <channel>
         <title>All Posts - Arsh Imtiaz</title>
-        <link>http://0.0.0.0:1313/posts/</link>
+        <link>https://arshimtiaz.github.io/posts/</link>
         <description>All Posts | Arsh Imtiaz</description>
-        <generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Sat, 14 Feb 2026 02:05:32 &#43;0000</lastBuildDate><atom:link href="http://0.0.0.0:1313/posts/" rel="self" type="application/rss+xml" /><item>
-    <title>Breaking Access Control Safely: Building a Transaction System Attack Lab</title>
-    <link>http://0.0.0.0:1313/posts/breaking-access-control-safely-building-a-transaction-system-attack-lab/</link>
-    <pubDate>Sat, 14 Feb 2026 02:05:32 &#43;0000</pubDate>
-    <author>Arsh Imtiaz</author>
-    <guid>http://0.0.0.0:1313/posts/breaking-access-control-safely-building-a-transaction-system-attack-lab/</guid>
-    <description><![CDATA[<figure><a class="lightgallery" href="./transaction_lab_header.svg" title="Transaction System Attack Lab" data-thumbnail="./transaction_lab_header.svg" data-sub-html="<h2>Modelling broken access control in a small transaction system</h2>">
-        
-    </a><figcaption class="image-caption">Modelling broken access control in a small transaction system</figcaption>
-    </figure>
-<h1 id="why-build-another-lab">Why build another lab?</h1>
-<p>Broken access control (especially IDOR-style issues) keeps showing up in real systems – often in places that look &ldquo;boring&rdquo; on the surface: balance checks, transaction history, admin tools, internal APIs.</p>
-<p>I wanted a small, opinionated lab that behaves more like the systems I see in the real world than a typical CTF challenge. Something I could:</p>
-<ul>
-<li>use to explain attack paths to engineers,</li>
-<li>talk through in interviews without referencing client work,</li>
-<li>and extend over time with new scenarios.</li>
-</ul>
-<p>So I built a <strong>Transaction System Attack Lab</strong> – a tiny, multi-service platform that exposes a very real class of bug: object-level authorization failures on account data.</p>
-<hr>
-<h2 id="high-level-idea">High-level idea</h2>
-<p>Instead of a single monolith, the lab is split into three FastAPI services:</p>
-<ul>
-<li><strong>auth-service</strong> – issues JWTs with <code>sub = user_id</code> and a simple <code>role</code>.</li>
-<li><strong>accounts-service</strong> – exposes <code>GET /accounts/{id}/balance</code> and <code>POST /accounts/transfer</code>.</li>
-<li><strong>audit-service</strong> – receives security/audit events (designed to talk about logging and detection).</li>
-</ul>
-<a class="lightgallery" href="/images/architecture.png" title="Transaction System Attack Lab architecture" data-thumbnail="/images/architecture.png">
-        
-    </a>
-<p>The interesting bit is not the framework – it&rsquo;s the <strong>trust boundaries</strong>:</p>
-<ul>
-<li>Client ↔ auth-service (where identity is established)</li>
-<li>auth-service ↔ accounts-service (where identity is consumed)</li>
-<li>accounts-service ↔ audit-service (where we decide what to log and how).</li>
-</ul>
-<hr>
-<h2 id="the-vulnerable-pattern-idor--broken-access-control">The vulnerable pattern (IDOR / broken access control)</h2>
-<p>The core bug I wanted to model is very simple:</p>
-<blockquote>
-<p>The API lets you reference an account by ID, but never checks whether that account actually belongs to you.</p>
-</blockquote>
-<p>In the lab, accounts are stored like this:</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">ACCOUNTS</span> <span class="o">=</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="mi">2001</span><span class="p">:</span> <span class="n">Account</span><span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="mi">2001</span><span class="p">,</span> <span class="n">owner_user_id</span><span class="o">=</span><span class="mi">1001</span><span class="p">,</span> <span class="n">balance</span><span class="o">=</span><span class="mf">1000.0</span><span class="p">),</span>
-</span></span><span class="line"><span class="cl">    <span class="mi">2002</span><span class="p">:</span> <span class="n">Account</span><span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="mi">2002</span><span class="p">,</span> <span class="n">owner_user_id</span><span class="o">=</span><span class="mi">1002</span><span class="p">,</span> <span class="n">balance</span><span class="o">=</span><span class="mf">500.0</span><span class="p">),</span>
-</span></span><span class="line"><span class="cl">    <span class="mi">2003</span><span class="p">:</span> <span class="n">Account</span><span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="mi">2003</span><span class="p">,</span> <span class="n">owner_user_id</span><span class="o">=</span><span class="mi">1002</span><span class="p">,</span> <span class="n">balance</span><span class="o">=</span><span class="mf">2500.0</span><span class="p">),</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span></code></pre></td></tr></table>
-</div>
-</div><p>The vulnerable endpoint looks up the account by ID and returns it:</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="nd">@app.get</span><span class="p">(</span><span class="s2">&#34;/accounts/</span><span class="si">{account_id}</span><span class="s2">/balance&#34;</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl"><span class="k">async</span> <span class="k">def</span> <span class="nf">get_balance</span><span class="p">(</span><span class="n">account_id</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">token</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="n">Depends</span><span class="p">(</span><span class="n">decode_token</span><span class="p">)):</span>
-</span></span><span class="line"><span class="cl">    <span class="n">acct</span> <span class="o">=</span> <span class="n">ACCOUNTS</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">account_id</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="ow">not</span> <span class="n">acct</span><span class="p">:</span>
-</span></span><span class="line"><span class="cl">        <span class="k">raise</span> <span class="n">HTTPException</span><span class="p">(</span><span class="n">status_code</span><span class="o">=</span><span class="mi">404</span><span class="p">,</span> <span class="n">detail</span><span class="o">=</span><span class="s2">&#34;Account not found&#34;</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">    <span class="c1"># Deliberately missing ownership check</span>
-</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">        <span class="s2">&#34;account_id&#34;</span><span class="p">:</span> <span class="n">acct</span><span class="o">.</span><span class="n">id</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">        <span class="s2">&#34;owner_user_id&#34;</span><span class="p">:</span> <span class="n">acct</span><span class="o">.</span><span class="n">owner_user_id</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">        <span class="s2">&#34;balance&#34;</span><span class="p">:</span> <span class="n">acct</span><span class="o">.</span><span class="n">balance</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">    <span class="p">}</span>
-</span></span></code></pre></td></tr></table>
-</div>
-</div><p>The token already tells us who the caller is (<code>token[&quot;sub&quot;]</code>), but the handler never uses it.</p>
-<p>This is the essence of an IDOR-style bug: <strong>the application trusts an object identifier without enforcing object-level authorization</strong>.</p>
-<hr>
-<h2 id="walking-attack-path-01">Walking Attack Path 01</h2>
-<p>The first documented scenario is in the repo as:</p>
-<ul>
-<li><code>docs/attack-path-01-idor-broken-access-control.md</code></li>
-</ul>
-<p>The flow is intentionally close to how a real test would look:</p>
-<ol>
-<li>
-<p><strong>Login as a normal user</strong></p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">curl -s -X POST http://localhost:8001/login <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>  -H <span class="s2">&#34;Content-Type: application/json&#34;</span> <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>  -d <span class="s1">&#39;{&#34;username&#34;: &#34;alice&#34;, &#34;password&#34;: &#34;password123&#34;}&#39;</span> <span class="p">|</span> jq
-</span></span></code></pre></td></tr></table>
-</div>
-</div></li>
-<li>
-<p><strong>Confirm your own account works</strong></p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="nv">TOKEN</span><span class="o">=</span><span class="s2">&#34;&lt;paste the access_token&gt;&#34;</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">curl -s http://localhost:8002/accounts/2001/balance <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>  -H <span class="s2">&#34;Authorization: Bearer </span><span class="nv">$TOKEN</span><span class="s2">&#34;</span> <span class="p">|</span> jq
-</span></span></code></pre></td></tr></table>
-</div>
-</div></li>
-<li>
-<p><strong>Probe other IDs</strong></p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">curl -s http://localhost:8002/accounts/2002/balance <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>  -H <span class="s2">&#34;Authorization: Bearer </span><span class="nv">$TOKEN</span><span class="s2">&#34;</span> <span class="p">|</span> jq
-</span></span></code></pre></td></tr></table>
-</div>
-</div><p>Even though Alice owns account <code>2001</code>, she can read balances for <code>2002</code> and <code>2003</code>, which belong to a different user.</p>
-</li>
-<li>
-<p><strong>Automate the search</strong></p>
-<p>To make it feel more like a real engagement, I wired a small helper script:</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">./scripts/exploit/idor_enumeration.py --start <span class="m">2000</span> --end <span class="m">2010</span>
-</span></span></code></pre></td></tr></table>
-</div>
-</div><p>Under the hood it:</p>
-<ul>
-<li>logs in to auth-service to get a JWT,</li>
-<li>loops over account IDs,</li>
-<li>prints <code>[HIT]</code> when the API leaks data.</li>
-</ul>
-</li>
-</ol>
-<a class="lightgallery" href="/images/attack-path-01.png" title="Attack Path 01 – Broken access control on accounts" data-thumbnail="/images/attack-path-01.png">
-        
-    </a>
-<hr>
-<h2 id="fixing-it-and-why-it-matters">Fixing it (and why it matters)</h2>
-<p>The fix is deliberately boring, because that&rsquo;s what most real security fixes look like:</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">caller_user_id</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">token</span><span class="p">[</span><span class="s2">&#34;sub&#34;</span><span class="p">])</span>
-</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="n">acct</span><span class="o">.</span><span class="n">owner_user_id</span> <span class="o">!=</span> <span class="n">caller_user_id</span> <span class="ow">and</span> <span class="n">token</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&#34;role&#34;</span><span class="p">)</span> <span class="o">!=</span> <span class="s2">&#34;admin&#34;</span><span class="p">:</span>
-</span></span><span class="line"><span class="cl">    <span class="k">raise</span> <span class="n">HTTPException</span><span class="p">(</span><span class="n">status_code</span><span class="o">=</span><span class="mi">403</span><span class="p">,</span> <span class="n">detail</span><span class="o">=</span><span class="s2">&#34;Forbidden&#34;</span><span class="p">)</span>
-</span></span></code></pre></td></tr></table>
-</div>
-</div><p>The important part is the <strong>thinking</strong> around it:</p>
-<ul>
-<li>Where does identity come from (auth-service)?</li>
-<li>Where is it consumed (accounts-service)?</li>
-<li>Do we enforce ownership every time we touch something user-specific?</li>
-<li>Do we log enough context to spot weird access patterns later?</li>
-</ul>
-<p>In <code>docs/detection-and-mitigation.md</code> I sketched out logging fields and detection ideas, e.g.:</p>
-<ul>
-<li>a single <code>user_id</code> touching lots of different <code>account_id</code> values in a short window,</li>
-<li>repeated access to non-existent accounts,</li>
-<li>correlating access patterns with other events from the same user/session.</li>
-</ul>
-<hr>
-<h2 id="why-this-helps-me-as-a-practitioner">Why this helps me as a practitioner</h2>
-<p>I built this lab for three reasons:</p>
-<ol>
-<li>
-<p><strong>Storytelling</strong> – It&rsquo;s much easier to talk about broken access control when you can point to a tiny system and say: <em>&ldquo;here is the exact place it went wrong, here is the exploit, and here is the fix&rdquo;</em>.</p>
-</li>
-<li>
-<p><strong>Interview signal</strong> – This repo is public, so I can:</p>
-<ul>
-<li>walk hiring managers through the architecture and attack path,</li>
-<li>show that I think about both offense (finding the bug) and defense (logging, detection, and mitigations).</li>
-</ul>
-</li>
-<li>
-<p><strong>Extensibility</strong> – The roadmap includes future scenarios like webhook issues, race conditions on transfers, and misuse of internal tooling. I can grow this over time as I see more real-world patterns.</p>
-</li>
-</ol>
-<p>If you want to read the code or run the lab yourself, it&rsquo;s here:</p>
-<ul>
-<li>GitHub: <a href="https://github.com/c0ncatenate/transaction-system-attack-lab" target="_blank" rel="noopener noreffer ">https://github.com/c0ncatenate/transaction-system-attack-lab</a></li>
-</ul>
-<p>As always, everything is for educational use only – <strong>only test systems you have explicit permission to attack</strong>.</p>
-]]></description>
-</item>
-<item>
-    <title>The First Time It Finally Clicked</title>
-    <link>http://0.0.0.0:1313/posts/the-first-time-it-finally-clicked/</link>
-    <pubDate>Mon, 29 Dec 2025 00:00:00 &#43;0000</pubDate>
-    <author>Arsh Imtiaz</author>
-    <guid>http://0.0.0.0:1313/posts/the-first-time-it-finally-clicked/</guid>
-    <description><![CDATA[<figure><a class="lightgallery" href="/images/ai-integration-header.svg" title="AI Integration" data-thumbnail="/images/ai-integration-header.svg" data-sub-html="<h2>Local model, real system, clean output.</h2>">
-        
-    </a><figcaption class="image-caption">Local model, real system, clean output.</figcaption>
-    </figure>
-<h1 id="ollama--apis-my-first-real-ai-integration">Ollama + APIs: My First Real AI Integration</h1>
-<p>I have used AI tools before. But this post is about the <em>first time I actually integrated AI</em> into an app and felt the whole thing click.<br>
-Not just &ldquo;ask a model a question.&rdquo; I mean an API that <em>uses</em> a model and does something useful with it.</p>
-<p>The two pieces that made it real for me:</p>
-<ul>
-<li><strong>Ollama</strong> for local models</li>
-<li><strong>APIs</strong> to make the AI actually useful inside a system</li>
-</ul>
-<p>This is not a step-by-step tutorial. It is a learning story, what worked, what broke, and how it finally came together.</p>
-<hr>
-<h2 id="why-ollama">Why Ollama?</h2>
-<p>I wanted something local, fast, and easy to swap models without rebuilding my entire app.</p>
-<p>Ollama gave me:</p>
-<ul>
-<li>Local inference without a monthly bill</li>
-<li>Simple model switching</li>
-<li>A clean REST API I could hit from anything</li>
-</ul>
-<p>Bonus: If you are already building tooling or demos, having the model local means you control latency, limits, and privacy.</p>
-<p>I know there are solid commercial options too: AWS Bedrock, Azure OpenAI, OpenAI&rsquo;s APIs, Anthropic, and more. Those are great when you need scale, managed infra, or compliance. I picked Ollama for this project because I wanted to learn the integration flow without burning credits, and I wanted full control over the models and the data path. Also because my GPU could actually run it without sounding like a jet engine (for once).</p>
-<div class="details admonition note open">
-        <div class="details-summary admonition-title">
-            <i class="icon fas fa-pencil-alt fa-fw" aria-hidden="true"></i>Local vs Cloud<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
-        </div>
-        <div class="details-content">
-            <div class="admonition-content">Local is perfect for learning and fast iteration. Cloud is better when you need scale, uptime, or enterprise compliance.</div>
-        </div>
-    </div>
-<figure><a class="lightgallery" href="/images/local-vs-cloud.svg" title="Local vs cloud AI tradeoffs" data-thumbnail="/images/local-vs-cloud.svg" data-sub-html="<h2>Local keeps you fast and private. Cloud scales when you need it.</h2>">
-        
-    </a><figcaption class="image-caption">Local keeps you fast and private. Cloud scales when you need it.</figcaption>
-    </figure>
-<hr>
-<h2 id="the-mental-model-that-helped-me">The mental model that helped me</h2>
-<p>I stopped thinking &ldquo;chatbot.&rdquo;<br>
-I started thinking <strong>&ldquo;AI as a function in a system.&rdquo;</strong></p>
-<p>Your API takes inputs, runs logic, calls Ollama, and returns something useful.</p>
-<p>That is the entire loop.</p>
-<p>Here is a plain example that made it click for me:</p>
-<ul>
-<li>Input: raw log snippet + a short user question</li>
-<li>API: adds context (service name, environment, expected format)</li>
-<li>Output: a clean JSON response I can actually use in an app</li>
-</ul>
-<p>For example, instead of asking a vague question, I pass a tiny contract like this:</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">Role: SOC analyst
-</span></span><span class="line"><span class="cl">Task: Summarize this alert and recommend next steps.
-</span></span><span class="line"><span class="cl">Constraints: No guessing. Use only the provided log.
-</span></span><span class="line"><span class="cl">Output: JSON with keys: summary, severity, next_steps
-</span></span></code></pre></td></tr></table>
-</div>
-</div><p>Now I can plug the output into a UI, ticket, or report without manual cleanup.</p>
-<figure><a class="lightgallery" href="/images/ollama-api-flow.svg" title="Ollama &#43; API flow" data-thumbnail="/images/ollama-api-flow.svg" data-sub-html="<h2>Input in, logic in the middle, model on call, useful output out.</h2>">
-        
-    </a><figcaption class="image-caption">Input in, logic in the middle, model on call, useful output out.</figcaption>
-    </figure>
-<hr>
-<h2 id="minimal-setup-i-used">Minimal setup I used</h2>
-<ul>
-<li>Ollama running locally</li>
-<li>A tiny Python API</li>
-<li><code>requests</code> to call the model endpoint</li>
-<li>JSON response back to the client</li>
-</ul>
-<h3 id="start-ollama">Start Ollama</h3>
-<p>I run it as a systemd service instead of launching it manually.</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo systemctl <span class="nb">enable</span> --now ollama
-</span></span></code></pre></td></tr></table>
-</div>
-</div><p>Pull a model:</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">ollama pull llama3
-</span></span></code></pre></td></tr></table>
-</div>
-</div><p>Run a quick test:</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">ollama run llama3
-</span></span></code></pre></td></tr></table>
-</div>
-</div><hr>
-<h2 id="the-api-call-this-is-the-moment-it-clicked">The API call (this is the moment it clicked)</h2>
-<p>Ollama exposes a simple API. You just POST a prompt.</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">curl http://localhost:11434/api/generate -d <span class="s1">&#39;{
-</span></span></span><span class="line"><span class="cl"><span class="s1">  &#34;model&#34;: &#34;llama3&#34;,
-</span></span></span><span class="line"><span class="cl"><span class="s1">  &#34;prompt&#34;: &#34;Explain NAT like I am debugging a reverse shell.&#34;
-</span></span></span><span class="line"><span class="cl"><span class="s1">}&#39;</span>
-</span></span></code></pre></td></tr></table>
-</div>
-</div><p>It returns a stream of JSON. If you want a single response, add:</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="line"><span class="cl"><span class="s2">&#34;stream&#34;</span><span class="err">:</span> <span class="kc">false</span>
-</span></span></code></pre></td></tr></table>
-</div>
-</div><hr>
-<h2 id="my-tiny-python-api-trimmed-down">My tiny Python API (trimmed down)</h2>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
-</span><span class="lnt">16
-</span><span class="lnt">17
-</span><span class="lnt">18
-</span><span class="lnt">19
-</span><span class="lnt">20
-</span><span class="lnt">21
-</span><span class="lnt">22
-</span><span class="lnt">23
-</span><span class="lnt">24
-</span><span class="lnt">25
-</span><span class="lnt">26
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">flask</span> <span class="kn">import</span> <span class="n">Flask</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="n">jsonify</span>
-</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">requests</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="n">app</span> <span class="o">=</span> <span class="n">Flask</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="nd">@app.post</span><span class="p">(</span><span class="s2">&#34;/ask&#34;</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">ask</span><span class="p">():</span>
-</span></span><span class="line"><span class="cl">    <span class="n">payload</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">get_json</span><span class="p">(</span><span class="n">silent</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> <span class="ow">or</span> <span class="p">{}</span>
-</span></span><span class="line"><span class="cl">    <span class="n">prompt</span> <span class="o">=</span> <span class="n">payload</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&#34;prompt&#34;</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="ow">not</span> <span class="n">prompt</span><span class="p">:</span>
-</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">jsonify</span><span class="p">({</span><span class="s2">&#34;error&#34;</span><span class="p">:</span> <span class="s2">&#34;Missing prompt&#34;</span><span class="p">}),</span> <span class="mi">400</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">    <span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">post</span><span class="p">(</span>
-</span></span><span class="line"><span class="cl">        <span class="s2">&#34;http://localhost:11434/api/generate&#34;</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">        <span class="n">json</span><span class="o">=</span><span class="p">{</span>
-</span></span><span class="line"><span class="cl">            <span class="s2">&#34;model&#34;</span><span class="p">:</span> <span class="s2">&#34;llama3&#34;</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">            <span class="s2">&#34;prompt&#34;</span><span class="p">:</span> <span class="n">prompt</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">            <span class="s2">&#34;stream&#34;</span><span class="p">:</span> <span class="kc">False</span>
-</span></span><span class="line"><span class="cl">        <span class="p">},</span>
-</span></span><span class="line"><span class="cl">        <span class="n">timeout</span><span class="o">=</span><span class="mi">60</span>
-</span></span><span class="line"><span class="cl">    <span class="p">)</span>
-</span></span><span class="line"><span class="cl">    <span class="n">data</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
-</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">jsonify</span><span class="p">({</span><span class="s2">&#34;answer&#34;</span><span class="p">:</span> <span class="n">data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&#34;response&#34;</span><span class="p">,</span> <span class="s2">&#34;&#34;</span><span class="p">)})</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&#34;__main__&#34;</span><span class="p">:</span>
-</span></span><span class="line"><span class="cl">    <span class="n">app</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">host</span><span class="o">=</span><span class="s2">&#34;0.0.0.0&#34;</span><span class="p">,</span> <span class="n">port</span><span class="o">=</span><span class="mi">3000</span><span class="p">,</span> <span class="n">debug</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-</span></span></code></pre></td></tr></table>
-</div>
-</div><p>Now you have a real API endpoint that uses AI.<br>
-No magic. Just a normal service that happens to be powered by a model.</p>
-<div class="details admonition tip open">
-        <div class="details-summary admonition-title">
-            <i class="icon fas fa-lightbulb fa-fw" aria-hidden="true"></i>Shortcut<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
-        </div>
-        <div class="details-content">
-            <div class="admonition-content">For local experiments, go direct to the Ollama API and keep the app layer for when you need guardrails or multi-client access.</div>
-        </div>
-    </div>
-<hr>
-<h2 id="why-structure-matters">Why Structure Matters</h2>
-<figure><a class="lightgallery" href="/images/prompt-structure.svg" title="Prompt structure for reliable outputs" data-thumbnail="/images/prompt-structure.svg" data-sub-html="<h2>Clear roles, constraints, and formats turn raw model text into usable results.</h2>">
-        
-    </a><figcaption class="image-caption">Clear roles, constraints, and formats turn raw model text into usable results.</figcaption>
-    </figure>
-<p>Here is a quick before/after that shows why structure matters:</p>
-<p><strong>Before (messy):</strong></p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">Explain this log and tell me what to do.
-</span></span></code></pre></td></tr></table>
-</div>
-</div><p><strong>After (usable):</strong></p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">Role</span><span class="p">:</span><span class="w"> </span><span class="l">Incident responder</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">Task</span><span class="p">:</span><span class="w"> </span><span class="l">Summarize this log and list 3 next steps.</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">Constraints</span><span class="p">:</span><span class="w"> </span><span class="l">Keep it under 60 words.</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">Output: JSON keys</span><span class="p">:</span><span class="w"> </span><span class="l">summary, next_steps</span><span class="w">
-</span></span></span></code></pre></td></tr></table>
-</div>
-</div><hr>
-<h3 id="summary-example">Summary Example</h3>
-<p><strong>Input data (from your system):</strong></p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">2025-12-29T08:41:12Z web01 nginx[4132]</span><span class="p">:</span><span class="w"> </span><span class="m">192.0.2.14</span><span class="w"> </span>- - <span class="s2">&#34;POST /login HTTP/1.1&#34;</span><span class="w"> </span><span class="m">401</span><span class="w"> </span><span class="m">612</span><span class="w"> </span><span class="s2">&#34;-&#34;</span><span class="w"> </span><span class="s2">&#34;Mozilla/5.0&#34;</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">2025-12-29T08:41:18Z web01 nginx[4132]</span><span class="p">:</span><span class="w"> </span><span class="m">192.0.2.14</span><span class="w"> </span>- - <span class="s2">&#34;POST /login HTTP/1.1&#34;</span><span class="w"> </span><span class="m">401</span><span class="w"> </span><span class="m">612</span><span class="w"> </span><span class="s2">&#34;-&#34;</span><span class="w"> </span><span class="s2">&#34;Mozilla/5.0&#34;</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">2025-12-29T08:41:24Z web01 nginx[4132]</span><span class="p">:</span><span class="w"> </span><span class="m">192.0.2.14</span><span class="w"> </span>- - <span class="s2">&#34;POST /login HTTP/1.1&#34;</span><span class="w"> </span><span class="m">401</span><span class="w"> </span><span class="m">612</span><span class="w"> </span><span class="s2">&#34;-&#34;</span><span class="w"> </span><span class="s2">&#34;Mozilla/5.0&#34;</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">2025-12-29T08:41:31Z web01 nginx[4132]</span><span class="p">:</span><span class="w"> </span><span class="m">192.0.2.14</span><span class="w"> </span>- - <span class="s2">&#34;POST /login HTTP/1.1&#34;</span><span class="w"> </span><span class="m">401</span><span class="w"> </span><span class="m">612</span><span class="w"> </span><span class="s2">&#34;-&#34;</span><span class="w"> </span><span class="s2">&#34;Mozilla/5.0&#34;</span><span class="w">
-</span></span></span></code></pre></td></tr></table>
-</div>
-</div><p><strong>Structured prompt you send to Ollama:</strong></p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span><span class="lnt">6
-</span><span class="lnt">7
-</span><span class="lnt">8
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">Role</span><span class="p">:</span><span class="w"> </span><span class="l">Security analyst</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">Task</span><span class="p">:</span><span class="w"> </span><span class="l">Summarize the activity and recommend next steps.</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">Context</span><span class="p">:</span><span class="w"> </span><span class="l">These are auth failures on a public web app.</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">Constraints</span><span class="p">:</span><span class="w"> </span><span class="kc">No</span><span class="w"> </span><span class="l">guessing. Use only the log lines. Keep it concise.</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">Output: JSON with keys</span><span class="p">:</span><span class="w"> </span><span class="l">summary, severity, indicators, next_steps</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">Logs</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="l">&lt;paste logs here&gt;</span><span class="w">
-</span></span></span></code></pre></td></tr></table>
-</div>
-</div><p><strong>Why this works:</strong></p>
-<ul>
-<li>The role sets the tone (security analyst, not &ldquo;creative writer&rdquo;).</li>
-<li>The context removes ambiguity (auth failures on a public app).</li>
-<li>Constraints reduce hallucination (only log lines).</li>
-<li>The output contract makes the response machine-friendly.</li>
-</ul>
-<p><strong>Example response you can actually use:</strong></p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="line"><span class="cl"><span class="p">{</span>
-</span></span><span class="line"><span class="cl">  <span class="nt">&#34;summary&#34;</span><span class="p">:</span> <span class="s2">&#34;Four failed login attempts from 192.0.2.14 to /login within 20 seconds.&#34;</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">  <span class="nt">&#34;severity&#34;</span><span class="p">:</span> <span class="s2">&#34;low&#34;</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">  <span class="nt">&#34;indicators&#34;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&#34;192.0.2.14&#34;</span><span class="p">,</span> <span class="s2">&#34;/login&#34;</span><span class="p">,</span> <span class="s2">&#34;401&#34;</span><span class="p">],</span>
-</span></span><span class="line"><span class="cl">  <span class="nt">&#34;next_steps&#34;</span><span class="p">:</span> <span class="p">[</span>
-</span></span><span class="line"><span class="cl">    <span class="s2">&#34;Check if the IP repeats across other hosts or time windows.&#34;</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">    <span class="s2">&#34;Review account lockout policy for repeated failures.&#34;</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">    <span class="s2">&#34;Add the IP to a temporary watchlist if failures continue.&#34;</span>
-</span></span><span class="line"><span class="cl">  <span class="p">]</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span></code></pre></td></tr></table>
-</div>
-</div><p>Now your API can return this JSON straight into a ticketing system, a dashboard, or a Slack alert without hand-editing.</p>
-<div class="details admonition tip open">
-        <div class="details-summary admonition-title">
-            <i class="icon fas fa-lightbulb fa-fw" aria-hidden="true"></i>Related<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
-        </div>
-        <div class="details-content">
-            <div class="admonition-content">If you are into detection labs, my <a href="https://arshimtiaz.github.io/posts/wazuh-setup/" target="_blank" rel="noopener noreffer ">Wazuh post</a> might be a fun next read.</div>
-        </div>
-    </div>
-<hr>
-<h2 id="what-i-learned-the-hard-way">What I learned the hard way</h2>
-<ul>
-<li><strong>You need structure.</strong> Raw model text is messy. I started wrapping prompts with output requirements and it got way better.</li>
-<li><strong>Latency matters.</strong> Even local models can feel slow if you do not manage prompt size.</li>
-<li><strong>Security is still security.</strong> This is still an API. Validate inputs, rate limit, log requests.</li>
-</ul>
-<p>AI does not replace good engineering. It just adds a powerful function call in the middle.</p>
-<div class="details admonition warning open">
-        <div class="details-summary admonition-title">
-            <i class="icon fas fa-exclamation-triangle fa-fw" aria-hidden="true"></i>Do not skip this<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
-        </div>
-        <div class="details-content">
-            <div class="admonition-content">If your prompt is vague, your output will be vague. Structure is the cheapest reliability upgrade you can make.</div>
-        </div>
-    </div>
-<hr>
-<h2 id="practical-use-cases-i-am-building-next">Practical use cases I am building next</h2>
-<ul>
-<li>Summarize logs into incident notes</li>
-<li>Auto-tag security alerts</li>
-<li>Generate draft incident reports</li>
-<li>Turn raw terminal output into explanations for non-technical teams</li>
-</ul>
-<p>These are not &ldquo;chatbot&rdquo; tasks. They are <em>workflow</em> tasks.</p>
-<hr>
-<h2 id="final-thoughts">Final thoughts</h2>
-<p>This was the first time I felt like AI was not a toy but a <strong>real system component</strong>.<br>
-Ollama made it local and easy. The API made it usable.</p>
-<p>If you are learning AI integration, my honest advice is:</p>
-<ul>
-<li>Build something small</li>
-<li>Make it usable</li>
-<li>Then make it smarter</li>
-</ul>
-<p>Because once AI becomes an API, you can wire it into anything.</p>
-<div class="details admonition success open">
-        <div class="details-summary admonition-title">
-            <i class="icon fas fa-check-circle fa-fw" aria-hidden="true"></i>Takeaway<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
-        </div>
-        <div class="details-content">
-            <div class="admonition-content">Treat the model like a dependency, not a magic box. The more deliberate your inputs, the more usable your outputs.</div>
-        </div>
-    </div>
-<hr>
-<p>If you want to compare notes or want help debugging your integration, reach out. I am still learning too, and that is the fun part.</p>
-]]></description>
-</item>
-<item>
+        <generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Wed, 19 Nov 2025 00:00:00 &#43;0000</lastBuildDate><atom:link href="https://arshimtiaz.github.io/posts/" rel="self" type="application/rss+xml" /><item>
     <title>Learning ML by Building a Tiny Password Strength Classifier</title>
-    <link>http://0.0.0.0:1313/posts/learning-ml-by-building-a-tiny-password-strength-classifier/</link>
+    <link>https://arshimtiaz.github.io/posts/learning-ml-by-building-a-tiny-password-strength-classifier/</link>
     <pubDate>Wed, 19 Nov 2025 00:00:00 &#43;0000</pubDate>
     <author>Arsh Imtiaz</author>
-    <guid>http://0.0.0.0:1313/posts/learning-ml-by-building-a-tiny-password-strength-classifier/</guid>
+    <guid>https://arshimtiaz.github.io/posts/learning-ml-by-building-a-tiny-password-strength-classifier/</guid>
     <description><![CDATA[<p>I finally sat down and built a machine learning model in <a href="https://jupyter.org/" target="_blank" rel="noopener noreffer "><strong>Jupyter Notebook</strong></a> that actually does something cybersecurity related. Not a big fancy neural network. Not a GPT clone. Just a tiny password strength classifier that helped me understand the full ML pipeline without frying my brain.</p>
-<a class="lightgallery" href="/posts/my-first-ml-model/jupyter_password_ml.png" title="Jupyter Notebook" data-thumbnail="/posts/my-first-ml-model/jupyter_password_ml.png">
-        
-    </a>
+<p></p>
 <p>This whole thing started because I kept telling myself I would learn ML one day. And one day never comes when you wait for the perfect idea. So I forced myself to build something so stupid simple that I couldn&rsquo;t run away from it.</p>
 <p>Turns out, that worked.</p>
 <hr>
 <h2 id="what-i-wanted-to-build">What I wanted to build</h2>
 <p>I wanted a model that takes a password and predicts whether it is strong or weak based on its structure. Nothing about leaks, entropy, breached databases or cracking times. Just pure structural features, built on Jupyter Notebook.</p>
-<a class="lightgallery" href="/posts/my-first-ml-model/empty_notebook.png" title="Empty Notebook" data-thumbnail="/posts/my-first-ml-model/empty_notebook.png">
-        
-    </a>
+<p></p>
 <p>I kept it simple and picked four things to analyse:</p>
 <ul>
 <li>length</li>
@@ -677,9 +84,7 @@ Ollama made it local and easy. The API made it usable.</p>
 </span></span></code></pre></td></tr></table>
 </div>
 </div><p>Once I had this, I relabeled my dataset and everything started behaving predictably.</p>
-<a class="lightgallery" href="/posts/my-first-ml-model/labeller.png" title="Labeller" data-thumbnail="/posts/my-first-ml-model/labeller.png">
-        
-    </a>
+<p></p>
 <hr>
 <h2 id="turning-passwords-into-features">Turning passwords into features</h2>
 <p>My extractor function was tiny too:</p>
@@ -703,9 +108,7 @@ Ollama made it local and easy. The API made it usable.</p>
 </span></span><span class="line"><span class="cl">	<span class="k">return</span> <span class="p">[</span><span class="n">length</span><span class="p">,</span> <span class="n">has_upper</span><span class="p">,</span> <span class="n">has_digit</span><span class="p">,</span> <span class="n">has_symbol</span><span class="p">]</span>
 </span></span></code></pre></td></tr></table>
 </div>
-</div><a class="lightgallery" href="/posts/my-first-ml-model/extract_features.png" title="Extract Features" data-thumbnail="/posts/my-first-ml-model/extract_features.png">
-        
-    </a>
+</div><p></p>
 <p>This gave me clean numerical data I could feed into scikit learn.</p>
 <h2 id="training-the-model">Training the model</h2>
 <p>After that, the ML part was almost boring. In a good way.</p>
@@ -725,13 +128,9 @@ Ollama made it local and easy. The API made it usable.</p>
 <li>my features were consistent</li>
 <li>the model actually learned the pattern instead of memorising random junk</li>
 </ul>
-<a class="lightgallery" href="/posts/my-first-ml-model/training.png" title="Training" data-thumbnail="/posts/my-first-ml-model/training.png">
-        
-    </a>
+<p></p>
 <h2 id="what-i-learned">What I learned</h2>
-<a class="lightgallery" href="/posts/my-first-ml-model/cat-soldier.gif" title="Me" data-thumbnail="/posts/my-first-ml-model/cat-soldier.gif">
-        
-    </a>
+<p></p>
 <p>Honestly, the biggest lesson wasn&rsquo;t about ML. It was about myself.</p>
 <ul>
 <li>I overthink everything when I try to learn something new</li>
@@ -755,14 +154,14 @@ Ollama made it local and easy. The API made it usable.</p>
 </item>
 <item>
     <title>When Red Teaming Meets Car Hacking: Building a Virtual Vehicle Pentest Lab on My Laptop</title>
-    <link>http://0.0.0.0:1313/posts/when-red-teaming-meets-car-hacking-building-a-virtual-vehicle-pentest-lab-on-my-laptop/</link>
+    <link>https://arshimtiaz.github.io/posts/when-red-teaming-meets-car-hacking-building-a-virtual-vehicle-pentest-lab-on-my-laptop/</link>
     <pubDate>Sun, 09 Nov 2025 00:00:00 &#43;0000</pubDate>
     <author>Arsh Imtiaz</author>
-    <guid>http://0.0.0.0:1313/posts/when-red-teaming-meets-car-hacking-building-a-virtual-vehicle-pentest-lab-on-my-laptop/</guid>
-    <description><![CDATA[<figure><a class="lightgallery" href="/posts/when-red-teaming-meets-car-hacking-building-a-virtual-vehicle-pentest-lab-on-my-laptop/assets/car_hacking.png" title="Networking is fun" data-thumbnail="/posts/when-red-teaming-meets-car-hacking-building-a-virtual-vehicle-pentest-lab-on-my-laptop/assets/car_hacking.png" data-sub-html="<h2>How does one emulate cars at home?</h2>">
-        
-    </a><figcaption class="image-caption">How does one emulate cars at home?</figcaption>
-    </figure>
+    <guid>https://arshimtiaz.github.io/posts/when-red-teaming-meets-car-hacking-building-a-virtual-vehicle-pentest-lab-on-my-laptop/</guid>
+    <description><![CDATA[<div style="text-align: center;">
+  
+  <small>How does one emulate cars at home?</small>
+</div>
 <p>Every car hacking tool I have come across required expensive ECUs, adapters or even full test benches. Having worked with test cars before, I got an insight into how time consuming and expensive, if not difficult it is to set a working HIL (Hardware-In-Loop) setup.
 I didn&rsquo;t want to wait for hardware to understand how automotive networks behave - I wanted to simulate it.</p>
 <p>So, I built my own virtual car hacking network using Linux tools, a bit of Python, and some creative problem solving.</p>
@@ -1016,14 +415,14 @@ We can use <code>candump</code>, which continuously listens for any CAN messages
 </item>
 <item>
     <title>Why Networking Fundamentals Should Be Your First Step</title>
-    <link>http://0.0.0.0:1313/posts/why-networking-fundamentals-should-be-your-first-step/</link>
+    <link>https://arshimtiaz.github.io/posts/why-networking-fundamentals-should-be-your-first-step/</link>
     <pubDate>Wed, 06 Aug 2025 00:00:00 &#43;0100</pubDate>
     <author>Arsh Imtiaz</author>
-    <guid>http://0.0.0.0:1313/posts/why-networking-fundamentals-should-be-your-first-step/</guid>
-    <description><![CDATA[<figure><a class="lightgallery" href="./network-nodes.gif" title="Networking is fun" data-thumbnail="./network-nodes.gif" data-sub-html="<h2>Networking is fun. Also, it is the part that keeps your hacks from breaking at the worst time.</h2>">
-        
-    </a><figcaption class="image-caption">Networking is fun. Also, it is the part that keeps your hacks from breaking at the worst time.</figcaption>
-    </figure>
+    <guid>https://arshimtiaz.github.io/posts/why-networking-fundamentals-should-be-your-first-step/</guid>
+    <description><![CDATA[<div style="text-align: center;">
+  
+  <small>Networking is fun. Also, it is the part that keeps your hacks from breaking at the worst time.</small>
+</div>
 <p><big>So, you wanna be a hacker?</big></p>
 <p>Cool. I did too. I jumped into Kali, sprayed tools, and followed tutorials like a robot. Things worked, but I could not explain why. That was my first big lesson: <strong>without networking, most of security looks like magic</strong>. No magic here. Just packets, addresses, ports, and paths.</p>
 <h2 id="the-moment-it-clicked">The moment it clicked</h2>
@@ -1037,10 +436,10 @@ We can use <code>candump</code>, which continuously listens for any CAN messages
 <h2 id="learn-these-first">Learn these first</h2>
 <p>These are the pieces that changed my life in pentests and CTFs.</p>
 <h3 id="-the-osi-model">🔌 The OSI model</h3>
-<figure><a class="lightgallery" href="./osi-model.gif" title="OSI and TCP IP overview" data-thumbnail="./osi-model.gif" data-sub-html="<h2>OSI and TCP/IP from Practical Networking</h2>">
-        
-    </a><figcaption class="image-caption">OSI and TCP/IP from <a href='https://www.practicalnetworking.net/series/packet-traveling/osi-model/'>Practical Networking</a></figcaption>
-    </figure>
+<div style="text-align: center;">
+  
+  <small>OSI and TCP/IP from <a href="https://www.practicalnetworking.net/series/packet-traveling/osi-model/">Practical Networking</a></small>
+</div>
 <p>Think of it as a map. If you know the layer, you know where to debug.<br>
 If you want to explore it in depth, check out:</p>
 <ul>
@@ -1058,10 +457,10 @@ If you want to explore it in depth, check out:</p>
 <li><strong>L7 Application</strong> - HTTP, DNS over HTTPS, SMTP. If the app returns 200 but nothing changes, it is probably an app logic bug, not the network.</li>
 </ul>
 <h3 id="-ip-addressing-and-subnetting">🌐 IP addressing and subnetting</h3>
-<figure><a class="lightgallery" href="./ip-subnetting.gif" title="IP subnetting" data-thumbnail="./ip-subnetting.gif" data-sub-html="<h2>Subnetting overview from Network Academy</h2>">
-        
-    </a><figcaption class="image-caption">Subnetting overview from <a href='https://www.networkacademy.io/ccna/ip-subnetting/why-do-we-need-ip-subnetting'>Network Academy</a></figcaption>
-    </figure>
+<div style="text-align: center;">
+  
+  <small>Subnetting overview from <a href="https://www.networkacademy.io/ccna/ip-subnetting/why-do-we-need-ip-subnetting">Network Academy</a></small>
+</div>
 <p>You do not need to be a human subnet calculator. You do need to know:</p>
 <ul>
 <li>Private ranges: 10.0.0.0/8, 172.16.0.0/12, 192.168.0.0/16.</li>
@@ -1074,10 +473,10 @@ If you want to explore it in depth, check out:</p>
 <li><a href="https://subnettingpractice.com/" target="_blank" rel="noopener noreffer ">Subnetting Practice Game</a></li>
 </ul>
 <h3 id="-ports-and-protocols-that-actually-matter">🚪 Ports and protocols that actually matter</h3>
-<figure><a class="lightgallery" href="./ports.png" title="Common service ports" data-thumbnail="./ports.png" data-sub-html="<h2>Know the defaults, then verify with a scan. Do not assume.</h2>">
-        
-    </a><figcaption class="image-caption">Know the defaults, then verify with a scan. Do not assume.</figcaption>
-    </figure>
+<div style="text-align: center;">
+  
+  <small>Know the defaults, then verify with a scan. Do not assume.</small>
+</div>
 <p>Quick cheats you will use daily:</p>
 <ul>
 <li><strong>22 SSH</strong> - remote shell. If login hangs after password, suspect TCP filtering or <code>AllowUsers</code> policy before you blame credentials.</li>
@@ -1090,10 +489,10 @@ If you want to explore it in depth, check out:</p>
 <li><a href="https://www.iana.org/assignments/service-names-port-numbers/service-names-port-numbers.xhtml" target="_blank" rel="noopener noreffer ">IANA Service Name and Transport Protocol Port Number Registry</a></li>
 </ul>
 <h3 id="-packet-flow-and-basic-tools">📦 Packet flow and basic tools</h3>
-<figure><a class="lightgallery" href="./wireshark.gif" title="Wireshark capture" data-thumbnail="./wireshark.gif" data-sub-html="<h2>Follow a TCP handshake. SYN, SYN ACK, ACK. It will save you hours.</h2>">
-        
-    </a><figcaption class="image-caption">Follow a TCP handshake. SYN, SYN ACK, ACK. It will save you hours.</figcaption>
-    </figure>
+<div style="text-align: center;">
+  
+  <small>Follow a TCP handshake. SYN, SYN ACK, ACK. It will save you hours.</small>
+</div>
 <p>Tools I use in order when something breaks:</p>
 <ol>
 <li><code>ping</code> to test reachability. If ICMP is blocked, move on.</li>
@@ -1103,9 +502,9 @@ If you want to explore it in depth, check out:</p>
 <li>Wireshark for the story behind the packets.</li>
 </ol>
 <h3 id="-nat-dhcp-dns-routing">🔥 NAT, DHCP, DNS, routing</h3>
-<a class="lightgallery" href="./sysadmin-hotline.gif" title="Sysadmin hotline" data-thumbnail="./sysadmin-hotline.gif">
-        
-    </a>
+<div style="text-align: center;">
+  
+</div>
 <p>This is the unsexy part that makes everything work.</p>
 <ul>
 <li><strong>NAT</strong> hides private hosts. Reverse shells fail a lot here. Use a listener on a port allowed outbound.</li>
@@ -1153,23 +552,22 @@ If you want to explore it in depth, check out:</p>
 </item>
 <item>
     <title>My First Wi-Fi Pentest</title>
-    <link>http://0.0.0.0:1313/posts/my-first-wi-fi-pentest/</link>
+    <link>https://arshimtiaz.github.io/posts/my-first-wi-fi-pentest/</link>
     <pubDate>Wed, 30 Jul 2025 00:00:00 &#43;0100</pubDate>
     <author>Arsh Imtiaz</author>
-    <guid>http://0.0.0.0:1313/posts/my-first-wi-fi-pentest/</guid>
-    <description><![CDATA[<a class="lightgallery" href="/images/wifi-pent.png" title="Wi-Fi Pentesting" data-thumbnail="/images/wifi-pent.png">
-        
-    </a>
+    <guid>https://arshimtiaz.github.io/posts/my-first-wi-fi-pentest/</guid>
+    <description><![CDATA[<p></p>
 <h1 id="my-first-wi-fi-pentest">My First Wi-Fi Pentest</h1>
 <p>There’s a massive difference between watching pentesting videos and actually doing it. This was my first time seriously trying Wi-Fi pentesting, and it was a mix of pure excitement, a bunch of silly mistakes, and that one moment of “YES! It finally worked.”</p>
 <p><strong>Disclaimer: This is just my story, not a tutorial. Everything I did was on my own network. Don’t go around trying this on random Wi-Fi unless you like the idea of explaining yourself to law enforcement.</strong></p>
 <hr>
 <h2 id="gearing-up">Gearing Up</h2>
 <p>My setup was simple – my Arch Linux laptop, an Alfa adapter, and the Aircrack-ng suite.</p>
-<figure><a class="lightgallery" href="/images/adapter.png" title="Alfa AWUS036ACS" data-thumbnail="/images/adapter.png" data-sub-html="<h2>My trusty Alfa adapter, aka &ldquo;the antenna that could&rdquo;</h2>">
-        
-    </a><figcaption class="image-caption">My trusty Alfa adapter, aka &ldquo;the antenna that could&rdquo;</figcaption>
-    </figure>
+<div style="text-align: center;">
+  
+  <br>
+  <small>My trusty Alfa adapter, aka "the antenna that could"</small>
+</div>
 <p>At this point, I was overconfident. In my head, it was just: “Enable monitor mode, grab handshake, crack password. Done.”</p>
 <blockquote>
 <p>Spoiler: life doesn’t work that way.</p>
@@ -1178,15 +576,17 @@ If you want to explore it in depth, check out:</p>
 <h2 id="where-i-fell-flat">Where I Fell Flat</h2>
 <p>The very first thing I did? I forgot to disable all the services that fight you for control of the adapter.<br>
 Result: Warnings everywhere, services kept messing with monitor mode.</p>
-<figure><a class="lightgallery" href="/images/airmon-ng.png" title="warnings everywhere" data-thumbnail="/images/airmon-ng.png" data-sub-html="<h2>When your OS says &ldquo;nah&rdquo;</h2>">
-        
-    </a><figcaption class="image-caption">When your OS says &ldquo;nah&rdquo;</figcaption>
-    </figure>
+<div style="text-align: center;">
+  
+  <br>
+  <small>When your OS says “nah”</small>
+</div>
 <p>Once I figured that out, things finally started looking cool. My terminal was scrolling with access points like some cyberpunk movie scene.</p>
-<figure><a class="lightgallery" href="/images/airodump-ng.png" title="warnings everywhere" data-thumbnail="/images/airodump-ng.png" data-sub-html="<h2>Access point recon (cool hackery stuff)</h2>">
-        
-    </a><figcaption class="image-caption">Access point recon (cool hackery stuff)</figcaption>
-    </figure>
+<div style="text-align: center;">
+  
+  <br>
+  <small>Access point recon (cool hackery stuff)</small>
+</div>
 <hr>
 <h2 id="the-why-is-nothing-happening-phase">The &ldquo;Why Is Nothing Happening?&rdquo; Phase</h2>
 <p>I locked onto my target, sat back, and… nothing. No handshake.</p>
@@ -1208,22 +608,20 @@ Result: Warnings everywhere, services kept messing with monitor mode.</p>
 <p>I could’ve just used <a href="https://github.com/v1s1t0r1sh3r3/airgeddon" target="_blank" rel="noopener noreffer "><strong>Airgeddon</strong></a> or some automated script, but figuring it out command by command taught me <em>why</em> things work, not just how to click buttons.</p>
 <p>Next up? I’ll see if I can get Airgeddon to make my life easier <em>without</em> making me lazy.</p>
 <hr>
-<a class="lightgallery" href="/images/hackerman.gif" title="Hackerman" data-thumbnail="/images/hackerman.gif">
-        
-    </a>
+<div style="text-align: center;">
+  
+</div>
 <p>This wasn’t some cinematic “Hollywood hacking” moment. It was messy, frustrating, and way less glamorous than it looks online. But that’s what made it fun.</p>
 <p>The real flex isn’t showing commands – it’s showing that you understand <strong>what’s happening under the hood</strong> and can figure things out when they go wrong.</p>
 ]]></description>
 </item>
 <item>
     <title>Docker to Detection: Setting Up Wazuh SIEM for Beginners</title>
-    <link>http://0.0.0.0:1313/posts/docker-to-detection-setting-up-wazuh-siem-for-beginners/</link>
+    <link>https://arshimtiaz.github.io/posts/docker-to-detection-setting-up-wazuh-siem-for-beginners/</link>
     <pubDate>Sat, 14 Jun 2025 00:00:00 &#43;0100</pubDate>
     <author>Arsh Imtiaz</author>
-    <guid>http://0.0.0.0:1313/posts/docker-to-detection-setting-up-wazuh-siem-for-beginners/</guid>
-    <description><![CDATA[<a class="lightgallery" href="/images/wazuh-header-image.jpg" title="Wazuh" data-thumbnail="/images/wazuh-header-image.jpg">
-        
-    </a>
+    <guid>https://arshimtiaz.github.io/posts/docker-to-detection-setting-up-wazuh-siem-for-beginners/</guid>
+    <description><![CDATA[<p></p>
 <p>Setting up a SIEM (Security Information and Event Management) system might sound intimidating if you’re just getting started, but it’s a rewarding project that gives you real insight into how cybersecurity professionals monitor and detect threats. I recently built a Wazuh-based SIEM entirely with Docker and connected my personal Linux workstation as an agent. In this post, I’ll walk you through the process with practical commands for both Arch Linux and Debian users.</p>
 <hr>
 <blockquote>
@@ -1456,10 +854,10 @@ Result: Warnings everywhere, services kept messing with monitor mode.</p>
 </item>
 <item>
     <title>Welcome</title>
-    <link>http://0.0.0.0:1313/posts/welcome/</link>
+    <link>https://arshimtiaz.github.io/posts/welcome/</link>
     <pubDate>Wed, 15 Jan 2025 11:59:12 &#43;0300</pubDate>
     <author>Arsh Imtiaz</author>
-    <guid>http://0.0.0.0:1313/posts/welcome/</guid>
+    <guid>https://arshimtiaz.github.io/posts/welcome/</guid>
     <description><![CDATA[<h1 id="welcome-to-my-blog">Welcome to My Blog</h1>
 <p>Hello, and thank you for visiting my blog!</p>
 <p>I&rsquo;m Arsh Imtiaz — a cybersecurity professional passionate about ethical hacking, information security, and continuous learning in the ever-evolving world of technology.</p>

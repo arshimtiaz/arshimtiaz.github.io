@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+    <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="robots" content="noodp" />
-        <title>Learning ML by Building a Tiny Password Strength Classifier - Arsh Imtiaz</title><meta name="Description" content="How I stopped overthinking and finally built a simple ML model to classify password strength"><meta property="og:url" content="http://0.0.0.0:1313/posts/learning-ml-by-building-a-tiny-password-strength-classifier/">
+        <title>Learning ML by Building a Tiny Password Strength Classifier - Arsh Imtiaz</title><meta name="Description" content="How I stopped overthinking and finally built a simple ML model to classify password strength"><meta property="og:url" content="https://arshimtiaz.github.io/posts/learning-ml-by-building-a-tiny-password-strength-classifier/">
   <meta property="og:site_name" content="Arsh Imtiaz">
   <meta property="og:title" content="Learning ML by Building a Tiny Password Strength Classifier">
   <meta property="og:description" content="How I stopped overthinking and finally built a simple ML model to classify password strength">
@@ -16,14 +16,14 @@
     <meta property="article:tag" content="Machine-Learning">
     <meta property="article:tag" content="Cybersecurity">
     <meta property="article:tag" content="Passwords">
-    <meta property="og:image" content="http://0.0.0.0:1313/posts/learning-ml-by-building-a-tiny-password-strength-classifier/extract_features.png">
+    <meta property="og:image" content="https://arshimtiaz.github.io/posts/learning-ml-by-building-a-tiny-password-strength-classifier/extract_features.png">
 
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:image" content="http://0.0.0.0:1313/posts/learning-ml-by-building-a-tiny-password-strength-classifier/extract_features.png">
+  <meta name="twitter:image" content="https://arshimtiaz.github.io/posts/learning-ml-by-building-a-tiny-password-strength-classifier/extract_features.png">
   <meta name="twitter:title" content="Learning ML by Building a Tiny Password Strength Classifier">
   <meta name="twitter:description" content="How I stopped overthinking and finally built a simple ML model to classify password strength">
 <meta name="application-name" content="Arsh Imtiaz">
-<meta name="apple-mobile-web-app-title" content="Arsh Imtiaz"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="canonical" href="http://0.0.0.0:1313/posts/learning-ml-by-building-a-tiny-password-strength-classifier/" /><link rel="prev" href="http://0.0.0.0:1313/posts/when-red-teaming-meets-car-hacking-building-a-virtual-vehicle-pentest-lab-on-my-laptop/" /><link rel="next" href="http://0.0.0.0:1313/posts/the-first-time-it-finally-clicked/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="/lib/fontawesome-free/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<meta name="apple-mobile-web-app-title" content="Arsh Imtiaz"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="canonical" href="https://arshimtiaz.github.io/posts/learning-ml-by-building-a-tiny-password-strength-classifier/" /><link rel="prev" href="https://arshimtiaz.github.io/posts/when-red-teaming-meets-car-hacking-building-a-virtual-vehicle-pentest-lab-on-my-laptop/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="/lib/fontawesome-free/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
         <noscript><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"></noscript><link rel="preload" href="/lib/animate/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
         <noscript><link rel="stylesheet" href="/lib/animate/animate.min.css"></noscript><meta name="google-site-verification" content="JGuYqAexfc-Pturlq5D1akWNXsKU9EyOOOY8x4etQS8" /><script type="application/ld+json">
     {
@@ -33,11 +33,11 @@
         "inLanguage": "en",
         "mainEntityOfPage": {
             "@type": "WebPage",
-            "@id": "http:\/\/0.0.0.0:1313\/posts\/learning-ml-by-building-a-tiny-password-strength-classifier\/"
+            "@id": "https:\/\/arshimtiaz.github.io\/posts\/learning-ml-by-building-a-tiny-password-strength-classifier\/"
         },"genre": "posts","keywords": "machine-learning, cybersecurity, passwords","wordcount":  679 ,
-        "url": "http:\/\/0.0.0.0:1313\/posts\/learning-ml-by-building-a-tiny-password-strength-classifier\/","datePublished": "2025-11-19T00:00:00+00:00","dateModified": "2025-12-05T15:50:42+00:00","publisher": {
+        "url": "https:\/\/arshimtiaz.github.io\/posts\/learning-ml-by-building-a-tiny-password-strength-classifier\/","datePublished": "2025-11-19T00:00:00+00:00","dateModified": "2025-12-05T15:50:42+00:00","publisher": {
             "@type": "Organization",
-            "name": "Arsh Imtiaz","logo": "http:\/\/0.0.0.0:1313\/images\/avatar.png"},"author": {
+            "name": "Arsh Imtiaz","logo": "https:\/\/arshimtiaz.github.io\/images\/avatar.png"},"author": {
                 "@type": "Person",
                 "name": "Arsh Imtiaz"
             },"description": "How I stopped overthinking and finally built a simple ML model to classify password strength"
@@ -127,29 +127,27 @@
   </ul>
 </nav></div>
             </div><div class="content" id="content"><p>I finally sat down and built a machine learning model in <a href="https://jupyter.org/" target="_blank" rel="noopener noreffer "><strong>Jupyter Notebook</strong></a> that actually does something cybersecurity related. Not a big fancy neural network. Not a GPT clone. Just a tiny password strength classifier that helped me understand the full ML pipeline without frying my brain.</p>
-<a class="lightgallery" href="/posts/my-first-ml-model/jupyter_password_ml.png" title="Jupyter Notebook" data-thumbnail="/posts/my-first-ml-model/jupyter_password_ml.png">
-        <img
-            class="lazyload"
-            src="/svg/loading.min.svg"
-            data-src="/posts/my-first-ml-model/jupyter_password_ml.png"
-            data-srcset="/posts/my-first-ml-model/jupyter_password_ml.png, /posts/my-first-ml-model/jupyter_password_ml.png 1.5x, /posts/my-first-ml-model/jupyter_password_ml.png 2x"
-            data-sizes="auto"
-            alt="Jupyter Notebook" />
-    </a>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/posts/my-first-ml-model/jupyter_password_ml.png"
+        data-srcset="/posts/my-first-ml-model/jupyter_password_ml.png, /posts/my-first-ml-model/jupyter_password_ml.png 1.5x, /posts/my-first-ml-model/jupyter_password_ml.png 2x"
+        data-sizes="auto"
+        alt="/posts/my-first-ml-model/jupyter_password_ml.png"
+        title="Jupyter Notebook" /></p>
 <p>This whole thing started because I kept telling myself I would learn ML one day. And one day never comes when you wait for the perfect idea. So I forced myself to build something so stupid simple that I couldn&rsquo;t run away from it.</p>
 <p>Turns out, that worked.</p>
 <hr>
 <h2 id="what-i-wanted-to-build">What I wanted to build</h2>
 <p>I wanted a model that takes a password and predicts whether it is strong or weak based on its structure. Nothing about leaks, entropy, breached databases or cracking times. Just pure structural features, built on Jupyter Notebook.</p>
-<a class="lightgallery" href="/posts/my-first-ml-model/empty_notebook.png" title="Empty Notebook" data-thumbnail="/posts/my-first-ml-model/empty_notebook.png">
-        <img
-            class="lazyload"
-            src="/svg/loading.min.svg"
-            data-src="/posts/my-first-ml-model/empty_notebook.png"
-            data-srcset="/posts/my-first-ml-model/empty_notebook.png, /posts/my-first-ml-model/empty_notebook.png 1.5x, /posts/my-first-ml-model/empty_notebook.png 2x"
-            data-sizes="auto"
-            alt="Empty Notebook" />
-    </a>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/posts/my-first-ml-model/empty_notebook.png"
+        data-srcset="/posts/my-first-ml-model/empty_notebook.png, /posts/my-first-ml-model/empty_notebook.png 1.5x, /posts/my-first-ml-model/empty_notebook.png 2x"
+        data-sizes="auto"
+        alt="/posts/my-first-ml-model/empty_notebook.png"
+        title="Empty Notebook" /></p>
 <p>I kept it simple and picked four things to analyse:</p>
 <ul>
 <li>length</li>
@@ -217,15 +215,14 @@
 </span></span></code></pre></td></tr></table>
 </div>
 </div><p>Once I had this, I relabeled my dataset and everything started behaving predictably.</p>
-<a class="lightgallery" href="/posts/my-first-ml-model/labeller.png" title="Labeller" data-thumbnail="/posts/my-first-ml-model/labeller.png">
-        <img
-            class="lazyload"
-            src="/svg/loading.min.svg"
-            data-src="/posts/my-first-ml-model/labeller.png"
-            data-srcset="/posts/my-first-ml-model/labeller.png, /posts/my-first-ml-model/labeller.png 1.5x, /posts/my-first-ml-model/labeller.png 2x"
-            data-sizes="auto"
-            alt="Labeller" />
-    </a>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/posts/my-first-ml-model/labeller.png"
+        data-srcset="/posts/my-first-ml-model/labeller.png, /posts/my-first-ml-model/labeller.png 1.5x, /posts/my-first-ml-model/labeller.png 2x"
+        data-sizes="auto"
+        alt="/posts/my-first-ml-model/labeller.png"
+        title="Labeller" /></p>
 <hr>
 <h2 id="turning-passwords-into-features">Turning passwords into features</h2>
 <p>My extractor function was tiny too:</p>
@@ -249,15 +246,14 @@
 </span></span><span class="line"><span class="cl">	<span class="k">return</span> <span class="p">[</span><span class="n">length</span><span class="p">,</span> <span class="n">has_upper</span><span class="p">,</span> <span class="n">has_digit</span><span class="p">,</span> <span class="n">has_symbol</span><span class="p">]</span>
 </span></span></code></pre></td></tr></table>
 </div>
-</div><a class="lightgallery" href="/posts/my-first-ml-model/extract_features.png" title="Extract Features" data-thumbnail="/posts/my-first-ml-model/extract_features.png">
-        <img
-            class="lazyload"
-            src="/svg/loading.min.svg"
-            data-src="/posts/my-first-ml-model/extract_features.png"
-            data-srcset="/posts/my-first-ml-model/extract_features.png, /posts/my-first-ml-model/extract_features.png 1.5x, /posts/my-first-ml-model/extract_features.png 2x"
-            data-sizes="auto"
-            alt="Extract Features" />
-    </a>
+</div><p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/posts/my-first-ml-model/extract_features.png"
+        data-srcset="/posts/my-first-ml-model/extract_features.png, /posts/my-first-ml-model/extract_features.png 1.5x, /posts/my-first-ml-model/extract_features.png 2x"
+        data-sizes="auto"
+        alt="/posts/my-first-ml-model/extract_features.png"
+        title="Extract Features" /></p>
 <p>This gave me clean numerical data I could feed into scikit learn.</p>
 <h2 id="training-the-model">Training the model</h2>
 <p>After that, the ML part was almost boring. In a good way.</p>
@@ -277,25 +273,23 @@
 <li>my features were consistent</li>
 <li>the model actually learned the pattern instead of memorising random junk</li>
 </ul>
-<a class="lightgallery" href="/posts/my-first-ml-model/training.png" title="Training" data-thumbnail="/posts/my-first-ml-model/training.png">
-        <img
-            class="lazyload"
-            src="/svg/loading.min.svg"
-            data-src="/posts/my-first-ml-model/training.png"
-            data-srcset="/posts/my-first-ml-model/training.png, /posts/my-first-ml-model/training.png 1.5x, /posts/my-first-ml-model/training.png 2x"
-            data-sizes="auto"
-            alt="Training" />
-    </a>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/posts/my-first-ml-model/training.png"
+        data-srcset="/posts/my-first-ml-model/training.png, /posts/my-first-ml-model/training.png 1.5x, /posts/my-first-ml-model/training.png 2x"
+        data-sizes="auto"
+        alt="/posts/my-first-ml-model/training.png"
+        title="Training" /></p>
 <h2 id="what-i-learned">What I learned</h2>
-<a class="lightgallery" href="/posts/my-first-ml-model/cat-soldier.gif" title="Me" data-thumbnail="/posts/my-first-ml-model/cat-soldier.gif">
-        <img
-            class="lazyload"
-            src="/svg/loading.min.svg"
-            data-src="/posts/my-first-ml-model/cat-soldier.gif"
-            data-srcset="/posts/my-first-ml-model/cat-soldier.gif, /posts/my-first-ml-model/cat-soldier.gif 1.5x, /posts/my-first-ml-model/cat-soldier.gif 2x"
-            data-sizes="auto"
-            alt="Me" />
-    </a>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/posts/my-first-ml-model/cat-soldier.gif"
+        data-srcset="/posts/my-first-ml-model/cat-soldier.gif, /posts/my-first-ml-model/cat-soldier.gif 1.5x, /posts/my-first-ml-model/cat-soldier.gif 2x"
+        data-sizes="auto"
+        alt="/posts/my-first-ml-model/cat-soldier.gif"
+        title="Me" /></p>
 <p>Honestly, the biggest lesson wasn&rsquo;t about ML. It was about myself.</p>
 <ul>
 <li>I overthink everything when I try to learn something new</li>
@@ -336,10 +330,20 @@
         </section>
     </div>
 
-    <div class="post-nav"><a href="/posts/when-red-teaming-meets-car-hacking-building-a-virtual-vehicle-pentest-lab-on-my-laptop/" class="prev" rel="prev" title="When Red Teaming Meets Car Hacking: Building a Virtual Vehicle Pentest Lab on My Laptop"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>When Red Teaming Meets Car Hacking: Building a Virtual Vehicle Pentest Lab on My Laptop</a>
-            <a href="/posts/the-first-time-it-finally-clicked/" class="next" rel="next" title="The First Time It Finally Clicked">The First Time It Finally Clicked<i class="fas fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
+    <div class="post-nav"><a href="/posts/when-red-teaming-meets-car-hacking-building-a-virtual-vehicle-pentest-lab-on-my-laptop/" class="prev" rel="prev" title="When Red Teaming Meets Car Hacking: Building a Virtual Vehicle Pentest Lab on My Laptop"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>When Red Teaming Meets Car Hacking: Building a Virtual Vehicle Pentest Lab on My Laptop</a></div>
 </div>
-</article></div>
+<section id="comments">
+            <h2>Comments</h2>
+            <script src="https://utteranc.es/client.js"
+                    repo="arshimtiaz/arshimtiaz.github.io"
+                    issue-term="pathname"
+                    label="blog-comments"
+                    theme="dark-blue"
+                    crossorigin="anonymous"
+                    async>
+            </script>
+        </section>
+    </article></div>
             </main><footer class="footer">
         <div class="footer-container"><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2023 - 2026</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank"></a></span>&nbsp;|&nbsp;<span class="license">All Rights Reserved</span></div>
         </div>
@@ -350,5 +354,5 @@
             </a><a href="#" id="view-comments" class="fixed-button" title="View Comments">
                 <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
             </a>
-        </div><link rel="stylesheet" href="/lib/lightgallery/css/lightgallery-bundle.min.css"><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="stylesheet" href="/lib/cookieconsent/cookieconsent.min.css"><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/twemoji/twemoji.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lightgallery.min.js"></script><script type="text/javascript" src="/lib/lightgallery/plugins/thumbnail/lg-thumbnail.min.js"></script><script type="text/javascript" src="/lib/lightgallery/plugins/zoom/lg-zoom.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js"></script><script type="text/javascript" src="/lib/katex/contrib/auto-render.min.js"></script><script type="text/javascript" src="/lib/cookieconsent/cookieconsent.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"Copy to clipboard","maxShownLines":50},"comment":{},"cookieconsent":{"content":{"dismiss":"Okay","link":"Learn more","message":"This site uses cookies for analytics. "},"enable":true,"palette":{"button":{"background":"#f0f0f0"},"popup":{"background":"#1aa3ff"}},"theme":"classic"},"lightgallery":true,"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":true,"left":"\\begin{equation}","right":"\\end{equation}"},{"display":true,"left":"\\begin{equation*}","right":"\\end{equation*}"},{"display":true,"left":"\\begin{align}","right":"\\end{align}"},{"display":true,"left":"\\begin{align*}","right":"\\end{align*}"},{"display":true,"left":"\\begin{alignat}","right":"\\end{alignat}"},{"display":true,"left":"\\begin{alignat*}","right":"\\end{alignat*}"},{"display":true,"left":"\\begin{gather}","right":"\\end{gather}"},{"display":true,"left":"\\begin{CD}","right":"\\end{CD}"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"highlightTag":"em","lunrIndexURL":"/index.json","maxResultLength":10,"noResultsFound":"No results found","snippetLength":30,"type":"lunr"},"twemoji":true};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+        </div><link rel="stylesheet" href="/lib/katex/katex.min.css"><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/twemoji/twemoji.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js"></script><script type="text/javascript" src="/lib/katex/contrib/auto-render.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"Copy to clipboard","maxShownLines":50},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":true,"left":"\\begin{equation}","right":"\\end{equation}"},{"display":true,"left":"\\begin{equation*}","right":"\\end{equation*}"},{"display":true,"left":"\\begin{align}","right":"\\end{align}"},{"display":true,"left":"\\begin{align*}","right":"\\end{align*}"},{"display":true,"left":"\\begin{alignat}","right":"\\end{alignat}"},{"display":true,"left":"\\begin{alignat*}","right":"\\end{alignat*}"},{"display":true,"left":"\\begin{gather}","right":"\\end{gather}"},{"display":true,"left":"\\begin{CD}","right":"\\end{CD}"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"highlightTag":"em","lunrIndexURL":"/index.json","maxResultLength":10,"noResultsFound":"No results found","snippetLength":30,"type":"lunr"},"twemoji":true};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
 </html>

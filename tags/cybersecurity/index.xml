@@ -1,247 +1,22 @@
 <rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
     <channel>
         <title>Cybersecurity - Tag - Arsh Imtiaz</title>
-        <link>http://0.0.0.0:1313/tags/cybersecurity/</link>
+        <link>https://arshimtiaz.github.io/tags/cybersecurity/</link>
         <description>Cybersecurity - Tag - Arsh Imtiaz</description>
-        <generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Sat, 14 Feb 2026 02:05:32 &#43;0000</lastBuildDate><atom:link href="http://0.0.0.0:1313/tags/cybersecurity/" rel="self" type="application/rss+xml" /><item>
-    <title>Breaking Access Control Safely: Building a Transaction System Attack Lab</title>
-    <link>http://0.0.0.0:1313/posts/breaking-access-control-safely-building-a-transaction-system-attack-lab/</link>
-    <pubDate>Sat, 14 Feb 2026 02:05:32 &#43;0000</pubDate>
-    <author>Arsh Imtiaz</author>
-    <guid>http://0.0.0.0:1313/posts/breaking-access-control-safely-building-a-transaction-system-attack-lab/</guid>
-    <description><![CDATA[<figure><a class="lightgallery" href="./transaction_lab_header.svg" title="Transaction System Attack Lab" data-thumbnail="./transaction_lab_header.svg" data-sub-html="<h2>Modelling broken access control in a small transaction system</h2>">
-        
-    </a><figcaption class="image-caption">Modelling broken access control in a small transaction system</figcaption>
-    </figure>
-<h1 id="why-build-another-lab">Why build another lab?</h1>
-<p>Broken access control (especially IDOR-style issues) keeps showing up in real systems – often in places that look &ldquo;boring&rdquo; on the surface: balance checks, transaction history, admin tools, internal APIs.</p>
-<p>I wanted a small, opinionated lab that behaves more like the systems I see in the real world than a typical CTF challenge. Something I could:</p>
-<ul>
-<li>use to explain attack paths to engineers,</li>
-<li>talk through in interviews without referencing client work,</li>
-<li>and extend over time with new scenarios.</li>
-</ul>
-<p>So I built a <strong>Transaction System Attack Lab</strong> – a tiny, multi-service platform that exposes a very real class of bug: object-level authorization failures on account data.</p>
-<hr>
-<h2 id="high-level-idea">High-level idea</h2>
-<p>Instead of a single monolith, the lab is split into three FastAPI services:</p>
-<ul>
-<li><strong>auth-service</strong> – issues JWTs with <code>sub = user_id</code> and a simple <code>role</code>.</li>
-<li><strong>accounts-service</strong> – exposes <code>GET /accounts/{id}/balance</code> and <code>POST /accounts/transfer</code>.</li>
-<li><strong>audit-service</strong> – receives security/audit events (designed to talk about logging and detection).</li>
-</ul>
-<a class="lightgallery" href="/images/architecture.png" title="Transaction System Attack Lab architecture" data-thumbnail="/images/architecture.png">
-        
-    </a>
-<p>The interesting bit is not the framework – it&rsquo;s the <strong>trust boundaries</strong>:</p>
-<ul>
-<li>Client ↔ auth-service (where identity is established)</li>
-<li>auth-service ↔ accounts-service (where identity is consumed)</li>
-<li>accounts-service ↔ audit-service (where we decide what to log and how).</li>
-</ul>
-<hr>
-<h2 id="the-vulnerable-pattern-idor--broken-access-control">The vulnerable pattern (IDOR / broken access control)</h2>
-<p>The core bug I wanted to model is very simple:</p>
-<blockquote>
-<p>The API lets you reference an account by ID, but never checks whether that account actually belongs to you.</p>
-</blockquote>
-<p>In the lab, accounts are stored like this:</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">ACCOUNTS</span> <span class="o">=</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="mi">2001</span><span class="p">:</span> <span class="n">Account</span><span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="mi">2001</span><span class="p">,</span> <span class="n">owner_user_id</span><span class="o">=</span><span class="mi">1001</span><span class="p">,</span> <span class="n">balance</span><span class="o">=</span><span class="mf">1000.0</span><span class="p">),</span>
-</span></span><span class="line"><span class="cl">    <span class="mi">2002</span><span class="p">:</span> <span class="n">Account</span><span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="mi">2002</span><span class="p">,</span> <span class="n">owner_user_id</span><span class="o">=</span><span class="mi">1002</span><span class="p">,</span> <span class="n">balance</span><span class="o">=</span><span class="mf">500.0</span><span class="p">),</span>
-</span></span><span class="line"><span class="cl">    <span class="mi">2003</span><span class="p">:</span> <span class="n">Account</span><span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="mi">2003</span><span class="p">,</span> <span class="n">owner_user_id</span><span class="o">=</span><span class="mi">1002</span><span class="p">,</span> <span class="n">balance</span><span class="o">=</span><span class="mf">2500.0</span><span class="p">),</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span></code></pre></td></tr></table>
-</div>
-</div><p>The vulnerable endpoint looks up the account by ID and returns it:</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="nd">@app.get</span><span class="p">(</span><span class="s2">&#34;/accounts/</span><span class="si">{account_id}</span><span class="s2">/balance&#34;</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl"><span class="k">async</span> <span class="k">def</span> <span class="nf">get_balance</span><span class="p">(</span><span class="n">account_id</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">token</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="n">Depends</span><span class="p">(</span><span class="n">decode_token</span><span class="p">)):</span>
-</span></span><span class="line"><span class="cl">    <span class="n">acct</span> <span class="o">=</span> <span class="n">ACCOUNTS</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">account_id</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="ow">not</span> <span class="n">acct</span><span class="p">:</span>
-</span></span><span class="line"><span class="cl">        <span class="k">raise</span> <span class="n">HTTPException</span><span class="p">(</span><span class="n">status_code</span><span class="o">=</span><span class="mi">404</span><span class="p">,</span> <span class="n">detail</span><span class="o">=</span><span class="s2">&#34;Account not found&#34;</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">    <span class="c1"># Deliberately missing ownership check</span>
-</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">        <span class="s2">&#34;account_id&#34;</span><span class="p">:</span> <span class="n">acct</span><span class="o">.</span><span class="n">id</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">        <span class="s2">&#34;owner_user_id&#34;</span><span class="p">:</span> <span class="n">acct</span><span class="o">.</span><span class="n">owner_user_id</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">        <span class="s2">&#34;balance&#34;</span><span class="p">:</span> <span class="n">acct</span><span class="o">.</span><span class="n">balance</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">    <span class="p">}</span>
-</span></span></code></pre></td></tr></table>
-</div>
-</div><p>The token already tells us who the caller is (<code>token[&quot;sub&quot;]</code>), but the handler never uses it.</p>
-<p>This is the essence of an IDOR-style bug: <strong>the application trusts an object identifier without enforcing object-level authorization</strong>.</p>
-<hr>
-<h2 id="walking-attack-path-01">Walking Attack Path 01</h2>
-<p>The first documented scenario is in the repo as:</p>
-<ul>
-<li><code>docs/attack-path-01-idor-broken-access-control.md</code></li>
-</ul>
-<p>The flow is intentionally close to how a real test would look:</p>
-<ol>
-<li>
-<p><strong>Login as a normal user</strong></p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">curl -s -X POST http://localhost:8001/login <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>  -H <span class="s2">&#34;Content-Type: application/json&#34;</span> <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>  -d <span class="s1">&#39;{&#34;username&#34;: &#34;alice&#34;, &#34;password&#34;: &#34;password123&#34;}&#39;</span> <span class="p">|</span> jq
-</span></span></code></pre></td></tr></table>
-</div>
-</div></li>
-<li>
-<p><strong>Confirm your own account works</strong></p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="nv">TOKEN</span><span class="o">=</span><span class="s2">&#34;&lt;paste the access_token&gt;&#34;</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">curl -s http://localhost:8002/accounts/2001/balance <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>  -H <span class="s2">&#34;Authorization: Bearer </span><span class="nv">$TOKEN</span><span class="s2">&#34;</span> <span class="p">|</span> jq
-</span></span></code></pre></td></tr></table>
-</div>
-</div></li>
-<li>
-<p><strong>Probe other IDs</strong></p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">curl -s http://localhost:8002/accounts/2002/balance <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>  -H <span class="s2">&#34;Authorization: Bearer </span><span class="nv">$TOKEN</span><span class="s2">&#34;</span> <span class="p">|</span> jq
-</span></span></code></pre></td></tr></table>
-</div>
-</div><p>Even though Alice owns account <code>2001</code>, she can read balances for <code>2002</code> and <code>2003</code>, which belong to a different user.</p>
-</li>
-<li>
-<p><strong>Automate the search</strong></p>
-<p>To make it feel more like a real engagement, I wired a small helper script:</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">./scripts/exploit/idor_enumeration.py --start <span class="m">2000</span> --end <span class="m">2010</span>
-</span></span></code></pre></td></tr></table>
-</div>
-</div><p>Under the hood it:</p>
-<ul>
-<li>logs in to auth-service to get a JWT,</li>
-<li>loops over account IDs,</li>
-<li>prints <code>[HIT]</code> when the API leaks data.</li>
-</ul>
-</li>
-</ol>
-<a class="lightgallery" href="/images/attack-path-01.png" title="Attack Path 01 – Broken access control on accounts" data-thumbnail="/images/attack-path-01.png">
-        
-    </a>
-<hr>
-<h2 id="fixing-it-and-why-it-matters">Fixing it (and why it matters)</h2>
-<p>The fix is deliberately boring, because that&rsquo;s what most real security fixes look like:</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">caller_user_id</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">token</span><span class="p">[</span><span class="s2">&#34;sub&#34;</span><span class="p">])</span>
-</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="n">acct</span><span class="o">.</span><span class="n">owner_user_id</span> <span class="o">!=</span> <span class="n">caller_user_id</span> <span class="ow">and</span> <span class="n">token</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&#34;role&#34;</span><span class="p">)</span> <span class="o">!=</span> <span class="s2">&#34;admin&#34;</span><span class="p">:</span>
-</span></span><span class="line"><span class="cl">    <span class="k">raise</span> <span class="n">HTTPException</span><span class="p">(</span><span class="n">status_code</span><span class="o">=</span><span class="mi">403</span><span class="p">,</span> <span class="n">detail</span><span class="o">=</span><span class="s2">&#34;Forbidden&#34;</span><span class="p">)</span>
-</span></span></code></pre></td></tr></table>
-</div>
-</div><p>The important part is the <strong>thinking</strong> around it:</p>
-<ul>
-<li>Where does identity come from (auth-service)?</li>
-<li>Where is it consumed (accounts-service)?</li>
-<li>Do we enforce ownership every time we touch something user-specific?</li>
-<li>Do we log enough context to spot weird access patterns later?</li>
-</ul>
-<p>In <code>docs/detection-and-mitigation.md</code> I sketched out logging fields and detection ideas, e.g.:</p>
-<ul>
-<li>a single <code>user_id</code> touching lots of different <code>account_id</code> values in a short window,</li>
-<li>repeated access to non-existent accounts,</li>
-<li>correlating access patterns with other events from the same user/session.</li>
-</ul>
-<hr>
-<h2 id="why-this-helps-me-as-a-practitioner">Why this helps me as a practitioner</h2>
-<p>I built this lab for three reasons:</p>
-<ol>
-<li>
-<p><strong>Storytelling</strong> – It&rsquo;s much easier to talk about broken access control when you can point to a tiny system and say: <em>&ldquo;here is the exact place it went wrong, here is the exploit, and here is the fix&rdquo;</em>.</p>
-</li>
-<li>
-<p><strong>Interview signal</strong> – This repo is public, so I can:</p>
-<ul>
-<li>walk hiring managers through the architecture and attack path,</li>
-<li>show that I think about both offense (finding the bug) and defense (logging, detection, and mitigations).</li>
-</ul>
-</li>
-<li>
-<p><strong>Extensibility</strong> – The roadmap includes future scenarios like webhook issues, race conditions on transfers, and misuse of internal tooling. I can grow this over time as I see more real-world patterns.</p>
-</li>
-</ol>
-<p>If you want to read the code or run the lab yourself, it&rsquo;s here:</p>
-<ul>
-<li>GitHub: <a href="https://github.com/c0ncatenate/transaction-system-attack-lab" target="_blank" rel="noopener noreffer ">https://github.com/c0ncatenate/transaction-system-attack-lab</a></li>
-</ul>
-<p>As always, everything is for educational use only – <strong>only test systems you have explicit permission to attack</strong>.</p>
-]]></description>
-</item>
-<item>
+        <generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Wed, 19 Nov 2025 00:00:00 &#43;0000</lastBuildDate><atom:link href="https://arshimtiaz.github.io/tags/cybersecurity/" rel="self" type="application/rss+xml" /><item>
     <title>Learning ML by Building a Tiny Password Strength Classifier</title>
-    <link>http://0.0.0.0:1313/posts/learning-ml-by-building-a-tiny-password-strength-classifier/</link>
+    <link>https://arshimtiaz.github.io/posts/learning-ml-by-building-a-tiny-password-strength-classifier/</link>
     <pubDate>Wed, 19 Nov 2025 00:00:00 &#43;0000</pubDate>
     <author>Arsh Imtiaz</author>
-    <guid>http://0.0.0.0:1313/posts/learning-ml-by-building-a-tiny-password-strength-classifier/</guid>
+    <guid>https://arshimtiaz.github.io/posts/learning-ml-by-building-a-tiny-password-strength-classifier/</guid>
     <description><![CDATA[<p>I finally sat down and built a machine learning model in <a href="https://jupyter.org/" target="_blank" rel="noopener noreffer "><strong>Jupyter Notebook</strong></a> that actually does something cybersecurity related. Not a big fancy neural network. Not a GPT clone. Just a tiny password strength classifier that helped me understand the full ML pipeline without frying my brain.</p>
-<a class="lightgallery" href="/posts/my-first-ml-model/jupyter_password_ml.png" title="Jupyter Notebook" data-thumbnail="/posts/my-first-ml-model/jupyter_password_ml.png">
-        
-    </a>
+<p></p>
 <p>This whole thing started because I kept telling myself I would learn ML one day. And one day never comes when you wait for the perfect idea. So I forced myself to build something so stupid simple that I couldn&rsquo;t run away from it.</p>
 <p>Turns out, that worked.</p>
 <hr>
 <h2 id="what-i-wanted-to-build">What I wanted to build</h2>
 <p>I wanted a model that takes a password and predicts whether it is strong or weak based on its structure. Nothing about leaks, entropy, breached databases or cracking times. Just pure structural features, built on Jupyter Notebook.</p>
-<a class="lightgallery" href="/posts/my-first-ml-model/empty_notebook.png" title="Empty Notebook" data-thumbnail="/posts/my-first-ml-model/empty_notebook.png">
-        
-    </a>
+<p></p>
 <p>I kept it simple and picked four things to analyse:</p>
 <ul>
 <li>length</li>
@@ -309,9 +84,7 @@
 </span></span></code></pre></td></tr></table>
 </div>
 </div><p>Once I had this, I relabeled my dataset and everything started behaving predictably.</p>
-<a class="lightgallery" href="/posts/my-first-ml-model/labeller.png" title="Labeller" data-thumbnail="/posts/my-first-ml-model/labeller.png">
-        
-    </a>
+<p></p>
 <hr>
 <h2 id="turning-passwords-into-features">Turning passwords into features</h2>
 <p>My extractor function was tiny too:</p>
@@ -335,9 +108,7 @@
 </span></span><span class="line"><span class="cl">	<span class="k">return</span> <span class="p">[</span><span class="n">length</span><span class="p">,</span> <span class="n">has_upper</span><span class="p">,</span> <span class="n">has_digit</span><span class="p">,</span> <span class="n">has_symbol</span><span class="p">]</span>
 </span></span></code></pre></td></tr></table>
 </div>
-</div><a class="lightgallery" href="/posts/my-first-ml-model/extract_features.png" title="Extract Features" data-thumbnail="/posts/my-first-ml-model/extract_features.png">
-        
-    </a>
+</div><p></p>
 <p>This gave me clean numerical data I could feed into scikit learn.</p>
 <h2 id="training-the-model">Training the model</h2>
 <p>After that, the ML part was almost boring. In a good way.</p>
@@ -357,13 +128,9 @@
 <li>my features were consistent</li>
 <li>the model actually learned the pattern instead of memorising random junk</li>
 </ul>
-<a class="lightgallery" href="/posts/my-first-ml-model/training.png" title="Training" data-thumbnail="/posts/my-first-ml-model/training.png">
-        
-    </a>
+<p></p>
 <h2 id="what-i-learned">What I learned</h2>
-<a class="lightgallery" href="/posts/my-first-ml-model/cat-soldier.gif" title="Me" data-thumbnail="/posts/my-first-ml-model/cat-soldier.gif">
-        
-    </a>
+<p></p>
 <p>Honestly, the biggest lesson wasn&rsquo;t about ML. It was about myself.</p>
 <ul>
 <li>I overthink everything when I try to learn something new</li>
@@ -387,14 +154,14 @@
 </item>
 <item>
     <title>When Red Teaming Meets Car Hacking: Building a Virtual Vehicle Pentest Lab on My Laptop</title>
-    <link>http://0.0.0.0:1313/posts/when-red-teaming-meets-car-hacking-building-a-virtual-vehicle-pentest-lab-on-my-laptop/</link>
+    <link>https://arshimtiaz.github.io/posts/when-red-teaming-meets-car-hacking-building-a-virtual-vehicle-pentest-lab-on-my-laptop/</link>
     <pubDate>Sun, 09 Nov 2025 00:00:00 &#43;0000</pubDate>
     <author>Arsh Imtiaz</author>
-    <guid>http://0.0.0.0:1313/posts/when-red-teaming-meets-car-hacking-building-a-virtual-vehicle-pentest-lab-on-my-laptop/</guid>
-    <description><![CDATA[<figure><a class="lightgallery" href="/posts/when-red-teaming-meets-car-hacking-building-a-virtual-vehicle-pentest-lab-on-my-laptop/assets/car_hacking.png" title="Networking is fun" data-thumbnail="/posts/when-red-teaming-meets-car-hacking-building-a-virtual-vehicle-pentest-lab-on-my-laptop/assets/car_hacking.png" data-sub-html="<h2>How does one emulate cars at home?</h2>">
-        
-    </a><figcaption class="image-caption">How does one emulate cars at home?</figcaption>
-    </figure>
+    <guid>https://arshimtiaz.github.io/posts/when-red-teaming-meets-car-hacking-building-a-virtual-vehicle-pentest-lab-on-my-laptop/</guid>
+    <description><![CDATA[<div style="text-align: center;">
+  
+  <small>How does one emulate cars at home?</small>
+</div>
 <p>Every car hacking tool I have come across required expensive ECUs, adapters or even full test benches. Having worked with test cars before, I got an insight into how time consuming and expensive, if not difficult it is to set a working HIL (Hardware-In-Loop) setup.
 I didn&rsquo;t want to wait for hardware to understand how automotive networks behave - I wanted to simulate it.</p>
 <p>So, I built my own virtual car hacking network using Linux tools, a bit of Python, and some creative problem solving.</p>
@@ -648,14 +415,14 @@ We can use <code>candump</code>, which continuously listens for any CAN messages
 </item>
 <item>
     <title>Why Networking Fundamentals Should Be Your First Step</title>
-    <link>http://0.0.0.0:1313/posts/why-networking-fundamentals-should-be-your-first-step/</link>
+    <link>https://arshimtiaz.github.io/posts/why-networking-fundamentals-should-be-your-first-step/</link>
     <pubDate>Wed, 06 Aug 2025 00:00:00 &#43;0100</pubDate>
     <author>Arsh Imtiaz</author>
-    <guid>http://0.0.0.0:1313/posts/why-networking-fundamentals-should-be-your-first-step/</guid>
-    <description><![CDATA[<figure><a class="lightgallery" href="./network-nodes.gif" title="Networking is fun" data-thumbnail="./network-nodes.gif" data-sub-html="<h2>Networking is fun. Also, it is the part that keeps your hacks from breaking at the worst time.</h2>">
-        
-    </a><figcaption class="image-caption">Networking is fun. Also, it is the part that keeps your hacks from breaking at the worst time.</figcaption>
-    </figure>
+    <guid>https://arshimtiaz.github.io/posts/why-networking-fundamentals-should-be-your-first-step/</guid>
+    <description><![CDATA[<div style="text-align: center;">
+  
+  <small>Networking is fun. Also, it is the part that keeps your hacks from breaking at the worst time.</small>
+</div>
 <p><big>So, you wanna be a hacker?</big></p>
 <p>Cool. I did too. I jumped into Kali, sprayed tools, and followed tutorials like a robot. Things worked, but I could not explain why. That was my first big lesson: <strong>without networking, most of security looks like magic</strong>. No magic here. Just packets, addresses, ports, and paths.</p>
 <h2 id="the-moment-it-clicked">The moment it clicked</h2>
@@ -669,10 +436,10 @@ We can use <code>candump</code>, which continuously listens for any CAN messages
 <h2 id="learn-these-first">Learn these first</h2>
 <p>These are the pieces that changed my life in pentests and CTFs.</p>
 <h3 id="-the-osi-model">🔌 The OSI model</h3>
-<figure><a class="lightgallery" href="./osi-model.gif" title="OSI and TCP IP overview" data-thumbnail="./osi-model.gif" data-sub-html="<h2>OSI and TCP/IP from Practical Networking</h2>">
-        
-    </a><figcaption class="image-caption">OSI and TCP/IP from <a href='https://www.practicalnetworking.net/series/packet-traveling/osi-model/'>Practical Networking</a></figcaption>
-    </figure>
+<div style="text-align: center;">
+  
+  <small>OSI and TCP/IP from <a href="https://www.practicalnetworking.net/series/packet-traveling/osi-model/">Practical Networking</a></small>
+</div>
 <p>Think of it as a map. If you know the layer, you know where to debug.<br>
 If you want to explore it in depth, check out:</p>
 <ul>
@@ -690,10 +457,10 @@ If you want to explore it in depth, check out:</p>
 <li><strong>L7 Application</strong> - HTTP, DNS over HTTPS, SMTP. If the app returns 200 but nothing changes, it is probably an app logic bug, not the network.</li>
 </ul>
 <h3 id="-ip-addressing-and-subnetting">🌐 IP addressing and subnetting</h3>
-<figure><a class="lightgallery" href="./ip-subnetting.gif" title="IP subnetting" data-thumbnail="./ip-subnetting.gif" data-sub-html="<h2>Subnetting overview from Network Academy</h2>">
-        
-    </a><figcaption class="image-caption">Subnetting overview from <a href='https://www.networkacademy.io/ccna/ip-subnetting/why-do-we-need-ip-subnetting'>Network Academy</a></figcaption>
-    </figure>
+<div style="text-align: center;">
+  
+  <small>Subnetting overview from <a href="https://www.networkacademy.io/ccna/ip-subnetting/why-do-we-need-ip-subnetting">Network Academy</a></small>
+</div>
 <p>You do not need to be a human subnet calculator. You do need to know:</p>
 <ul>
 <li>Private ranges: 10.0.0.0/8, 172.16.0.0/12, 192.168.0.0/16.</li>
@@ -706,10 +473,10 @@ If you want to explore it in depth, check out:</p>
 <li><a href="https://subnettingpractice.com/" target="_blank" rel="noopener noreffer ">Subnetting Practice Game</a></li>
 </ul>
 <h3 id="-ports-and-protocols-that-actually-matter">🚪 Ports and protocols that actually matter</h3>
-<figure><a class="lightgallery" href="./ports.png" title="Common service ports" data-thumbnail="./ports.png" data-sub-html="<h2>Know the defaults, then verify with a scan. Do not assume.</h2>">
-        
-    </a><figcaption class="image-caption">Know the defaults, then verify with a scan. Do not assume.</figcaption>
-    </figure>
+<div style="text-align: center;">
+  
+  <small>Know the defaults, then verify with a scan. Do not assume.</small>
+</div>
 <p>Quick cheats you will use daily:</p>
 <ul>
 <li><strong>22 SSH</strong> - remote shell. If login hangs after password, suspect TCP filtering or <code>AllowUsers</code> policy before you blame credentials.</li>
@@ -722,10 +489,10 @@ If you want to explore it in depth, check out:</p>
 <li><a href="https://www.iana.org/assignments/service-names-port-numbers/service-names-port-numbers.xhtml" target="_blank" rel="noopener noreffer ">IANA Service Name and Transport Protocol Port Number Registry</a></li>
 </ul>
 <h3 id="-packet-flow-and-basic-tools">📦 Packet flow and basic tools</h3>
-<figure><a class="lightgallery" href="./wireshark.gif" title="Wireshark capture" data-thumbnail="./wireshark.gif" data-sub-html="<h2>Follow a TCP handshake. SYN, SYN ACK, ACK. It will save you hours.</h2>">
-        
-    </a><figcaption class="image-caption">Follow a TCP handshake. SYN, SYN ACK, ACK. It will save you hours.</figcaption>
-    </figure>
+<div style="text-align: center;">
+  
+  <small>Follow a TCP handshake. SYN, SYN ACK, ACK. It will save you hours.</small>
+</div>
 <p>Tools I use in order when something breaks:</p>
 <ol>
 <li><code>ping</code> to test reachability. If ICMP is blocked, move on.</li>
@@ -735,9 +502,9 @@ If you want to explore it in depth, check out:</p>
 <li>Wireshark for the story behind the packets.</li>
 </ol>
 <h3 id="-nat-dhcp-dns-routing">🔥 NAT, DHCP, DNS, routing</h3>
-<a class="lightgallery" href="./sysadmin-hotline.gif" title="Sysadmin hotline" data-thumbnail="./sysadmin-hotline.gif">
-        
-    </a>
+<div style="text-align: center;">
+  
+</div>
 <p>This is the unsexy part that makes everything work.</p>
 <ul>
 <li><strong>NAT</strong> hides private hosts. Reverse shells fail a lot here. Use a listener on a port allowed outbound.</li>
@@ -785,13 +552,11 @@ If you want to explore it in depth, check out:</p>
 </item>
 <item>
     <title>Docker to Detection: Setting Up Wazuh SIEM for Beginners</title>
-    <link>http://0.0.0.0:1313/posts/docker-to-detection-setting-up-wazuh-siem-for-beginners/</link>
+    <link>https://arshimtiaz.github.io/posts/docker-to-detection-setting-up-wazuh-siem-for-beginners/</link>
     <pubDate>Sat, 14 Jun 2025 00:00:00 &#43;0100</pubDate>
     <author>Arsh Imtiaz</author>
-    <guid>http://0.0.0.0:1313/posts/docker-to-detection-setting-up-wazuh-siem-for-beginners/</guid>
-    <description><![CDATA[<a class="lightgallery" href="/images/wazuh-header-image.jpg" title="Wazuh" data-thumbnail="/images/wazuh-header-image.jpg">
-        
-    </a>
+    <guid>https://arshimtiaz.github.io/posts/docker-to-detection-setting-up-wazuh-siem-for-beginners/</guid>
+    <description><![CDATA[<p></p>
 <p>Setting up a SIEM (Security Information and Event Management) system might sound intimidating if you’re just getting started, but it’s a rewarding project that gives you real insight into how cybersecurity professionals monitor and detect threats. I recently built a Wazuh-based SIEM entirely with Docker and connected my personal Linux workstation as an agent. In this post, I’ll walk you through the process with practical commands for both Arch Linux and Debian users.</p>
 <hr>
 <blockquote>
@@ -1024,10 +789,10 @@ If you want to explore it in depth, check out:</p>
 </item>
 <item>
     <title>Welcome</title>
-    <link>http://0.0.0.0:1313/posts/welcome/</link>
+    <link>https://arshimtiaz.github.io/posts/welcome/</link>
     <pubDate>Wed, 15 Jan 2025 11:59:12 &#43;0300</pubDate>
     <author>Arsh Imtiaz</author>
-    <guid>http://0.0.0.0:1313/posts/welcome/</guid>
+    <guid>https://arshimtiaz.github.io/posts/welcome/</guid>
     <description><![CDATA[<h1 id="welcome-to-my-blog">Welcome to My Blog</h1>
 <p>Hello, and thank you for visiting my blog!</p>
 <p>I&rsquo;m Arsh Imtiaz — a cybersecurity professional passionate about ethical hacking, information security, and continuous learning in the ever-evolving world of technology.</p>

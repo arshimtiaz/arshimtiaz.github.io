@@ -1,14 +1,14 @@
 <rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
     <channel>
         <title>Introduction - Tag - Arsh Imtiaz</title>
-        <link>http://0.0.0.0:1313/tags/introduction/</link>
+        <link>https://arshimtiaz.github.io/tags/introduction/</link>
         <description>Introduction - Tag - Arsh Imtiaz</description>
-        <generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Wed, 15 Jan 2025 11:59:12 &#43;0300</lastBuildDate><atom:link href="http://0.0.0.0:1313/tags/introduction/" rel="self" type="application/rss+xml" /><item>
+        <generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Wed, 15 Jan 2025 11:59:12 &#43;0300</lastBuildDate><atom:link href="https://arshimtiaz.github.io/tags/introduction/" rel="self" type="application/rss+xml" /><item>
     <title>Welcome</title>
-    <link>http://0.0.0.0:1313/posts/welcome/</link>
+    <link>https://arshimtiaz.github.io/posts/welcome/</link>
     <pubDate>Wed, 15 Jan 2025 11:59:12 &#43;0300</pubDate>
     <author>Arsh Imtiaz</author>
-    <guid>http://0.0.0.0:1313/posts/welcome/</guid>
+    <guid>https://arshimtiaz.github.io/posts/welcome/</guid>
     <description><![CDATA[<h1 id="welcome-to-my-blog">Welcome to My Blog</h1>
 <p>Hello, and thank you for visiting my blog!</p>
 <p>I&rsquo;m Arsh Imtiaz — a cybersecurity professional passionate about ethical hacking, information security, and continuous learning in the ever-evolving world of technology.</p>
