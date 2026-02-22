@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-label="Local vs cloud AI tradeoffs">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0b1020"/>
+      <stop offset="100%" stop-color="#0f172a"/>
+    </linearGradient>
+    <linearGradient id="panel" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0ea5e9" stop-opacity="0.14"/>
+      <stop offset="100%" stop-color="#22c55e" stop-opacity="0.14"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <g font-family="ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace" fill="#e2e8f0">
+    <text x="70" y="90" font-size="28">Local vs Cloud</text>
+    <text x="70" y="120" font-size="16" fill="#94a3b8">Why local wins for learning, and cloud wins for scale</text>
+  </g>
+
+  <g stroke="#1f2a44" stroke-width="1">
+    <rect x="70" y="170" width="500" height="380" rx="18" fill="url(#panel)"/>
+    <rect x="630" y="170" width="500" height="380" rx="18" fill="url(#panel)"/>
+  </g>
+
+  <g font-family="ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace" fill="#e2e8f0">
+    <text x="100" y="220" font-size="20">Local (Ollama)</text>
+    <text x="660" y="220" font-size="20">Cloud APIs</text>
+  </g>
+
+  <g font-family="ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace" fill="#94a3b8" font-size="14">
+    <text x="100" y="260">No credits burning</text>
+    <text x="100" y="290">Data stays on your box</text>
+    <text x="100" y="320">Fast iteration loop</text>
+    <text x="100" y="350">Model swapping is easy</text>
+    <text x="100" y="380">GPU decides the ceiling</text>
+
+    <text x="660" y="260">Elastic scale</text>
+    <text x="660" y="290">Managed infra + uptime</text>
+    <text x="660" y="320">Enterprise compliance</text>
+    <text x="660" y="350">Best models first</text>
+    <text x="660" y="380">Costs track usage</text>
+  </g>
+
+  <g stroke="#38bdf8" stroke-width="2" fill="none">
+    <path d="M570 360 H630"/>
+  </g>
+  <g font-family="ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace" fill="#94a3b8" font-size="12" opacity="0.5">
+    <text x="1130" y="610" text-anchor="end">https://arshimtiaz.github.io</text>
+  </g>
+</svg>

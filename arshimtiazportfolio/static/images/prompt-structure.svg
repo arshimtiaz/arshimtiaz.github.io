@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-label="Prompt structure">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0b1020"/>
+      <stop offset="100%" stop-color="#0f172a"/>
+    </linearGradient>
+    <linearGradient id="panel" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0ea5e9" stop-opacity="0.14"/>
+      <stop offset="100%" stop-color="#22c55e" stop-opacity="0.14"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <g font-family="ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace" fill="#e2e8f0">
+    <text x="70" y="90" font-size="28">Prompt Structure</text>
+    <text x="70" y="120" font-size="16" fill="#94a3b8">Better inputs make the outputs usable</text>
+  </g>
+
+  <rect x="70" y="170" width="1060" height="380" rx="18" fill="url(#panel)" stroke="#1f2a44" stroke-width="1"/>
+
+  <g font-family="ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace" fill="#e2e8f0" font-size="16">
+    <text x="110" y="230">1. Role</text>
+    <text x="110" y="300">2. Task</text>
+    <text x="110" y="370">3. Constraints</text>
+    <text x="110" y="440">4. Output Format</text>
+  </g>
+
+  <g font-family="ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace" fill="#94a3b8" font-size="14">
+    <text x="280" y="230">"You are a SOC analyst"</text>
+    <text x="280" y="300">"Summarize this alert"</text>
+    <text x="280" y="370">"No guessing, cite fields"</text>
+    <text x="280" y="440">"Return JSON with keys"</text>
+  </g>
+
+  <g stroke="#38bdf8" stroke-width="2" fill="none">
+    <rect x="260" y="200" width="840" height="60" rx="10"/>
+    <rect x="260" y="270" width="840" height="60" rx="10"/>
+    <rect x="260" y="340" width="840" height="60" rx="10"/>
+    <rect x="260" y="410" width="840" height="60" rx="10"/>
+  </g>
+  <g font-family="ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace" fill="#94a3b8" font-size="12" opacity="0.5">
+    <text x="1130" y="610" text-anchor="end">https://arshimtiaz.github.io</text>
+  </g>
+</svg>
