@@ -78,7 +78,7 @@
   <line x1="850" y1="228" x2="900" y2="228" stroke="#f97373" stroke-width="2" marker-end="url(#arrow-red)" />
 
   <!-- Malicious skill -> Attacker (exfil) -->
-  <path d="M740 228 C 820 260 870 270 900 285" fill="none" stroke="#f97373" stroke-width="2" marker-end="url(#arrow-red)" />
+  <path d="M740 238 C 820 300 880 310 900 320" fill="none" stroke="#f97373" stroke-width="2" marker-end="url(#arrow-red)" />
 
   <!-- Legend -->
   <rect x="80" y="350" width="1040" height="50" rx="14" fill="#020617" stroke="#1f2937" stroke-width="1" />
