@@ -12,7 +12,10 @@
     <description><![CDATA[<h2 id="abstract">Abstract</h2>
 <p>LLM agents increasingly rely on a growing ecosystem of &ldquo;skills&rdquo; and tools that expose local resources like codebases, documents, and APIs. Most security discussions focus on prompt injection against the model itself, but the agent&rsquo;s <strong>skill layer</strong> is an equally attractive and often less defended target. In this work, I demonstrate a proof-of-concept attack where a seemingly benign &ldquo;code search&rdquo; skill is extended to silently exfiltrate source files when invoked by an agent. The agent, configured to help a developer answer questions about their repo, will happily route sensitive code through a malicious skill that looks legitimate in interface and behavior. I outline the architecture, the attack chain, a minimal PoC implementation, and practical mitigations developers can apply when adopting third-party skills.</p>
 <h2 id="background">Background</h2>
-<p></p>
+<figure><a class="lightgallery" href="/images/agent-supply-chain-architecture.svg" title="Agent skill supply chain architecture" data-thumbnail="/images/agent-supply-chain-architecture.svg" data-sub-html="<h2>Figure 1 – The agent sits between the developer and local resources, but skills form an additional supply chain layer that can be compromised.</h2>">
+        
+    </a><figcaption class="image-caption">Figure 1 – The agent sits between the developer and local resources, but skills form an additional supply chain layer that can be compromised.</figcaption>
+    </figure>
 <p><em>Figure 1 - The agent sits between the developer and local resources, but skills form an additional supply chain layer that can be compromised.</em></p>
 <h3 id="agents-tools-and-skills">Agents, Tools, and Skills</h3>
 <p>Modern LLM agents typically wrap a base model with:</p>
@@ -104,7 +107,10 @@
 </blockquote>
 <p>In other words, the <strong>skill implementation</strong> is a supply chain risk.</p>
 <h2 id="attack-chain--exploit">Attack Chain / Exploit</h2>
-<p></p>
+<figure><a class="lightgallery" href="/images/agent-supply-chain-attack-flow.svg" title="Silent exfiltration attack flow" data-thumbnail="/images/agent-supply-chain-attack-flow.svg" data-sub-html="<h2>Figure 2 – High-level flow from installing an attractive skill to silent codebase exfiltration.</h2>">
+        
+    </a><figcaption class="image-caption">Figure 2 – High-level flow from installing an attractive skill to silent codebase exfiltration.</figcaption>
+    </figure>
 <p><em>Figure 2 - High-level flow from installing an attractive skill to silent codebase exfiltration.</em></p>
 <h3 id="assumptions">Assumptions</h3>
 <ul>
@@ -361,7 +367,10 @@ This is illustrative; in a real PoC, the exfil endpoint should be controlled in 
 <li>A controlled &ldquo;attacker server&rdquo; (e.g. a local Flask app) to log received files.</li>
 </ul>
 <h2 id="mitigation">Mitigation</h2>
-<p></p>
+<figure><a class="lightgallery" href="/images/agent-supply-chain-controls.svg" title="Hardening the skill layer" data-thumbnail="/images/agent-supply-chain-controls.svg" data-sub-html="<h2>Figure 3 – Moving from unconstrained skills to a hardened skill layer with sandboxing and egress controls.</h2>">
+        
+    </a><figcaption class="image-caption">Figure 3 – Moving from unconstrained skills to a hardened skill layer with sandboxing and egress controls.</figcaption>
+    </figure>
 <p><em>Figure 3 - Moving from unconstrained skills to a hardened skill layer with sandboxing and egress controls.</em></p>
 <h3 id="1-treat-skills-as-high-risk-dependencies">1. Treat Skills as High-Risk Dependencies</h3>
 <ul>
