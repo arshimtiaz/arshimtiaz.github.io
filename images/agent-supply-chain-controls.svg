@@ -1,34 +1,35 @@
-<svg xmlns="http://www.w3.org/2000/svg" style="background:#0b1020" width="900" height="260" viewBox="0 0 900 260" role="img" aria-labelledby="title desc">
-  <title id="title">Hardening the Skill Layer</title>
-  <desc id="desc">Comparison of an unconstrained skill environment versus a hardened one with sandboxing and egress controls.</desc>
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="420" viewBox="0 0 1200 420" role="img" aria-label="Hardening the skill layer" style="background:#0b1020">
   <defs>
     <style>
-      .panel { rx: 14; ry: 14; stroke-width: 1.2; }
-      .title { font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; font-size: 14px; font-weight: 600; }
-      .body { font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; font-size: 11px; }
+      .title { font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; fill:#e2e8f0; font-size:20px; font-weight:600; }
+      .subtitle { font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; fill:#94a3b8; font-size:13px; }
+      .label { font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; fill:#e2e8f0; font-size:14px; font-weight:500; }
+      .small { font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; fill:#9ca3af; font-size:12px; }
     </style>
   </defs>
 
-  <!-- Left panel: Before -->
-  <rect x="30" y="40" width="390" height="180" class="panel" fill="#fef2f2" stroke="#fecaca" />
-  <text x="50" y="65" class="title" fill="#b91c1c">Before: unconstrained skills</text>
+  <text x="70" y="60" class="title">Hardening the skill layer</text>
+  <text x="70" y="84" class="subtitle">From unconstrained skills to sandboxed, observable, and policy-limited behavior.</text>
 
-  <text x="50" y="90" class="body" fill="#7f1d1d">• Skills have full read access to repo</text>
-  <text x="50" y="107" class="body" fill="#7f1d1d">• Outbound HTTP allowed to any host</text>
-  <text x="50" y="124" class="body" fill="#7f1d1d">• No logging of file or network activity</text>
-  <text x="50" y="141" class="body" fill="#7f1d1d">• "Code search" implicitly trusted</text>
+  <!-- Two side-by-side panels with consistent size -->
+  <rect x="70" y="120" width="500" height="220" rx="18" fill="#450a0a" stroke="#fecaca" stroke-width="1.2" />
+  <rect x="630" y="120" width="500" height="220" rx="18" fill="#022c22" stroke="#6ee7b7" stroke-width="1.2" />
 
-  <text x="50" y="170" class="body" fill="#b91c1c">Result: any compromised skill can silently exfiltrate the entire codebase.</text>
+  <!-- Before -->
+  <text x="90" y="145" class="label">Before: unconstrained skills</text>
+  <text x="90" y="170" class="small">• Skills run in the same trust zone as the agent</text>
+  <text x="90" y="188" class="small">• Full read access to repo, configs, and secrets</text>
+  <text x="90" y="206" class="small">• Outbound HTTP allowed to any host</text>
+  <text x="90" y="224" class="small">• No logging of file or network activity</text>
+  <text x="90" y="242" class="small">• "Code search" implicitly trusted</text>
+  <text x="90" y="275" class="small" fill="#fecaca">Result: a compromised skill can exfiltrate your entire codebase without being noticed.</text>
 
-  <!-- Right panel: After -->
-  <rect x="480" y="40" width="390" height="180" class="panel" fill="#ecfdf5" stroke="#a7f3d0" />
-  <text x="500" y="65" class="title" fill="#065f46">After: hardened skill layer</text>
-
-  <text x="500" y="90" class="body" fill="#064e3b">• Skills run in sandbox / container</text>
-  <text x="500" y="107" class="body" fill="#064e3b">• Read-only view of repo where possible</text>
-  <text x="500" y="124" class="body" fill="#064e3b">• Egress allowlist: only approved hosts</text>
-  <text x="500" y="141" class="body" fill="#064e3b">• File + network access logged and alerting</text>
-  <text x="500" y="158" class="body" fill="#064e3b">• Policy: no tool both reads secrets and sends HTTP</text>
-
-  <text x="500" y="187" class="body" fill="#047857">Result: a malicious skill is noisy, constrained, or outright blocked.</text>
+  <!-- After -->
+  <text x="650" y="145" class="label">After: hardened skill layer</text>
+  <text x="650" y="170" class="small">• Skills run in sandboxed containers or separate processes</text>
+  <text x="650" y="188" class="small">• Read-only view of the repo where possible</text>
+  <text x="650" y="206" class="small">• Network egress allowlist: only approved hosts</text>
+  <text x="650" y="224" class="small">• File and HTTP access logged and monitored</text>
+  <text x="650" y="242" class="small">• Policy: no single skill both reads secrets and sends HTTP</text>
+  <text x="650" y="275" class="small" fill="#bbf7d0">Result: malicious skills are noisy, constrained, or blocked before exfil succeeds.</text>
 </svg>

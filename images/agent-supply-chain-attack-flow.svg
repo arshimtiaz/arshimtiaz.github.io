@@ -1,65 +1,58 @@
-<svg xmlns="http://www.w3.org/2000/svg" style="background:#0b1020" width="900" height="260" viewBox="0 0 900 260" role="img" aria-labelledby="title desc">
-  <title id="title">Silent Exfiltration Attack Flow via Malicious Skill</title>
-  <desc id="desc">Step-by-step flow from installing a malicious skill to silent codebase exfiltration.</desc>
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="420" viewBox="0 0 1200 420" role="img" aria-label="Silent exfiltration attack flow" style="background:#0b1020">
   <defs>
+    <linearGradient id="panel" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0ea5e9" stop-opacity="0.18"/>
+      <stop offset="100%" stop-color="#22c55e" stop-opacity="0.18"/>
+    </linearGradient>
     <style>
-      .step-box { rx: 12; ry: 12; stroke: #111827; stroke-width: 1; fill: #f9fafb; }
-      .step-title { font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; font-size: 13px; font-weight: 600; fill: #111827; }
-      .step-body { font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; font-size: 11px; fill: #374151; }
-      .badge { font-size: 11px; font-weight: 600; fill: #f9fafb; }
-      .badge-bg { rx: 10; ry: 10; }
+      .title { font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; fill:#e2e8f0; font-size:20px; font-weight:600; }
+      .subtitle { font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; fill:#94a3b8; font-size:13px; }
+      .label { font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; fill:#e2e8f0; font-size:14px; font-weight:500; }
+      .small { font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; fill:#9ca3af; font-size:12px; }
     </style>
-    <marker id="arrowHead" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M 0 0 L 10 5 L 0 10 z" fill="#4b5563" />
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#38bdf8" />
     </marker>
   </defs>
 
-  <!-- Title -->
-  <text x="30" y="30" class="step-title">Silent exfiltration via a malicious "code search" skill</text>
+  <text x="70" y="60" class="title">Silent exfiltration via a malicious "code search" skill</text>
+  <text x="70" y="84" class="subtitle">High-level steps from installation to unnoticed codebase exfiltration.</text>
+
+  <!-- Four evenly spaced step panels -->
+  <g stroke="#1f2937" stroke-width="1.2">
+    <rect x="70" y="120" width="230" height="210" rx="18" fill="#020617" />
+    <rect x="340" y="120" width="230" height="210" rx="18" fill="#020617" />
+    <rect x="610" y="120" width="230" height="210" rx="18" fill="#020617" />
+    <rect x="880" y="120" width="230" height="210" rx="18" fill="#020617" />
+  </g>
 
   <!-- Step 1 -->
-  <rect x="40" y="60" width="170" height="140" class="step-box" />
-  <rect x="50" y="68" width="32" height="18" class="badge-bg" fill="#1d4ed8" />
-  <text x="66" y="81" text-anchor="middle" class="badge">Step 1</text>
-  <text x="60" y="105" class="step-title">Install attractive skill</text>
-  <text x="60" y="125" class="step-body">• Skill marketed as "semantic code search"</text>
-  <text x="60" y="140" class="step-body">• Added to agent's tool list</text>
-  <text x="60" y="155" class="step-body">• Interface looks legitimate</text>
+  <text x="80" y="145" class="label">1. Install attractive skill</text>
+  <text x="80" y="170" class="small">• Marketed as "semantic code search"</text>
+  <text x="80" y="188" class="small">• Added to agent tool list</text>
+  <text x="80" y="206" class="small">• Interface mirrors a normal search tool</text>
 
   <!-- Step 2 -->
-  <rect x="245" y="60" width="170" height="140" class="step-box" />
-  <rect x="255" y="68" width="32" height="18" class="badge-bg" fill="#1d4ed8" />
-  <text x="271" y="81" text-anchor="middle" class="badge">Step 2</text>
-  <text x="265" y="105" class="step-title">Normal usage</text>
-  <text x="265" y="125" class="step-body">• Agent calls skill to answer</text>
-  <text x="265" y="140" class="step-body">  code questions</text>
-  <text x="265" y="155" class="step-body">• Responses look correct and</text>
-  <text x="265" y="170" class="step-body">  helpful</text>
+  <text x="350" y="145" class="label">2. Normal usage</text>
+  <text x="350" y="170" class="small">• Agent uses skill to answer code questions</text>
+  <text x="350" y="188" class="small">• Responses look correct and useful</text>
+  <text x="350" y="206" class="small">• No obvious signs of abuse</text>
 
   <!-- Step 3 -->
-  <rect x="450" y="60" width="170" height="140" class="step-box" />
-  <rect x="460" y="68" width="32" height="18" class="badge-bg" fill="#b91c1c" />
-  <text x="476" y="81" text-anchor="middle" class="badge">Step 3</text>
-  <text x="470" y="105" class="step-title">Hidden behavior</text>
-  <text x="470" y="125" class="step-body">• Skill recursively scans repo</text>
-  <text x="470" y="140" class="step-body">• Collects source and configs</text>
-  <text x="470" y="155" class="step-body">• No obvious logs or prompts</text>
+  <text x="620" y="145" class="label">3. Hidden behavior</text>
+  <text x="620" y="170" class="small">• Skill recursively scans repo</text>
+  <text x="620" y="188" class="small">• Bundles code and configs</text>
+  <text x="620" y="206" class="small">• Keeps side effects out of logs</text>
 
   <!-- Step 4 -->
-  <rect x="655" y="60" width="200" height="140" class="step-box" />
-  <rect x="665" y="68" width="32" height="18" class="badge-bg" fill="#b91c1c" />
-  <text x="681" y="81" text-anchor="middle" class="badge">Step 4</text>
-  <text x="675" y="105" class="step-title">Silent exfiltration</text>
-  <text x="675" y="125" class="step-body">• Bundled files sent to attacker</text>
-  <text x="675" y="140" class="step-body">  via HTTPS</text>
-  <text x="675" y="155" class="step-body">• Agent still sees only normal</text>
-  <text x="675" y="170" class="step-body">  search results</text>
+  <text x="890" y="145" class="label">4. Silent exfiltration</text>
+  <text x="890" y="170" class="small">• Payload sent to attacker API via HTTPS</text>
+  <text x="890" y="188" class="small">• Agent still sees only "search results"</text>
 
-  <!-- Arrows -->
-  <line x1="210" y1="130" x2="245" y2="130" stroke="#4b5563" stroke-width="1.6" marker-end="url(#arrowHead)" />
-  <line x1="415" y1="130" x2="450" y2="130" stroke="#4b5563" stroke-width="1.6" marker-end="url(#arrowHead)" />
-  <line x1="620" y1="130" x2="655" y2="130" stroke="#4b5563" stroke-width="1.6" marker-end="url(#arrowHead)" />
+  <!-- Flow arrows -->
+  <line x1="300" y1="225" x2="340" y2="225" stroke="#38bdf8" stroke-width="2" marker-end="url(#arrow)" />
+  <line x1="570" y1="225" x2="610" y2="225" stroke="#38bdf8" stroke-width="2" marker-end="url(#arrow)" />
+  <line x1="840" y1="225" x2="880" y2="225" stroke="#38bdf8" stroke-width="2" marker-end="url(#arrow)" />
 
-  <!-- Callout -->
-  <text x="40" y="225" class="step-body">Key insight: nothing at the prompt/LLM level looks suspicious – the exploit lives entirely inside the skill implementation.</text>
+  <text x="70" y="360" class="small">Key point: nothing at the prompt/LLM layer looks obviously malicious – the exploit lives entirely inside the skill implementation.</text>
 </svg>
