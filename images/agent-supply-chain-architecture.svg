@@ -45,8 +45,13 @@
   <text x="440" y="175" text-anchor="middle" class="label">LLM Agent</text>
   <text x="440" y="198" text-anchor="middle" class="small">planning, tools, memory</text>
 
-  <!-- Skills panel -->
+  <!-- Skills / Tools container label -->
   <text x="730" y="145" text-anchor="middle" class="label">Skills / Tools</text>
+
+  <!-- Exfil arrow drawn first so it sits under skill box -->
+  <path d="M740 238 C 820 300 880 310 900 320" fill="none" stroke="#f97373" stroke-width="2" marker-end="url(#arrow-red)" />
+
+  <!-- Skills panel boxes -->
   <rect x="630" y="160" width="220" height="40" rx="10" fill="url(#trusted)" stroke="#0f766e" stroke-width="1" />
   <rect x="630" y="210" width="220" height="40" rx="10" fill="url(#malicious)" stroke="#b91c1c" stroke-width="1" />
   <text x="740" y="185" text-anchor="middle" class="small">Legitimate code search</text>
@@ -76,9 +81,6 @@
 
   <!-- Malicious skill -> Local resources (scan) -->
   <line x1="850" y1="228" x2="900" y2="228" stroke="#f97373" stroke-width="2" marker-end="url(#arrow-red)" />
-
-  <!-- Malicious skill -> Attacker (exfil) -->
-  <path d="M740 238 C 820 300 880 310 900 320" fill="none" stroke="#f97373" stroke-width="2" marker-end="url(#arrow-red)" />
 
   <!-- Legend -->
   <rect x="80" y="350" width="1040" height="50" rx="14" fill="#020617" stroke="#1f2937" stroke-width="1" />
