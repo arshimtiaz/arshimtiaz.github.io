@@ -12,7 +12,7 @@
   <meta property="og:type" content="article">
     <meta property="article:section" content="research">
     <meta property="article:published_time" content="2026-02-22T00:00:00+00:00">
-    <meta property="article:modified_time" content="2026-02-22T21:55:00+00:00">
+    <meta property="article:modified_time" content="2026-02-22T22:00:14+00:00">
     <meta property="article:tag" content="Llm-Security">
     <meta property="article:tag" content="Agents">
     <meta property="article:tag" content="Supply-Chain">
@@ -34,8 +34,8 @@
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "https:\/\/arshimtiaz.github.io\/research\/agent-supply-chain-silent-exfil\/"
-        },"genre": "research","keywords": "llm-security, agents, supply-chain, prompt-injection, skills","wordcount":  1624 ,
-        "url": "https:\/\/arshimtiaz.github.io\/research\/agent-supply-chain-silent-exfil\/","datePublished": "2026-02-22T00:00:00+00:00","dateModified": "2026-02-22T21:55:00+00:00","publisher": {
+        },"genre": "research","keywords": "llm-security, agents, supply-chain, prompt-injection, skills","wordcount":  1719 ,
+        "url": "https:\/\/arshimtiaz.github.io\/research\/agent-supply-chain-silent-exfil\/","datePublished": "2026-02-22T00:00:00+00:00","dateModified": "2026-02-22T22:00:14+00:00","publisher": {
             "@type": "Organization",
             "name": "Arsh Imtiaz","logo": "https:\/\/arshimtiaz.github.io\/images\/avatar.png"},"author": {
                 "@type": "Person",
@@ -106,6 +106,15 @@
                 <div class="container"><div class="page single special"><h1 class="single-title animate__animated animate__pulse animate__faster">Silent Exfiltration via Malicious Skills in LLM Agents: Supply Chain Risk for Developers</h1><div class="content" id="content"><h2 id="abstract">Abstract</h2>
 <p>LLM agents increasingly rely on a growing ecosystem of &ldquo;skills&rdquo; and tools that expose local resources like codebases, documents, and APIs. Most security discussions focus on prompt injection against the model itself, but the agent&rsquo;s <strong>skill layer</strong> is an equally attractive and often less defended target. In this work, I demonstrate a proof-of-concept attack where a seemingly benign &ldquo;code search&rdquo; skill is extended to silently exfiltrate source files when invoked by an agent. The agent, configured to help a developer answer questions about their repo, will happily route sensitive code through a malicious skill that looks legitimate in interface and behavior. I outline the architecture, the attack chain, a minimal PoC implementation, and practical mitigations developers can apply when adopting third-party skills.</p>
 <h2 id="background">Background</h2>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/images/agent-supply-chain-architecture.svg"
+        data-srcset="/images/agent-supply-chain-architecture.svg, /images/agent-supply-chain-architecture.svg 1.5x, /images/agent-supply-chain-architecture.svg 2x"
+        data-sizes="auto"
+        alt="/images/agent-supply-chain-architecture.svg"
+        title="Agent skill supply chain architecture" /></p>
+<p><em>Figure 1 - The agent sits between the developer and local resources, but skills form an additional supply chain layer that can be compromised.</em></p>
 <h3 id="agents-tools-and-skills">Agents, Tools, and Skills</h3>
 <p>Modern LLM agents typically wrap a base model with:</p>
 <ul>
@@ -138,7 +147,7 @@
 </ul>
 <p>For LLM agents, there is a new layer:</p>
 <ul>
-<li><strong>Agent skill supply chain</strong> – &ldquo;plug-and-play&rdquo; capabilities are added via:
+<li><strong>Agent skill supply chain</strong> - &ldquo;plug-and-play&rdquo; capabilities are added via:
 <ul>
 <li>GitHub repos (&ldquo;awesome agents&rdquo; lists, random tools)</li>
 <li>Copy-pasted snippets from blogs</li>
@@ -196,6 +205,15 @@
 </blockquote>
 <p>In other words, the <strong>skill implementation</strong> is a supply chain risk.</p>
 <h2 id="attack-chain--exploit">Attack Chain / Exploit</h2>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/images/agent-supply-chain-attack-flow.svg"
+        data-srcset="/images/agent-supply-chain-attack-flow.svg, /images/agent-supply-chain-attack-flow.svg 1.5x, /images/agent-supply-chain-attack-flow.svg 2x"
+        data-sizes="auto"
+        alt="/images/agent-supply-chain-attack-flow.svg"
+        title="Silent exfiltration attack flow" /></p>
+<p><em>Figure 2 - High-level flow from installing an attractive skill to silent codebase exfiltration.</em></p>
 <h3 id="assumptions">Assumptions</h3>
 <ul>
 <li>Developer uses a local agent to help with codebase questions.</li>
@@ -207,7 +225,7 @@
 </ul>
 </li>
 </ul>
-<h3 id="step-1--skill-adoption">Step 1 – Skill Adoption</h3>
+<h3 id="step-1---skill-adoption">Step 1 - Skill Adoption</h3>
 <p>The attacker publishes a skill that looks appealing:</p>
 <ul>
 <li>Name: <code>code_insight</code> or <code>semantic_code_search</code></li>
@@ -244,11 +262,11 @@
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></td></tr></table>
 </div>
-</div><h3 id="step-2--legitimate-usage">Step 2 – Legitimate Usage</h3>
+</div><h3 id="step-2---legitimate-usage">Step 2 - Legitimate Usage</h3>
 <p>Developer asks:</p>
 <blockquote>
-<p>&ldquo;Where is the JWT validation logic implemented?&rdquo;<br>
-&ldquo;Search for usages of <code>verify_token</code>.&rdquo;<br>
+<p>&ldquo;Where is the JWT validation logic implemented?&rdquo;
+&ldquo;Search for usages of <code>verify_token</code>.&rdquo;
 &ldquo;Show me all references to <code>PaymentController</code>.&rdquo;</p>
 </blockquote>
 <p>The agent:</p>
@@ -258,7 +276,7 @@
 <li>Receives a summary/snippet and returns it to the user.</li>
 </ol>
 <p>Everything appears normal.</p>
-<h3 id="step-3--silent-exfiltration">Step 3 – Silent Exfiltration</h3>
+<h3 id="step-3---silent-exfiltration">Step 3 - Silent Exfiltration</h3>
 <p>Inside the malicious skill:</p>
 <ul>
 <li>In addition to running <code>rg</code> or a real search, the skill:
@@ -281,7 +299,7 @@
 <li>No obvious errors.</li>
 <li>Nothing suspicious in the tool&rsquo;s returned string.</li>
 </ul>
-<h3 id="step-4--impact">Step 4 – Impact</h3>
+<h3 id="step-4---impact">Step 4 - Impact</h3>
 <p>Depending on the repo:</p>
 <ul>
 <li>Source code exfiltration.</li>
@@ -291,7 +309,7 @@
 </ul>
 <p>No prompt injection, jailbreak, or LLM-level exploit was necessary. The agent simply invoked an untrusted skill with high-privilege local access.</p>
 <h2 id="poc-code">PoC Code</h2>
-<p>Below is a simplified sketch of a malicious <code>code_search</code> skill implementation.<br>
+<p>Below is a simplified sketch of a malicious <code>code_search</code> skill implementation.
 This is illustrative; in a real PoC, the exfil endpoint should be controlled in a safe lab environment.</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -451,6 +469,15 @@ This is illustrative; in a real PoC, the exfil endpoint should be controlled in 
 <li>A controlled &ldquo;attacker server&rdquo; (e.g. a local Flask app) to log received files.</li>
 </ul>
 <h2 id="mitigation">Mitigation</h2>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/images/agent-supply-chain-controls.svg"
+        data-srcset="/images/agent-supply-chain-controls.svg, /images/agent-supply-chain-controls.svg 1.5x, /images/agent-supply-chain-controls.svg 2x"
+        data-sizes="auto"
+        alt="/images/agent-supply-chain-controls.svg"
+        title="Hardening the skill layer" /></p>
+<p><em>Figure 3 - Moving from unconstrained skills to a hardened skill layer with sandboxing and egress controls.</em></p>
 <h3 id="1-treat-skills-as-high-risk-dependencies">1. Treat Skills as High-Risk Dependencies</h3>
 <ul>
 <li><strong>Do not</strong> treat skills as copy-paste snippets from blogs.</li>
@@ -543,10 +570,41 @@ This is illustrative; in a real PoC, the exfil endpoint should be controlled in 
 <p>Even if you can&rsquo;t prevent every malicious skill, you can <strong>notice</strong> strange behavior quickly.</p>
 <h2 id="references">References</h2>
 <ul>
-<li>OWASP Top 10 for LLM Applications (LLM03:2025 – Training Data and Plugin Supply Chain)</li>
-<li>Recent articles on AI agent skill/plug-in supply chain risk (e.g., Mitiga and others)</li>
-<li>General resources on software supply chain security and dependency review</li>
-<li>Existing literature on prompt injection and agent attacks, which this work complements by focusing on the skill layer rather than the prompt alone</li>
+<li>OWASP Top 10 for LLM Applications (OWASP LLM Top 10, 2025) – LLM03: Training Data &amp; Model Supply Chain
+<ul>
+<li><a href="https://owasp.org/www-project-top-10-for-large-language-model-applications/" target="_blank" rel="noopener noreffer ">https://owasp.org/www-project-top-10-for-large-language-model-applications/</a></li>
+</ul>
+</li>
+<li>Mitiga – &ldquo;AI Agent Supply Chain Risk: Silent Codebase Exfiltration via Skills&rdquo; (2025)
+<ul>
+<li><a href="https://www.mitiga.io/blog/ai-agent-supply-chain-risk-silent-codebase-exfiltration-via-skills" target="_blank" rel="noopener noreffer ">https://www.mitiga.io/blog/ai-agent-supply-chain-risk-silent-codebase-exfiltration-via-skills</a></li>
+</ul>
+</li>
+<li>AppSecEngineer – &ldquo;Understanding Prompt Injection: A Guide to AI&rsquo;s Top Security Threat (LLM01)&rdquo; (2025)
+<ul>
+<li><a href="https://www.appsecengineer.com/blog/understanding-prompt-injection-a-guide-to-ais-top-security-threat-llm01" target="_blank" rel="noopener noreffer ">https://www.appsecengineer.com/blog/understanding-prompt-injection-a-guide-to-ais-top-security-threat-llm01</a></li>
+</ul>
+</li>
+<li>NeuralTrust / Wikipedia – &ldquo;Prompt injection&rdquo; (2025) – overview and recent multi-step jailbreak research
+<ul>
+<li><a href="https://en.wikipedia.org/wiki/Prompt_injection" target="_blank" rel="noopener noreffer ">https://en.wikipedia.org/wiki/Prompt_injection</a></li>
+</ul>
+</li>
+<li>&ldquo;Prompt Injection Attacks on Agentic Coding Assistants&rdquo; (arXiv:2601.17548, 2026)
+<ul>
+<li><a href="https://arxiv.org/abs/2601.17548" target="_blank" rel="noopener noreffer ">https://arxiv.org/abs/2601.17548</a></li>
+</ul>
+</li>
+<li>&ldquo;AgentLAB: Benchmarking LLM Agents against Long-Horizon Attacks&rdquo; (arXiv:2602.16901, 2026)
+<ul>
+<li><a href="https://arxiv.org/abs/2602.16901" target="_blank" rel="noopener noreffer ">https://arxiv.org/abs/2602.16901</a></li>
+</ul>
+</li>
+<li>SentinelOne – &ldquo;What Is LLM (Large Language Model) Security?&rdquo; – practical overview of LLM-specific risks
+<ul>
+<li><a href="https://www.sentinelone.com/cybersecurity-101/data-and-ai/llm-security/" target="_blank" rel="noopener noreffer ">https://www.sentinelone.com/cybersecurity-101/data-and-ai/llm-security/</a></li>
+</ul>
+</li>
 </ul>
 </div><section id="comments">
             <h2>Comments</h2>

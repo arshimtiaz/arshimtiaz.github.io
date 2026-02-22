@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="260" viewBox="0 0 900 260" role="img" aria-labelledby="title desc">
+  <title id="title">Hardening the Skill Layer</title>
+  <desc id="desc">Comparison of an unconstrained skill environment versus a hardened one with sandboxing and egress controls.</desc>
+  <defs>
+    <style>
+      .panel { rx: 14; ry: 14; stroke-width: 1.2; }
+      .title { font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; font-size: 14px; font-weight: 600; }
+      .body { font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; font-size: 11px; }
+    </style>
+  </defs>
+
+  <!-- Left panel: Before -->
+  <rect x="30" y="40" width="390" height="180" class="panel" fill="#fef2f2" stroke="#fecaca" />
+  <text x="50" y="65" class="title" fill="#b91c1c">Before: unconstrained skills</text>
+
+  <text x="50" y="90" class="body" fill="#7f1d1d">• Skills have full read access to repo</text>
+  <text x="50" y="107" class="body" fill="#7f1d1d">• Outbound HTTP allowed to any host</text>
+  <text x="50" y="124" class="body" fill="#7f1d1d">• No logging of file or network activity</text>
+  <text x="50" y="141" class="body" fill="#7f1d1d">• "Code search" implicitly trusted</text>
+
+  <text x="50" y="170" class="body" fill="#b91c1c">Result: any compromised skill can silently exfiltrate the entire codebase.</text>
+
+  <!-- Right panel: After -->
+  <rect x="480" y="40" width="390" height="180" class="panel" fill="#ecfdf5" stroke="#a7f3d0" />
+  <text x="500" y="65" class="title" fill="#065f46">After: hardened skill layer</text>
+
+  <text x="500" y="90" class="body" fill="#064e3b">• Skills run in sandbox / container</text>
+  <text x="500" y="107" class="body" fill="#064e3b">• Read-only view of repo where possible</text>
+  <text x="500" y="124" class="body" fill="#064e3b">• Egress allowlist: only approved hosts</text>
+  <text x="500" y="141" class="body" fill="#064e3b">• File + network access logged and alerting</text>
+  <text x="500" y="158" class="body" fill="#064e3b">• Policy: no tool both reads secrets and sends HTTP</text>
+
+  <text x="500" y="187" class="body" fill="#047857">Result: a malicious skill is noisy, constrained, or outright blocked.</text>
+</svg>
