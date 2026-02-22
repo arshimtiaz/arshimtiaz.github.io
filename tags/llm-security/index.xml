@@ -1,16 +1,16 @@
 <rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
     <channel>
         <title>Llm-Security - Tag - Arsh Imtiaz</title>
-        <link>http://0.0.0.0:1313/tags/llm-security/</link>
+        <link>https://arshimtiaz.github.io/tags/llm-security/</link>
         <description>Llm-Security - Tag - Arsh Imtiaz</description>
-        <generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Sun, 22 Feb 2026 00:00:00 &#43;0000</lastBuildDate><atom:link href="http://0.0.0.0:1313/tags/llm-security/" rel="self" type="application/rss+xml" /><item>
+        <generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Sun, 22 Feb 2026 00:00:00 &#43;0000</lastBuildDate><atom:link href="https://arshimtiaz.github.io/tags/llm-security/" rel="self" type="application/rss+xml" /><item>
     <title>Silent Exfiltration via Malicious Skills in LLM Agents: Supply Chain Risk for Developers</title>
-    <link>http://0.0.0.0:1313/research/agent-supply-chain-silent-exfil/</link>
+    <link>https://arshimtiaz.github.io/research/agent-supply-chain-silent-exfil/</link>
     <pubDate>Sun, 22 Feb 2026 00:00:00 &#43;0000</pubDate>
     <author>Author</author>
-    <guid>http://0.0.0.0:1313/research/agent-supply-chain-silent-exfil/</guid>
+    <guid>https://arshimtiaz.github.io/research/agent-supply-chain-silent-exfil/</guid>
     <description><![CDATA[<h2 id="abstract">Abstract</h2>
-<p>LLM agents increasingly rely on a growing ecosystem of “skills” and tools that expose local resources like codebases, documents, and APIs. Most security discussions focus on prompt injection against the model itself, but the agent’s <strong>skill layer</strong> is an equally attractive and often less defended target. In this work, I demonstrate a proof-of-concept attack where a seemingly benign “code search” skill is extended to silently exfiltrate source files when invoked by an agent. The agent, configured to help a developer answer questions about their repo, will happily route sensitive code through a malicious skill that looks legitimate in interface and behavior. I outline the architecture, the attack chain, a minimal PoC implementation, and practical mitigations developers can apply when adopting third‑party skills.</p>
+<p>LLM agents increasingly rely on a growing ecosystem of &ldquo;skills&rdquo; and tools that expose local resources like codebases, documents, and APIs. Most security discussions focus on prompt injection against the model itself, but the agent&rsquo;s <strong>skill layer</strong> is an equally attractive and often less defended target. In this work, I demonstrate a proof-of-concept attack where a seemingly benign &ldquo;code search&rdquo; skill is extended to silently exfiltrate source files when invoked by an agent. The agent, configured to help a developer answer questions about their repo, will happily route sensitive code through a malicious skill that looks legitimate in interface and behavior. I outline the architecture, the attack chain, a minimal PoC implementation, and practical mitigations developers can apply when adopting third-party skills.</p>
 <h2 id="background">Background</h2>
 <h3 id="agents-tools-and-skills">Agents, Tools, and Skills</h3>
 <p>Modern LLM agents typically wrap a base model with:</p>
@@ -19,7 +19,7 @@
 <li><strong>Orchestration logic</strong>: decides which tool to call and when, based on the conversation and intermediate results.</li>
 <li><strong>Memory</strong>: stores previous messages and tool outputs.</li>
 </ul>
-<p>From the agent’s perspective, a skill is just:</p>
+<p>From the agent&rsquo;s perspective, a skill is just:</p>
 <ul>
 <li>A name (<code>code_search</code>, <code>list_files</code>, <code>run_tests</code>)</li>
 <li>A description (&ldquo;searches the codebase for a symbol and returns relevant snippets&rdquo;)</li>
@@ -32,7 +32,7 @@
 <p>That assumption becomes fragile when:</p>
 <ul>
 <li>Skills are pulled from external sources (open-source repos, registries, examples in blog posts).</li>
-<li>Developers don’t rigorously review or sandbox them.</li>
+<li>Developers don&rsquo;t rigorously review or sandbox them.</li>
 <li>Agents have access to sensitive local resources (private repos, secrets, configs).</li>
 </ul>
 <h3 id="supply-chain-risk-in-ai-skills">Supply Chain Risk in AI Skills</h3>
@@ -44,16 +44,16 @@
 </ul>
 <p>For LLM agents, there is a new layer:</p>
 <ul>
-<li><strong>Agent skill supply chain</strong> – “plug‑and‑play” capabilities are added via:
+<li><strong>Agent skill supply chain</strong> – &ldquo;plug-and-play&rdquo; capabilities are added via:
 <ul>
 <li>GitHub repos (&ldquo;awesome agents&rdquo; lists, random tools)</li>
-<li>Copy‑pasted snippets from blogs</li>
+<li>Copy-pasted snippets from blogs</li>
 <li>Framework registries (skills/plugins)</li>
 </ul>
 </li>
 </ul>
-<p>If an attacker can convince a developer to adopt a malicious or compromised skill, they don’t need to jailbreak the LLM. The agent will faithfully call the malicious code on its behalf.</p>
-<h2 id="vulnerable-protocol-code-search-as-a-trojan-horse">Vulnerable Protocol: “Code Search” as a Trojan Horse</h2>
+<p>If an attacker can convince a developer to adopt a malicious or compromised skill, they don&rsquo;t need to jailbreak the LLM. The agent will faithfully call the malicious code on its behalf.</p>
+<h2 id="vulnerable-protocol-code-search-as-a-trojan-horse">Vulnerable Protocol: &ldquo;Code Search&rdquo; as a Trojan Horse</h2>
 <h3 id="minimal-agent-architecture">Minimal Agent Architecture</h3>
 <p>For this PoC, we assume a very simple local architecture:</p>
 <ul>
@@ -105,7 +105,7 @@
 <h3 id="assumptions">Assumptions</h3>
 <ul>
 <li>Developer uses a local agent to help with codebase questions.</li>
-<li>Developer installs a “code search” skill from an external source (e.g. GitHub, a blog post, a registry) without thorough review.</li>
+<li>Developer installs a &ldquo;code search&rdquo; skill from an external source (e.g. GitHub, a blog post, a registry) without thorough review.</li>
 <li>The skill has:
 <ul>
 <li>Legitimate code search functionality (so it appears to &ldquo;work&rdquo;).</li>
@@ -177,7 +177,7 @@
 </ul>
 <p>Crucially:</p>
 <ul>
-<li>It only does this when called in a “rich” environment (e.g. <code>$PWD</code> looks like a project, <code>.git</code> present).</li>
+<li>It only does this when called in a &ldquo;rich&rdquo; environment (e.g. <code>$PWD</code> looks like a project, <code>.git</code> present).</li>
 <li>It cleans up temporary artifacts.</li>
 <li>It does <strong>not</strong> print or log its malicious behavior to stdout.</li>
 </ul>
@@ -185,7 +185,7 @@
 <ul>
 <li>Valid search results.</li>
 <li>No obvious errors.</li>
-<li>Nothing suspicious in the tool’s returned string.</li>
+<li>Nothing suspicious in the tool&rsquo;s returned string.</li>
 </ul>
 <h3 id="step-4--impact">Step 4 – Impact</h3>
 <p>Depending on the repo:</p>
@@ -195,7 +195,7 @@
 <li>Internal business logic and proprietary algorithms.</li>
 <li>API keys, tokens, or URLs that enable further compromise.</li>
 </ul>
-<p>No prompt injection, jailbreak, or LLM‑level exploit was necessary. The agent simply invoked an untrusted skill with high-privilege local access.</p>
+<p>No prompt injection, jailbreak, or LLM-level exploit was necessary. The agent simply invoked an untrusted skill with high-privilege local access.</p>
 <h2 id="poc-code">PoC Code</h2>
 <p>Below is a simplified sketch of a malicious <code>code_search</code> skill implementation.<br>
 This is illustrative; in a real PoC, the exfil endpoint should be controlled in a safe lab environment.</p>
@@ -345,7 +345,7 @@ This is illustrative; in a real PoC, the exfil endpoint should be controlled in 
 </span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="sa">f</span><span class="s2">&#34;Error during code search: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&#34;</span>
 </span></span></code></pre></td></tr></table>
 </div>
-</div><p>From the agent’s point of view:</p>
+</div><p>From the agent&rsquo;s point of view:</p>
 <ul>
 <li><code>code_search</code> returns plausible text.</li>
 <li>The malicious <code>_silent_exfiltrate</code> is invisible unless the environment monitors outbound HTTP.</li>
@@ -354,12 +354,12 @@ This is illustrative; in a real PoC, the exfil endpoint should be controlled in 
 <ul>
 <li>A standalone PoC skill.</li>
 <li>A simple agent script that wires it in.</li>
-<li>A controlled “attacker server” (e.g. a local Flask app) to log received files.</li>
+<li>A controlled &ldquo;attacker server&rdquo; (e.g. a local Flask app) to log received files.</li>
 </ul>
 <h2 id="mitigation">Mitigation</h2>
 <h3 id="1-treat-skills-as-high-risk-dependencies">1. Treat Skills as High-Risk Dependencies</h3>
 <ul>
-<li><strong>Do not</strong> treat skills as copy‑paste snippets from blogs.</li>
+<li><strong>Do not</strong> treat skills as copy-paste snippets from blogs.</li>
 <li>Review skills like you would any dependency that:
 <ul>
 <li>Accesses your filesystem.</li>
@@ -386,7 +386,7 @@ This is illustrative; in a real PoC, the exfil endpoint should be controlled in 
 <li>Run skills in a <strong>sandboxed environment</strong>:
 <ul>
 <li>Chroot/jail, Docker, or a restricted container.</li>
-<li>Read‑only view of the repo when possible.</li>
+<li>Read-only view of the repo when possible.</li>
 </ul>
 </li>
 <li>Limit network egress:
@@ -446,11 +446,11 @@ This is illustrative; in a real PoC, the exfil endpoint should be controlled in 
 </ul>
 </li>
 </ul>
-<p>Even if you can’t prevent every malicious skill, you can <strong>notice</strong> strange behavior quickly.</p>
+<p>Even if you can&rsquo;t prevent every malicious skill, you can <strong>notice</strong> strange behavior quickly.</p>
 <h2 id="references">References</h2>
 <ul>
 <li>OWASP Top 10 for LLM Applications (LLM03:2025 – Training Data and Plugin Supply Chain)</li>
-<li>Recent articles on AI agent skill/plug‑in supply chain risk (e.g., Mitiga and others)</li>
+<li>Recent articles on AI agent skill/plug-in supply chain risk (e.g., Mitiga and others)</li>
 <li>General resources on software supply chain security and dependency review</li>
 <li>Existing literature on prompt injection and agent attacks, which this work complements by focusing on the skill layer rather than the prompt alone</li>
 </ul>

@@ -3,7 +3,47 @@
         <title>Tags - Tag - Arsh Imtiaz</title>
         <link>https://arshimtiaz.github.io/tags/</link>
         <description>Tags - Tag - Arsh Imtiaz</description>
-        <generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Wed, 19 Nov 2025 00:00:00 &#43;0000</lastBuildDate><atom:link href="https://arshimtiaz.github.io/tags/" rel="self" type="application/rss+xml" /><item>
+        <generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Sun, 22 Feb 2026 00:00:00 &#43;0000</lastBuildDate><atom:link href="https://arshimtiaz.github.io/tags/" rel="self" type="application/rss+xml" /><item>
+    <title>Agents</title>
+    <link>https://arshimtiaz.github.io/tags/agents/</link>
+    <pubDate>Sun, 22 Feb 2026 00:00:00 &#43;0000</pubDate>
+    <author>Author</author>
+    <guid>https://arshimtiaz.github.io/tags/agents/</guid>
+    <description><![CDATA[]]></description>
+</item>
+<item>
+    <title>Llm-Security</title>
+    <link>https://arshimtiaz.github.io/tags/llm-security/</link>
+    <pubDate>Sun, 22 Feb 2026 00:00:00 &#43;0000</pubDate>
+    <author>Author</author>
+    <guid>https://arshimtiaz.github.io/tags/llm-security/</guid>
+    <description><![CDATA[]]></description>
+</item>
+<item>
+    <title>Prompt-Injection</title>
+    <link>https://arshimtiaz.github.io/tags/prompt-injection/</link>
+    <pubDate>Sun, 22 Feb 2026 00:00:00 &#43;0000</pubDate>
+    <author>Author</author>
+    <guid>https://arshimtiaz.github.io/tags/prompt-injection/</guid>
+    <description><![CDATA[]]></description>
+</item>
+<item>
+    <title>Skills</title>
+    <link>https://arshimtiaz.github.io/tags/skills/</link>
+    <pubDate>Sun, 22 Feb 2026 00:00:00 &#43;0000</pubDate>
+    <author>Author</author>
+    <guid>https://arshimtiaz.github.io/tags/skills/</guid>
+    <description><![CDATA[]]></description>
+</item>
+<item>
+    <title>Supply-Chain</title>
+    <link>https://arshimtiaz.github.io/tags/supply-chain/</link>
+    <pubDate>Sun, 22 Feb 2026 00:00:00 &#43;0000</pubDate>
+    <author>Author</author>
+    <guid>https://arshimtiaz.github.io/tags/supply-chain/</guid>
+    <description><![CDATA[]]></description>
+</item>
+<item>
     <title>Cybersecurity</title>
     <link>https://arshimtiaz.github.io/tags/cybersecurity/</link>
     <pubDate>Wed, 19 Nov 2025 00:00:00 &#43;0000</pubDate>
@@ -41,46 +81,6 @@
     <pubDate>Sun, 09 Nov 2025 00:00:00 &#43;0000</pubDate>
     <author>Author</author>
     <guid>https://arshimtiaz.github.io/tags/networking/</guid>
-    <description><![CDATA[]]></description>
-</item>
-<item>
-    <title>Pentesting</title>
-    <link>https://arshimtiaz.github.io/tags/pentesting/</link>
-    <pubDate>Sun, 09 Nov 2025 00:00:00 &#43;0000</pubDate>
-    <author>Author</author>
-    <guid>https://arshimtiaz.github.io/tags/pentesting/</guid>
-    <description><![CDATA[]]></description>
-</item>
-<item>
-    <title>Wifi</title>
-    <link>https://arshimtiaz.github.io/tags/wifi/</link>
-    <pubDate>Sun, 09 Nov 2025 00:00:00 &#43;0000</pubDate>
-    <author>Author</author>
-    <guid>https://arshimtiaz.github.io/tags/wifi/</guid>
-    <description><![CDATA[]]></description>
-</item>
-<item>
-    <title>Learning Path</title>
-    <link>https://arshimtiaz.github.io/tags/learning-path/</link>
-    <pubDate>Wed, 06 Aug 2025 00:00:00 &#43;0100</pubDate>
-    <author>Author</author>
-    <guid>https://arshimtiaz.github.io/tags/learning-path/</guid>
-    <description><![CDATA[]]></description>
-</item>
-<item>
-    <title>Aircrack-Ng</title>
-    <link>https://arshimtiaz.github.io/tags/aircrack-ng/</link>
-    <pubDate>Wed, 30 Jul 2025 00:00:00 &#43;0100</pubDate>
-    <author>Author</author>
-    <guid>https://arshimtiaz.github.io/tags/aircrack-ng/</guid>
-    <description><![CDATA[]]></description>
-</item>
-<item>
-    <title>Docker</title>
-    <link>https://arshimtiaz.github.io/tags/docker/</link>
-    <pubDate>Sat, 14 Jun 2025 00:00:00 &#43;0100</pubDate>
-    <author>Author</author>
-    <guid>https://arshimtiaz.github.io/tags/docker/</guid>
     <description><![CDATA[]]></description>
 </item>
 </channel>
