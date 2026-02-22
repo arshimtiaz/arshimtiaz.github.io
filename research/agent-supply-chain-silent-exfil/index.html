@@ -103,7 +103,56 @@
     <div class="search-dropdown mobile">
         <div id="search-dropdown-mobile"></div>
     </div><main class="main">
-                <div class="container"><div class="page single special"><h1 class="single-title animate__animated animate__pulse animate__faster">Silent Exfiltration via Malicious Skills in LLM Agents: Supply Chain Risk for Developers</h1><div class="content" id="content"><h2 id="abstract">Abstract</h2>
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">Contents</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">Silent Exfiltration via Malicious Skills in LLM Agents: Supply Chain Risk for Developers</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>Author</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2026-02-22">2026-02-22</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;1719 words&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;9 minutes&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  data-kept="">
+                <div class="details-summary toc-title">
+                    <span>Contents</span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#abstract">Abstract</a></li>
+    <li><a href="#background">Background</a>
+      <ul>
+        <li><a href="#agents-tools-and-skills">Agents, Tools, and Skills</a></li>
+        <li><a href="#supply-chain-risk-in-ai-skills">Supply Chain Risk in AI Skills</a></li>
+      </ul>
+    </li>
+    <li><a href="#vulnerable-protocol-code-search-as-a-trojan-horse">Vulnerable Protocol: &ldquo;Code Search&rdquo; as a Trojan Horse</a>
+      <ul>
+        <li><a href="#minimal-agent-architecture">Minimal Agent Architecture</a></li>
+        <li><a href="#trust-boundary-violation">Trust Boundary Violation</a></li>
+      </ul>
+    </li>
+    <li><a href="#attack-chain--exploit">Attack Chain / Exploit</a>
+      <ul>
+        <li><a href="#assumptions">Assumptions</a></li>
+        <li><a href="#step-1---skill-adoption">Step 1 - Skill Adoption</a></li>
+        <li><a href="#step-2---legitimate-usage">Step 2 - Legitimate Usage</a></li>
+        <li><a href="#step-3---silent-exfiltration">Step 3 - Silent Exfiltration</a></li>
+        <li><a href="#step-4---impact">Step 4 - Impact</a></li>
+      </ul>
+    </li>
+    <li><a href="#poc-code">PoC Code</a></li>
+    <li><a href="#mitigation">Mitigation</a>
+      <ul>
+        <li><a href="#1-treat-skills-as-high-risk-dependencies">1. Treat Skills as High-Risk Dependencies</a></li>
+        <li><a href="#2-constrain-skill-capabilities">2. Constrain Skill Capabilities</a></li>
+        <li><a href="#3-explicit-data-flow-policies">3. Explicit Data Flow Policies</a></li>
+        <li><a href="#4-skill-provenance-and-signing">4. Skill Provenance and Signing</a></li>
+        <li><a href="#5-observability-and-detection">5. Observability and Detection</a></li>
+      </ul>
+    </li>
+    <li><a href="#references">References</a></li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><h2 id="abstract">Abstract</h2>
 <p>LLM agents increasingly rely on a growing ecosystem of &ldquo;skills&rdquo; and tools that expose local resources like codebases, documents, and APIs. Most security discussions focus on prompt injection against the model itself, but the agent&rsquo;s <strong>skill layer</strong> is an equally attractive and often less defended target. In this work, I demonstrate a proof-of-concept attack where a seemingly benign &ldquo;code search&rdquo; skill is extended to silently exfiltrate source files when invoked by an agent. The agent, configured to help a developer answer questions about their repo, will happily route sensitive code through a malicious skill that looks legitimate in interface and behavior. I outline the architecture, the attack chain, a minimal PoC implementation, and practical mitigations developers can apply when adopting third-party skills.</p>
 <h2 id="background">Background</h2>
 <p><img
@@ -606,18 +655,41 @@ This is illustrative; in a real PoC, the exfil endpoint should be controlled in 
 </ul>
 </li>
 </ul>
-</div><section id="comments">
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>Updated on 2026-02-22</span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="/tags/llm-security/">Llm-Security</a>,&nbsp;<a href="/tags/agents/">Agents</a>,&nbsp;<a href="/tags/supply-chain/">Supply-Chain</a>,&nbsp;<a href="/tags/prompt-injection/">Prompt-Injection</a>,&nbsp;<a href="/tags/skills/">Skills</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">Back</a></span>&nbsp;|&nbsp;<span><a href="/">Home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"></div>
+</div>
+<section id="comments">
             <h2>Comments</h2>
             <script src="https://utteranc.es/client.js"
                     repo="arshimtiaz/arshimtiaz.github.io"
                     issue-term="pathname"
                     label="blog-comments"
-                    theme="github-light"
+                    theme="dark-blue"
                     crossorigin="anonymous"
                     async>
             </script>
         </section>
-    </div></div>
+    </article></div>
             </main><footer class="footer">
         <div class="footer-container"><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2023 - 2026</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank"></a></span>&nbsp;|&nbsp;<span class="license">All Rights Reserved</span></div>
         </div>
