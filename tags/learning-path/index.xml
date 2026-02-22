@@ -1,14 +1,14 @@
 <rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
     <channel>
         <title>Learning Path - Tag - Arsh Imtiaz</title>
-        <link>https://arshimtiaz.github.io/tags/learning-path/</link>
+        <link>http://0.0.0.0:1313/tags/learning-path/</link>
         <description>Learning Path - Tag - Arsh Imtiaz</description>
-        <generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Wed, 06 Aug 2025 00:00:00 &#43;0100</lastBuildDate><atom:link href="https://arshimtiaz.github.io/tags/learning-path/" rel="self" type="application/rss+xml" /><item>
+        <generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Wed, 06 Aug 2025 00:00:00 &#43;0100</lastBuildDate><atom:link href="http://0.0.0.0:1313/tags/learning-path/" rel="self" type="application/rss+xml" /><item>
     <title>Why Networking Fundamentals Should Be Your First Step</title>
-    <link>https://arshimtiaz.github.io/posts/why-networking-fundamentals-should-be-your-first-step/</link>
+    <link>http://0.0.0.0:1313/posts/why-networking-fundamentals-should-be-your-first-step/</link>
     <pubDate>Wed, 06 Aug 2025 00:00:00 &#43;0100</pubDate>
     <author>Arsh Imtiaz</author>
-    <guid>https://arshimtiaz.github.io/posts/why-networking-fundamentals-should-be-your-first-step/</guid>
+    <guid>http://0.0.0.0:1313/posts/why-networking-fundamentals-should-be-your-first-step/</guid>
     <description><![CDATA[<figure><a class="lightgallery" href="./network-nodes.gif" title="Networking is fun" data-thumbnail="./network-nodes.gif" data-sub-html="<h2>Networking is fun. Also, it is the part that keeps your hacks from breaking at the worst time.</h2>">
         
     </a><figcaption class="image-caption">Networking is fun. Also, it is the part that keeps your hacks from breaking at the worst time.</figcaption>

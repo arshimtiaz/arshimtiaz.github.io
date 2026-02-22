@@ -1,14 +1,14 @@
 <rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
     <channel>
         <title>Fintech - Tag - Arsh Imtiaz</title>
-        <link>https://arshimtiaz.github.io/tags/fintech/</link>
+        <link>http://0.0.0.0:1313/tags/fintech/</link>
         <description>Fintech - Tag - Arsh Imtiaz</description>
-        <generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Sat, 14 Feb 2026 02:05:32 &#43;0000</lastBuildDate><atom:link href="https://arshimtiaz.github.io/tags/fintech/" rel="self" type="application/rss+xml" /><item>
+        <generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Sat, 14 Feb 2026 02:05:32 &#43;0000</lastBuildDate><atom:link href="http://0.0.0.0:1313/tags/fintech/" rel="self" type="application/rss+xml" /><item>
     <title>Breaking Access Control Safely: Building a Transaction System Attack Lab</title>
-    <link>https://arshimtiaz.github.io/posts/breaking-access-control-safely-building-a-transaction-system-attack-lab/</link>
+    <link>http://0.0.0.0:1313/posts/breaking-access-control-safely-building-a-transaction-system-attack-lab/</link>
     <pubDate>Sat, 14 Feb 2026 02:05:32 &#43;0000</pubDate>
     <author>Arsh Imtiaz</author>
-    <guid>https://arshimtiaz.github.io/posts/breaking-access-control-safely-building-a-transaction-system-attack-lab/</guid>
+    <guid>http://0.0.0.0:1313/posts/breaking-access-control-safely-building-a-transaction-system-attack-lab/</guid>
     <description><![CDATA[<figure><a class="lightgallery" href="./transaction_lab_header.svg" title="Transaction System Attack Lab" data-thumbnail="./transaction_lab_header.svg" data-sub-html="<h2>Modelling broken access control in a small transaction system</h2>">
         
     </a><figcaption class="image-caption">Modelling broken access control in a small transaction system</figcaption>

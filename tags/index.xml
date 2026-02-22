@@ -1,86 +1,86 @@
 <rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
     <channel>
         <title>Tags - Tag - Arsh Imtiaz</title>
-        <link>https://arshimtiaz.github.io/tags/</link>
+        <link>http://0.0.0.0:1313/tags/</link>
         <description>Tags - Tag - Arsh Imtiaz</description>
-        <generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Sat, 14 Feb 2026 02:05:32 &#43;0000</lastBuildDate><atom:link href="https://arshimtiaz.github.io/tags/" rel="self" type="application/rss+xml" /><item>
+        <generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Sat, 14 Feb 2026 02:05:32 &#43;0000</lastBuildDate><atom:link href="http://0.0.0.0:1313/tags/" rel="self" type="application/rss+xml" /><item>
     <title>Cybersecurity</title>
-    <link>https://arshimtiaz.github.io/tags/cybersecurity/</link>
+    <link>http://0.0.0.0:1313/tags/cybersecurity/</link>
     <pubDate>Sat, 14 Feb 2026 02:05:32 &#43;0000</pubDate>
     <author>Author</author>
-    <guid>https://arshimtiaz.github.io/tags/cybersecurity/</guid>
+    <guid>http://0.0.0.0:1313/tags/cybersecurity/</guid>
     <description><![CDATA[]]></description>
 </item>
 <item>
     <title>Fintech</title>
-    <link>https://arshimtiaz.github.io/tags/fintech/</link>
+    <link>http://0.0.0.0:1313/tags/fintech/</link>
     <pubDate>Sat, 14 Feb 2026 02:05:32 &#43;0000</pubDate>
     <author>Author</author>
-    <guid>https://arshimtiaz.github.io/tags/fintech/</guid>
+    <guid>http://0.0.0.0:1313/tags/fintech/</guid>
     <description><![CDATA[]]></description>
 </item>
 <item>
     <title>Labs</title>
-    <link>https://arshimtiaz.github.io/tags/labs/</link>
+    <link>http://0.0.0.0:1313/tags/labs/</link>
     <pubDate>Sat, 14 Feb 2026 02:05:32 &#43;0000</pubDate>
     <author>Author</author>
-    <guid>https://arshimtiaz.github.io/tags/labs/</guid>
+    <guid>http://0.0.0.0:1313/tags/labs/</guid>
     <description><![CDATA[]]></description>
 </item>
 <item>
     <title>Red Teaming</title>
-    <link>https://arshimtiaz.github.io/tags/red-teaming/</link>
+    <link>http://0.0.0.0:1313/tags/red-teaming/</link>
     <pubDate>Sat, 14 Feb 2026 02:05:32 &#43;0000</pubDate>
     <author>Author</author>
-    <guid>https://arshimtiaz.github.io/tags/red-teaming/</guid>
+    <guid>http://0.0.0.0:1313/tags/red-teaming/</guid>
     <description><![CDATA[]]></description>
 </item>
 <item>
     <title>Web Security</title>
-    <link>https://arshimtiaz.github.io/tags/web-security/</link>
+    <link>http://0.0.0.0:1313/tags/web-security/</link>
     <pubDate>Sat, 14 Feb 2026 02:05:32 &#43;0000</pubDate>
     <author>Author</author>
-    <guid>https://arshimtiaz.github.io/tags/web-security/</guid>
+    <guid>http://0.0.0.0:1313/tags/web-security/</guid>
     <description><![CDATA[]]></description>
 </item>
 <item>
     <title>Ai</title>
-    <link>https://arshimtiaz.github.io/tags/ai/</link>
+    <link>http://0.0.0.0:1313/tags/ai/</link>
     <pubDate>Mon, 29 Dec 2025 00:00:00 &#43;0000</pubDate>
     <author>Author</author>
-    <guid>https://arshimtiaz.github.io/tags/ai/</guid>
+    <guid>http://0.0.0.0:1313/tags/ai/</guid>
     <description><![CDATA[]]></description>
 </item>
 <item>
     <title>Apis</title>
-    <link>https://arshimtiaz.github.io/tags/apis/</link>
+    <link>http://0.0.0.0:1313/tags/apis/</link>
     <pubDate>Mon, 29 Dec 2025 00:00:00 &#43;0000</pubDate>
     <author>Author</author>
-    <guid>https://arshimtiaz.github.io/tags/apis/</guid>
+    <guid>http://0.0.0.0:1313/tags/apis/</guid>
     <description><![CDATA[]]></description>
 </item>
 <item>
     <title>Learning</title>
-    <link>https://arshimtiaz.github.io/tags/learning/</link>
+    <link>http://0.0.0.0:1313/tags/learning/</link>
     <pubDate>Mon, 29 Dec 2025 00:00:00 &#43;0000</pubDate>
     <author>Author</author>
-    <guid>https://arshimtiaz.github.io/tags/learning/</guid>
+    <guid>http://0.0.0.0:1313/tags/learning/</guid>
     <description><![CDATA[]]></description>
 </item>
 <item>
     <title>Ollama</title>
-    <link>https://arshimtiaz.github.io/tags/ollama/</link>
+    <link>http://0.0.0.0:1313/tags/ollama/</link>
     <pubDate>Mon, 29 Dec 2025 00:00:00 &#43;0000</pubDate>
     <author>Author</author>
-    <guid>https://arshimtiaz.github.io/tags/ollama/</guid>
+    <guid>http://0.0.0.0:1313/tags/ollama/</guid>
     <description><![CDATA[]]></description>
 </item>
 <item>
     <title>Projects</title>
-    <link>https://arshimtiaz.github.io/tags/projects/</link>
+    <link>http://0.0.0.0:1313/tags/projects/</link>
     <pubDate>Mon, 29 Dec 2025 00:00:00 &#43;0000</pubDate>
     <author>Author</author>
-    <guid>https://arshimtiaz.github.io/tags/projects/</guid>
+    <guid>http://0.0.0.0:1313/tags/projects/</guid>
     <description><![CDATA[]]></description>
 </item>
 </channel>

@@ -1,14 +1,14 @@
 <rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
     <channel>
         <title>Homelab - Tag - Arsh Imtiaz</title>
-        <link>https://arshimtiaz.github.io/tags/homelab/</link>
+        <link>http://0.0.0.0:1313/tags/homelab/</link>
         <description>Homelab - Tag - Arsh Imtiaz</description>
-        <generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Sun, 09 Nov 2025 00:00:00 &#43;0000</lastBuildDate><atom:link href="https://arshimtiaz.github.io/tags/homelab/" rel="self" type="application/rss+xml" /><item>
+        <generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Sun, 09 Nov 2025 00:00:00 &#43;0000</lastBuildDate><atom:link href="http://0.0.0.0:1313/tags/homelab/" rel="self" type="application/rss+xml" /><item>
     <title>When Red Teaming Meets Car Hacking: Building a Virtual Vehicle Pentest Lab on My Laptop</title>
-    <link>https://arshimtiaz.github.io/posts/when-red-teaming-meets-car-hacking-building-a-virtual-vehicle-pentest-lab-on-my-laptop/</link>
+    <link>http://0.0.0.0:1313/posts/when-red-teaming-meets-car-hacking-building-a-virtual-vehicle-pentest-lab-on-my-laptop/</link>
     <pubDate>Sun, 09 Nov 2025 00:00:00 &#43;0000</pubDate>
     <author>Arsh Imtiaz</author>
-    <guid>https://arshimtiaz.github.io/posts/when-red-teaming-meets-car-hacking-building-a-virtual-vehicle-pentest-lab-on-my-laptop/</guid>
+    <guid>http://0.0.0.0:1313/posts/when-red-teaming-meets-car-hacking-building-a-virtual-vehicle-pentest-lab-on-my-laptop/</guid>
     <description><![CDATA[<figure><a class="lightgallery" href="/posts/when-red-teaming-meets-car-hacking-building-a-virtual-vehicle-pentest-lab-on-my-laptop/assets/car_hacking.png" title="Networking is fun" data-thumbnail="/posts/when-red-teaming-meets-car-hacking-building-a-virtual-vehicle-pentest-lab-on-my-laptop/assets/car_hacking.png" data-sub-html="<h2>How does one emulate cars at home?</h2>">
         
     </a><figcaption class="image-caption">How does one emulate cars at home?</figcaption>
@@ -266,10 +266,10 @@ We can use <code>candump</code>, which continuously listens for any CAN messages
 </item>
 <item>
     <title>Docker to Detection: Setting Up Wazuh SIEM for Beginners</title>
-    <link>https://arshimtiaz.github.io/posts/docker-to-detection-setting-up-wazuh-siem-for-beginners/</link>
+    <link>http://0.0.0.0:1313/posts/docker-to-detection-setting-up-wazuh-siem-for-beginners/</link>
     <pubDate>Sat, 14 Jun 2025 00:00:00 &#43;0100</pubDate>
     <author>Arsh Imtiaz</author>
-    <guid>https://arshimtiaz.github.io/posts/docker-to-detection-setting-up-wazuh-siem-for-beginners/</guid>
+    <guid>http://0.0.0.0:1313/posts/docker-to-detection-setting-up-wazuh-siem-for-beginners/</guid>
     <description><![CDATA[<a class="lightgallery" href="/images/wazuh-header-image.jpg" title="Wazuh" data-thumbnail="/images/wazuh-header-image.jpg">
         
     </a>

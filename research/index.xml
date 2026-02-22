@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Research on Arsh Imtiaz</title>
+    <link>http://0.0.0.0:1313/research/</link>
+    <description>Recent content in Research on Arsh Imtiaz</description>
+    <generator>Hugo</generator>
+    <language>en</language>
+    <lastBuildDate>Sun, 22 Feb 2026 00:00:00 +0000</lastBuildDate>
+    <atom:link href="http://0.0.0.0:1313/research/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Silent Exfiltration via Malicious Skills in LLM Agents: Supply Chain Risk for Developers</title>
+      <link>http://0.0.0.0:1313/research/agent-supply-chain-silent-exfil/</link>
+      <pubDate>Sun, 22 Feb 2026 00:00:00 +0000</pubDate>
+      <guid>http://0.0.0.0:1313/research/agent-supply-chain-silent-exfil/</guid>
+      <description>A proof-of-concept attack where a seemingly legitimate skill for &amp;lsquo;code search&amp;rsquo; silently exfiltrates a repository when wired into an LLM agent, illustrating supply chain risks in agent skills and tools.</description>
+    </item>
+  </channel>
+</rss>
