@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+	<channel>
+		<title>Beginners on Arsh Imtiaz</title>
+		<link>http://localhost:1313/tags/beginners/</link>
+		<description>Recent content in Beginners on Arsh Imtiaz</description>
+		<generator>Hugo</generator>
+		<language>en</language>
+		
+		
+		
+		
+			<lastBuildDate>Sun, 19 Jul 2026 00:00:00 +0100</lastBuildDate>
+		
+			<atom:link href="http://localhost:1313/tags/beginners/index.xml" rel="self" type="application/rss+xml" />
+			<item>
+				<title>AI Threat Modelling for Cybersecurity Engineers: When the Assistant Trusts the Wrong Document</title>
+				<link>http://localhost:1313/posts/ai-threat-modelling-for-cybersecurity/</link>
+				<pubDate>Sun, 19 Jul 2026 00:00:00 +0100</pubDate>
+				<guid>http://localhost:1313/posts/ai-threat-modelling-for-cybersecurity/</guid>
+				<description>&lt;!-- Written for security practitioners who know cyber, but not necessarily AI. --&gt;&#xA;&lt;h1 id=&#34;ai-threat-modelling-for-cybersecurity-engineers-when-the-assistant-trusts-the-wrong-document&#34;&gt;AI Threat Modelling for Cybersecurity Engineers: When the Assistant Trusts the Wrong Document&lt;/h1&gt;&#xA;&lt;p&gt;You already know how to threat-model a web application, API or identity system.&lt;/p&gt;&#xA;&lt;p&gt;You know to ask:&lt;/p&gt;&#xA;&lt;blockquote&gt;&#xA;&lt;p&gt;Who can change this data?&lt;br&gt;&#xA;Who can read it?&lt;br&gt;&#xA;Which identity is being used?&lt;br&gt;&#xA;What happens if this trust boundary fails?&lt;/p&gt;&#xA;&lt;/blockquote&gt;&#xA;&lt;p&gt;Those questions still matter when artificial intelligence is involved.&lt;/p&gt;</description>
+			</item>
+	</channel>
+</rss>

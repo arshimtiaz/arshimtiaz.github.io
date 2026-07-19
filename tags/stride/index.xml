@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+	<channel>
+		<title>Stride on Arsh Imtiaz</title>
+		<link>https://arshimtiaz.github.io/tags/stride/</link>
+		<description>Recent content in Stride on Arsh Imtiaz</description>
+		<generator>Hugo</generator>
+		<language>en</language>
+		
+		
+		
+		
+			<lastBuildDate>Sun, 19 Jul 2026 00:00:00 +0100</lastBuildDate>
+		
+			<atom:link href="https://arshimtiaz.github.io/tags/stride/index.xml" rel="self" type="application/rss+xml" />
+			<item>
+				<title>Why STRIDE Alone May Not Be Enough for AI Threat Modelling</title>
+				<link>https://arshimtiaz.github.io/posts/stride-ai-threat-modelling/</link>
+				<pubDate>Sun, 19 Jul 2026 00:00:00 +0100</pubDate>
+				<guid>https://arshimtiaz.github.io/posts/stride-ai-threat-modelling/</guid>
+				<description>&lt;figure&gt;&lt;a class=&#34;lightgallery&#34; href=&#34;https://arshimtiaz.github.io/images/stride-ai-threat-modelling-hero.svg&#34; title=&#34;Hero diagram showing a poisoned document flowing through an AI assistant into multiple STRIDE impacts&#34; data-thumbnail=&#34;/images/stride-ai-threat-modelling-hero.svg&#34; data-sub-html=&#34;&lt;h2&gt;The model may work as designed while the trust chain around it is compromised.&lt;/h2&gt;&#34;&gt;&#xA;        &lt;img&#xA;            class=&#34;lazyload&#34;&#xA;            src=&#34;https://arshimtiaz.github.io/svg/loading.min.svg&#34;&#xA;            data-src=&#34;https://arshimtiaz.github.io/images/stride-ai-threat-modelling-hero.svg&#34;&#xA;            data-srcset=&#34;https://arshimtiaz.github.io/images/stride-ai-threat-modelling-hero.svg, https://arshimtiaz.github.io/images/stride-ai-threat-modelling-hero.svg 1.5x, https://arshimtiaz.github.io/images/stride-ai-threat-modelling-hero.svg 2x&#34;&#xA;            data-sizes=&#34;auto&#34;&#xA;            alt=&#34;Hero diagram showing a poisoned document flowing through an AI assistant into multiple STRIDE impacts&#34; /&gt;&#xA;    &lt;/a&gt;&lt;figcaption class=&#34;image-caption&#34;&gt;The model may work as designed while the trust chain around it is compromised.&lt;/figcaption&gt;&#xA;    &lt;/figure&gt;&#xA;&lt;!-- This post deliberately treats the model as one component in a wider system. --&gt;&#xA;&lt;p&gt;An AI assistant can follow every instruction it was given and still help an attacker compromise the organisation.&lt;/p&gt;</description>
+			</item>
+	</channel>
+</rss>

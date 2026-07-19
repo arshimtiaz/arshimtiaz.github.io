@@ -1,0 +1,101 @@
+/* Inline definitions for links such as /glossary/#rag. */
+
+.single .content a.glossary-term-link,
+.single .content a.glossary-term-link:visited {
+  color: inherit !important;
+  border-bottom: 0 !important;
+  text-decoration-line: underline !important;
+  text-decoration-style: dotted !important;
+  text-decoration-color: rgba(255, 255, 255, 0.78) !important;
+  text-decoration-thickness: 1px !important;
+  text-underline-offset: 0.2em;
+}
+
+.single .content a.glossary-term-link:hover,
+.single .content a.glossary-term-link:active {
+  color: inherit !important;
+  text-decoration-color: #ffffff !important;
+}
+
+.glossary-term-link:focus-visible {
+  outline: 2px solid #2d96bd;
+  outline-offset: 3px;
+}
+
+.glossary-popup {
+  position: fixed;
+  z-index: 1100;
+  width: min(23rem, calc(100vw - 2rem));
+  padding: 1rem 1.1rem;
+  border: 1px solid rgba(91, 186, 213, 0.55);
+  border-radius: 0.65rem;
+  background: #fff;
+  box-shadow: 0 14px 40px rgba(0, 0, 0, 0.35);
+  color: #161209;
+  opacity: 0;
+  transform: translateY(0.35rem);
+  transition: opacity 0.16s ease, transform 0.16s ease;
+  pointer-events: none;
+}
+
+.glossary-popup.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+.glossary-popup__title {
+  margin: 0 2rem 0.55rem 0;
+  color: #161209;
+  font-size: 1.05rem;
+}
+
+.glossary-popup__definition,
+.glossary-popup__security-view {
+  margin: 0 0 0.65rem;
+  font-size: 0.9rem;
+  line-height: 1.55;
+}
+
+.glossary-popup__security-view {
+  padding-left: 0.7rem;
+  border-left: 3px solid #5bbad5;
+  color: #a9a9b3;
+}
+
+.glossary-popup__link {
+  color: #2d96bd;
+  font-size: 0.82rem;
+}
+
+.glossary-popup__close {
+  position: absolute;
+  top: 0.55rem;
+  right: 0.7rem;
+  border: 0;
+  background: transparent;
+  color: #a9a9b3;
+  cursor: pointer;
+  font-size: 1.25rem;
+  line-height: 1;
+}
+
+[theme="dark"] .glossary-popup {
+  background: #252627;
+  color: #a9a9b3;
+}
+
+[theme="dark"] .glossary-popup__title {
+  color: #a9a9b3;
+}
+
+[theme="dark"] .glossary-popup__security-view,
+[theme="dark"] .glossary-popup__close {
+  color: #5d5d5f;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .glossary-popup {
+    transition: none;
+  }
+}

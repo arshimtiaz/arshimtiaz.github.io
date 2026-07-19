@@ -1,0 +1,88 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-label="Manual work versus API connected systems">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0b1020"/>
+      <stop offset="100%" stop-color="#111827"/>
+    </linearGradient>
+    <linearGradient id="panelBad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#ef4444" stop-opacity="0.18"/>
+      <stop offset="100%" stop-color="#f97316" stop-opacity="0.18"/>
+    </linearGradient>
+    <linearGradient id="panelGood" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0ea5e9" stop-opacity="0.20"/>
+      <stop offset="100%" stop-color="#22c55e" stop-opacity="0.20"/>
+    </linearGradient>
+    <linearGradient id="accent" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#38bdf8"/>
+      <stop offset="100%" stop-color="#22c55e"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="1200" height="630" fill="url(#bg)"/>
+
+  <g font-family="ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace">
+    <text x="70" y="88" font-size="28" fill="#e2e8f0">Manual Chaos vs API Workflow</text>
+    <text x="70" y="118" font-size="16" fill="#94a3b8">One side is suffering. The other side is just calling the thing properly.</text>
+  </g>
+
+  <g stroke="#1f2a44" stroke-width="1">
+    <rect x="70" y="165" width="490" height="380" rx="20" fill="url(#panelBad)"/>
+    <rect x="640" y="165" width="490" height="380" rx="20" fill="url(#panelGood)"/>
+  </g>
+
+  <g font-family="ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace">
+    <text x="100" y="215" font-size="22" fill="#fca5a5">Manual</text>
+    <text x="670" y="215" font-size="22" fill="#86efac">API-connected</text>
+
+    <text x="100" y="255" font-size="14" fill="#cbd5e1">copy data from app A</text>
+    <text x="100" y="282" font-size="14" fill="#cbd5e1">paste into spreadsheet</text>
+    <text x="100" y="309" font-size="14" fill="#cbd5e1">clean weird columns by hand</text>
+    <text x="100" y="336" font-size="14" fill="#cbd5e1">paste into app B</text>
+    <text x="100" y="363" font-size="14" fill="#cbd5e1">repeat every single day</text>
+
+    <text x="670" y="255" font-size="14" fill="#cbd5e1">fetch structured data</text>
+    <text x="670" y="282" font-size="14" fill="#cbd5e1">validate inputs</text>
+    <text x="670" y="309" font-size="14" fill="#cbd5e1">transform once</text>
+    <text x="670" y="336" font-size="14" fill="#cbd5e1">return JSON</text>
+    <text x="670" y="363" font-size="14" fill="#cbd5e1">reuse forever</text>
+  </g>
+
+  <g stroke="#334155" stroke-width="2" fill="none">
+    <rect x="100" y="400" width="120" height="58" rx="12"/>
+    <rect x="255" y="400" width="120" height="58" rx="12"/>
+    <rect x="410" y="400" width="120" height="58" rx="12"/>
+
+    <rect x="670" y="400" width="120" height="58" rx="12"/>
+    <rect x="840" y="400" width="120" height="58" rx="12"/>
+    <rect x="1010" y="400" width="120" height="58" rx="12"/>
+  </g>
+
+  <g font-family="ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace" font-size="13">
+    <text x="130" y="434" fill="#e2e8f0">app A</text>
+    <text x="274" y="434" fill="#e2e8f0">human</text>
+    <text x="438" y="434" fill="#e2e8f0">app B</text>
+
+    <text x="692" y="434" fill="#e2e8f0">client</text>
+    <text x="863" y="434" fill="#e2e8f0">API</text>
+    <text x="1032" y="434" fill="#e2e8f0">tool</text>
+  </g>
+
+  <g stroke="#fb7185" stroke-width="3" fill="none">
+    <path d="M220 429 H255"/>
+    <path d="M375 429 H410"/>
+  </g>
+
+  <g stroke="url(#accent)" stroke-width="3" fill="none">
+    <path d="M790 429 H840"/>
+    <path d="M960 429 H1010"/>
+  </g>
+
+  <g font-family="ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace" font-size="12">
+    <text x="100" y="495" fill="#fca5a5">fragile, slow, annoying</text>
+    <text x="670" y="495" fill="#86efac">repeatable, clean, scalable</text>
+  </g>
+
+  <g font-family="ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace" fill="#94a3b8" font-size="12" opacity="0.5">
+    <text x="1130" y="610" text-anchor="end">https://arshimtiaz.github.io</text>
+  </g>
+</svg>

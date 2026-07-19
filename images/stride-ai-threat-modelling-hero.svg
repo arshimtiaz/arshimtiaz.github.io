@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-labelledby="title desc">
+  <title id="title">STRIDE threat modelling for AI systems</title>
+  <desc id="desc">A security diagram showing a poisoned internal document entering an AI assistant and leading to multiple STRIDE impacts.</desc>
+  <style>
+    .bg{fill:#0b1020}.eyebrow{font:700 15px ui-sans-serif,system-ui,sans-serif;letter-spacing:2px;fill:#38bdf8}.title{font:700 38px ui-sans-serif,system-ui,sans-serif;fill:#e2e8f0}.sub{font:16px ui-sans-serif,system-ui,sans-serif;fill:#94a3b8}.label{font:700 16px ui-sans-serif,system-ui,sans-serif;fill:#e2e8f0}.body{font:13px ui-sans-serif,system-ui,sans-serif;fill:#cbd5e1}.node{stroke:#334155;stroke-width:2}.risk{fill:#542030}.process{fill:#202454}.storage{fill:#123e40}.impact{fill:#4a3714}.edge{stroke:#38bdf8;stroke-width:3;fill:none}.impactText{font:700 13px ui-sans-serif,system-ui,sans-serif;fill:#fca5a5}.note{font:13px ui-sans-serif,system-ui,sans-serif;fill:#94a3b8}.shield{fill:#38bdf8}.shieldCut{fill:#0b1020}
+  </style>
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#38bdf8"/></marker>
+  </defs>
+
+  <rect class="bg" width="1200" height="630"/>
+  <text class="eyebrow" x="60" y="70">AI SECURITY / THREAT MODELLING</text>
+  <text class="title" x="60" y="120">When the assistant trusts</text>
+  <text class="title" x="60" y="165">the wrong document</text>
+  <text class="sub" x="60" y="205">The model can work as designed while the wider system is compromised.</text>
+
+  <path class="edge" marker-end="url(#arrow)" d="M245 385 H310"/>
+  <path class="edge" marker-end="url(#arrow)" d="M505 385 H570"/>
+  <path class="edge" marker-end="url(#arrow)" d="M765 385 H830"/>
+
+  <rect class="node risk" x="60" y="315" width="185" height="145" rx="14"/>
+  <rect class="node storage" x="310" y="315" width="195" height="145" rx="14"/>
+  <rect class="node process" x="570" y="315" width="195" height="145" rx="14"/>
+  <rect class="node impact" x="830" y="315" width="300" height="145" rx="14"/>
+
+  <text class="label" x="82" y="355">Poisoned file</text>
+  <text class="body" x="82" y="385">False guidance enters</text>
+  <text class="body" x="82" y="406">a trusted knowledge base</text>
+  <text class="impactText" x="82" y="440">TAMPERING</text>
+
+  <text class="label" x="332" y="355">RAG retrieval</text>
+  <text class="body" x="332" y="385">A normal question</text>
+  <text class="body" x="332" y="406">retrieves the file</text>
+
+  <text class="label" x="592" y="355">AI assistant</text>
+  <text class="body" x="592" y="385">Malicious text becomes</text>
+  <text class="body" x="592" y="406">context for the answer</text>
+
+  <text class="label" x="852" y="355">Wider impact</text>
+  <text class="body" x="852" y="385">Spoofing · disclosure</text>
+  <text class="body" x="852" y="406">or privilege escalation</text>
+
+  <path class="shield" d="M1045 115 l48 18 v38 c0 36-25 61-48 72-23-11-48-36-48-72v-38z"/>
+  <path class="shieldCut" d="M1045 137 v78 c19-11 31-29 31-52v-17z"/>
+  <path class="shieldCut" d="M1024 169 h42 v10 h-42z M1040 158 h10 v36 h-10z"/>
+
+  <text class="note" x="60" y="545">STRIDE is the impact overlay. The trust chain is the attack surface.</text>
+  <text class="note" x="60" y="575">Follow the document, retrieval path, model context, identity and tools.</text>
+  <text x="1130" y="610" text-anchor="end" style="font:12px ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,'Liberation Mono','Courier New',monospace;fill:#94a3b8;opacity:.5">https://arshimtiaz.github.io</text>
+</svg>

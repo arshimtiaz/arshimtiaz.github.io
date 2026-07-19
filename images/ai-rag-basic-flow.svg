@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-labelledby="title desc">
+  <title id="title">Basic retrieval augmented generation flow</title>
+  <desc id="desc">A user asks a question, the assistant searches company documents, retrieves context, sends it to a model and returns an answer.</desc>
+  <style>
+    .bg{fill:#0b1020}.title{font:700 30px ui-sans-serif,system-ui,sans-serif;fill:#e2e8f0}.sub{font:16px ui-sans-serif,system-ui,sans-serif;fill:#94a3b8}.label{font:700 18px ui-sans-serif,system-ui,sans-serif;fill:#e2e8f0}.body{font:14px ui-sans-serif,system-ui,sans-serif;fill:#cbd5e1}.node{stroke:#334155;stroke-width:2}.input{fill:#132a43}.process{fill:#202454}.storage{fill:#123e40}.output{fill:#4a3714}.edge{stroke:#38bdf8;stroke-width:3;fill:none}.note{font:13px ui-sans-serif,system-ui,sans-serif;fill:#94a3b8}
+  </style>
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#38bdf8"/></marker>
+  </defs>
+  <rect class="bg" width="1200" height="630"/>
+  <text class="title" x="60" y="72">How a document-searching AI assistant works</text>
+  <text class="sub" x="60" y="104">The model receives the question and the retrieved company text together.</text>
+
+  <path class="edge" marker-end="url(#arrow)" d="M260 310 H320"/>
+  <path class="edge" marker-end="url(#arrow)" d="M540 310 H600"/>
+  <path class="edge" marker-end="url(#arrow)" d="M820 310 H880"/>
+
+  <rect class="node input" x="60" y="220" width="200" height="180" rx="16"/>
+  <rect class="node storage" x="320" y="220" width="220" height="180" rx="16"/>
+  <rect class="node process" x="600" y="220" width="220" height="180" rx="16"/>
+  <rect class="node output" x="880" y="220" width="240" height="180" rx="16"/>
+
+  <text class="label" x="84" y="264">1. User</text>
+  <text class="body" x="84" y="300">“How do I rotate</text>
+  <text class="body" x="84" y="322">a production</text>
+  <text class="body" x="84" y="344">credential?”</text>
+
+  <text class="label" x="344" y="264">2. Search</text>
+  <text class="body" x="344" y="300">Find matching</text>
+  <text class="body" x="344" y="322">internal documents</text>
+  <text class="body" x="344" y="344">and passages</text>
+
+  <text class="label" x="624" y="264">3. Model input</text>
+  <text class="body" x="624" y="300">Question + retrieved</text>
+  <text class="body" x="624" y="322">text become context</text>
+  <text class="body" x="624" y="344">for the answer</text>
+
+  <text class="label" x="904" y="264">4. Answer</text>
+  <text class="body" x="904" y="300">The assistant writes</text>
+  <text class="body" x="904" y="322">a response based on</text>
+  <text class="body" x="904" y="344">what it was given</text>
+
+  <text class="note" x="600" y="470">Security question: can an attacker influence the text retrieved in step 2?</text>
+  <text x="1130" y="610" text-anchor="end" style="font:12px ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,'Liberation Mono','Courier New',monospace;fill:#94a3b8;opacity:.5">https://arshimtiaz.github.io</text>
+</svg>

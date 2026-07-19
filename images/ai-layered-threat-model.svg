@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-labelledby="title desc">
+  <title id="title">Layered AI threat modelling approach</title>
+  <desc id="desc">Four layers for threat modelling an AI system: ordinary architecture, information path, AI influence and STRIDE impact.</desc>
+  <style>
+    .bg{fill:#0b1020}.title{font:700 30px ui-sans-serif,system-ui,sans-serif;fill:#e2e8f0}.sub{font:16px ui-sans-serif,system-ui,sans-serif;fill:#94a3b8}.head{font:700 18px ui-sans-serif,system-ui,sans-serif;fill:#e2e8f0}.body{font:14px ui-sans-serif,system-ui,sans-serif;fill:#cbd5e1}.small{font:13px ui-sans-serif,system-ui,sans-serif;fill:#94a3b8}.node{stroke:#334155;stroke-width:2}.neutral{fill:#1e293b}.storage{fill:#123e40}.process{fill:#202454}.impact{fill:#4a3714}.risk{fill:#542030}.edge{stroke:#38bdf8;stroke-width:2;fill:none;stroke-dasharray:7 5}
+  </style>
+  <rect class="bg" width="1200" height="630"/>
+  <text class="title" x="60" y="72">A layered way to threat-model AI systems</text>
+  <text class="sub" x="60" y="104">Keep STRIDE. Add the parts that explain how information influences model behaviour.</text>
+
+  <rect class="node neutral" x="100" y="150" width="1000" height="88" rx="14"/>
+  <rect class="node storage" x="100" y="260" width="1000" height="88" rx="14"/>
+  <rect class="node process" x="100" y="370" width="1000" height="88" rx="14"/>
+  <rect class="node impact" x="100" y="480" width="1000" height="88" rx="14"/>
+
+  <path class="edge" d="M600 238 V260 M600 348 V370 M600 458 V480"/>
+
+  <text class="head" x="135" y="187">1. Ordinary system model</text>
+  <text class="body" x="450" y="187">Users, APIs, repositories, identities, tools and trust boundaries</text>
+
+  <text class="head" x="135" y="297">2. Information path</text>
+  <text class="body" x="450" y="297">File → extracted text → index → retrieved passage → model input → answer</text>
+
+  <text class="head" x="135" y="407">3. AI influence</text>
+  <text class="body" x="450" y="407">Can untrusted text change what the model believes, says or tries to do?</text>
+
+  <text class="head" x="135" y="517">4. STRIDE impact overlay</text>
+  <text class="body" x="450" y="517">Tampering, Spoofing, Disclosure, Privilege, Repudiation and DoS</text>
+
+  <text class="small" x="100" y="610">The model is one component. Follow the full chain of data, decisions and actions.</text>
+  <text x="1130" y="610" text-anchor="end" style="font:12px ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,'Liberation Mono','Courier New',monospace;fill:#94a3b8;opacity:.5">https://arshimtiaz.github.io</text>
+</svg>

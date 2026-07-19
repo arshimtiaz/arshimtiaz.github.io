@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-labelledby="title desc">
+  <title id="title">Poisoned document attack chain</title>
+  <desc id="desc">A poisoned document is uploaded, indexed, retrieved by a legitimate query, passed to the model and causes broader security impacts.</desc>
+  <style>
+    .bg{fill:#0b1020}.title{font:700 30px ui-sans-serif,system-ui,sans-serif;fill:#e2e8f0}.sub{font:16px ui-sans-serif,system-ui,sans-serif;fill:#94a3b8}.label{font:700 16px ui-sans-serif,system-ui,sans-serif;fill:#e2e8f0}.body{font:13px ui-sans-serif,system-ui,sans-serif;fill:#cbd5e1}.node{stroke:#334155;stroke-width:2}.risk{fill:#542030}.neutral{fill:#1e293b}.process{fill:#202454}.storage{fill:#123e40}.impact{fill:#4a3714}.edge{stroke:#38bdf8;stroke-width:3;fill:none}.impactText{font:700 14px ui-sans-serif,system-ui,sans-serif;fill:#fca5a5}.note{font:13px ui-sans-serif,system-ui,sans-serif;fill:#94a3b8}
+  </style>
+  <defs><marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#38bdf8"/></marker></defs>
+  <rect class="bg" width="1200" height="630"/>
+  <text class="title" x="60" y="72">One poisoned document, several security impacts</text>
+  <text class="sub" x="60" y="104">The attack starts as an integrity problem but does not have to stay there.</text>
+
+  <path class="edge" marker-end="url(#arrow)" d="M240 292 H285"/>
+  <path class="edge" marker-end="url(#arrow)" d="M475 292 H520"/>
+  <path class="edge" marker-end="url(#arrow)" d="M710 292 H755"/>
+  <path class="edge" marker-end="url(#arrow)" d="M945 292 H990"/>
+
+  <rect class="node risk" x="60" y="220" width="180" height="145" rx="14"/>
+  <rect class="node storage" x="285" y="220" width="190" height="145" rx="14"/>
+  <rect class="node process" x="520" y="220" width="190" height="145" rx="14"/>
+  <rect class="node process" x="755" y="220" width="190" height="145" rx="14"/>
+  <rect class="node impact" x="990" y="220" width="150" height="145" rx="14"/>
+
+  <text class="label" x="82" y="260">Attacker</text>
+  <text class="body" x="82" y="292">Uploads a false</text>
+  <text class="body" x="82" y="313">“approved” file</text>
+  <text class="impactText" x="82" y="345">Tampering</text>
+
+  <text class="label" x="307" y="260">Document store</text>
+  <text class="body" x="307" y="292">File is indexed</text>
+  <text class="body" x="307" y="313">as trusted content</text>
+
+  <text class="label" x="542" y="260">Legitimate query</text>
+  <text class="body" x="542" y="292">Search retrieves</text>
+  <text class="body" x="542" y="313">the malicious text</text>
+
+  <text class="label" x="777" y="260">Model context</text>
+  <text class="body" x="777" y="292">Text is treated</text>
+  <text class="body" x="777" y="313">like guidance</text>
+
+  <text class="label" x="1012" y="260">Impact</text>
+  <text class="body" x="1012" y="292">Answer or tool</text>
+  <text class="body" x="1012" y="313">call is unsafe</text>
+
+  <text class="impactText" x="150" y="485">Tampering</text>
+  <text class="impactText" x="390" y="485">Spoofing</text>
+  <text class="impactText" x="625" y="485">Information Disclosure</text>
+  <text class="impactText" x="925" y="485">Elevation of Privilege</text>
+  <path class="edge" d="M150 455 H1050"/>
+  <text class="note" x="60" y="550">The model may be functioning normally; the trust chain around it is not.</text>
+  <text x="1130" y="610" text-anchor="end" style="font:12px ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,'Liberation Mono','Courier New',monospace;fill:#94a3b8;opacity:.5">https://arshimtiaz.github.io</text>
+</svg>
