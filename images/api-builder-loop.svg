@@ -1,0 +1,66 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-label="API builder loop">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0b1020"/>
+      <stop offset="100%" stop-color="#0f172a"/>
+    </linearGradient>
+    <linearGradient id="accent" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#38bdf8"/>
+      <stop offset="100%" stop-color="#22c55e"/>
+    </linearGradient>
+    <linearGradient id="chip" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0ea5e9" stop-opacity="0.20"/>
+      <stop offset="100%" stop-color="#22c55e" stop-opacity="0.20"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="1200" height="630" fill="url(#bg)"/>
+
+  <g font-family="ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace">
+    <text x="70" y="88" font-size="28" fill="#e2e8f0">The API Builder Loop</text>
+    <text x="70" y="118" font-size="16" fill="#94a3b8">This is usually where a tiny script turns into a real tool.</text>
+  </g>
+
+  <g stroke="url(#accent)" stroke-width="3" fill="none">
+    <path d="M340 170 C520 110 680 110 860 170"/>
+    <path d="M970 310 C1010 440 920 530 760 550"/>
+    <path d="M440 550 C260 540 170 450 210 310"/>
+    <path d="M210 300 C250 210 270 190 340 170"/>
+  </g>
+
+  <g stroke="#1f2a44" stroke-width="1" fill="url(#chip)">
+    <rect x="260" y="150" width="220" height="90" rx="18"/>
+    <rect x="720" y="150" width="220" height="90" rx="18"/>
+    <rect x="820" y="430" width="220" height="90" rx="18"/>
+    <rect x="160" y="430" width="220" height="90" rx="18"/>
+    <rect x="470" y="255" width="260" height="120" rx="22"/>
+  </g>
+
+  <g font-family="ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace">
+    <g fill="#e2e8f0" font-size="18">
+      <text x="292" y="187">Read docs</text>
+      <text x="752" y="187">Make request</text>
+      <text x="852" y="467">Parse response</text>
+      <text x="192" y="467">Build feature</text>
+      <text x="550" y="300" text-anchor="middle">Ship a tool</text>
+    </g>
+    <g fill="#94a3b8" font-size="13">
+      <text x="292" y="213">figure out auth, params, limits</text>
+      <text x="752" y="213">curl it, test it, break it</text>
+      <text x="852" y="493">JSON in, useful shape out</text>
+      <text x="192" y="493">dashboard, bot, CLI, alerts</text>
+      <text x="600" y="326" text-anchor="middle">repeat until it stops being a random script</text>
+      <text x="600" y="347" text-anchor="middle">and starts being infrastructure</text>
+    </g>
+  </g>
+
+  <g fill="none" stroke="#38bdf8" stroke-width="2">
+    <circle cx="600" cy="315" r="46"/>
+    <path d="M584 315 H616"/>
+    <path d="M600 299 V331"/>
+  </g>
+
+  <g font-family="ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace" fill="#94a3b8" font-size="12" opacity="0.5">
+    <text x="1130" y="610" text-anchor="end">https://arshimtiaz.github.io</text>
+  </g>
+</svg>

@@ -1,0 +1,100 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-label="Free APIs starter pack">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0b1020"/>
+      <stop offset="100%" stop-color="#111827"/>
+    </linearGradient>
+    <linearGradient id="panel" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0ea5e9" stop-opacity="0.20"/>
+      <stop offset="100%" stop-color="#22c55e" stop-opacity="0.20"/>
+    </linearGradient>
+    <linearGradient id="accent" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#38bdf8"/>
+      <stop offset="100%" stop-color="#22c55e"/>
+    </linearGradient>
+    <filter id="softGlow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="8" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+
+  <rect width="1200" height="630" fill="url(#bg)"/>
+
+  <g font-family="ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace" fill="#e2e8f0">
+    <text x="70" y="88" font-size="28">Free API Starter Pack</text>
+    <text x="70" y="118" font-size="15" fill="#94a3b8">Five APIs you can actually build things with without immediately lighting money on fire</text>
+  </g>
+
+  <g stroke="#1f2a44" stroke-width="1">
+    <rect x="70" y="170" width="315" height="150" rx="18" fill="url(#panel)"/>
+    <rect x="442" y="170" width="315" height="150" rx="18" fill="url(#panel)"/>
+    <rect x="814" y="170" width="315" height="150" rx="18" fill="url(#panel)"/>
+    <rect x="256" y="355" width="315" height="150" rx="18" fill="url(#panel)"/>
+    <rect x="628" y="355" width="315" height="150" rx="18" fill="url(#panel)"/>
+  </g>
+
+  <g font-family="ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace">
+    <g fill="#e2e8f0">
+      <text x="100" y="212" font-size="20">GitHub API</text>
+      <text x="472" y="212" font-size="20">Open-Meteo</text>
+      <text x="844" y="212" font-size="18">ExchangeRate.host</text>
+      <text x="286" y="397" font-size="20">Have I Been Pwned</text>
+      <text x="658" y="397" font-size="20">Ollama API</text>
+    </g>
+
+    <g fill="#94a3b8" font-size="14">
+      <text x="100" y="242">repos, issues, releases</text>
+      <text x="100" y="266">build dashboards and bots</text>
+
+      <text x="472" y="242">weather, rain, forecasts</text>
+      <text x="472" y="266">great for widgets and automations</text>
+
+      <text x="844" y="242">currency conversion</text>
+      <text x="844" y="266">finance tools without nonsense</text>
+
+      <text x="286" y="427">breach exposure checks</text>
+      <text x="286" y="451">perfect for security demos</text>
+
+      <text x="658" y="427">local model over HTTP</text>
+      <text x="658" y="451">AI workflows without cloud spend</text>
+    </g>
+  </g>
+
+  <g stroke="url(#accent)" stroke-width="3" fill="none" filter="url(#softGlow)" opacity="0.9">
+    <path d="M600 140 V160"/>
+    <path d="M600 320 V350"/>
+    <path d="M385 245 H430"/>
+    <path d="M769 245 H814"/>
+    <path d="M432 352 L520 323"/>
+    <path d="M768 352 L680 323"/>
+  </g>
+
+  <g fill="none" stroke="#38bdf8" stroke-width="2" opacity="0.7">
+    <circle cx="120" cy="285" r="14"/>
+    <path d="M120 278 V292"/>
+    <path d="M113 285 H127"/>
+
+    <circle cx="492" cy="285" r="14"/>
+    <path d="M485 285 H499"/>
+    <path d="M492 278 V292"/>
+
+    <circle cx="864" cy="285" r="14"/>
+    <path d="M857 285 H871"/>
+    <path d="M864 278 V292"/>
+
+    <circle cx="306" cy="470" r="14"/>
+    <path d="M299 470 H313"/>
+    <path d="M306 463 V477"/>
+
+    <circle cx="678" cy="470" r="14"/>
+    <path d="M671 470 H685"/>
+    <path d="M678 463 V477"/>
+  </g>
+
+  <g font-family="ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace" fill="#94a3b8" font-size="12" opacity="0.5">
+    <text x="1130" y="610" text-anchor="end">https://arshimtiaz.github.io</text>
+  </g>
+</svg>
