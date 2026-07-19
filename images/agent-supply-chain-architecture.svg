@@ -1,0 +1,100 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="420" viewBox="0 0 1200 420" role="img" aria-label="LLM agent skill supply chain" style="background:#020617">
+  <defs>
+    <linearGradient id="trusted" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0f766e"/>
+      <stop offset="100%" stop-color="#22c55e"/>
+    </linearGradient>
+    <linearGradient id="agent" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#1d4ed8"/>
+      <stop offset="100%" stop-color="#22c55e"/>
+    </linearGradient>
+    <linearGradient id="malicious" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#b91c1c"/>
+      <stop offset="100%" stop-color="#f97373"/>
+    </linearGradient>
+    <style>
+      .title { font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; fill:#e5e7eb; font-size:24px; font-weight:600; }
+      .subtitle { font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; fill:#9ca3af; font-size:14px; }
+      .label { font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; fill:#f9fafb; font-size:15px; font-weight:600; }
+      .small { font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; fill:#cbd5f5; font-size:12px; }
+      .legend { font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; fill:#e5e7eb; font-size:12px; }
+    </style>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#38bdf8" />
+    </marker>
+    <marker id="arrow-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#f97373" />
+    </marker>
+  </defs>
+
+  <!-- Title -->
+  <text x="80" y="60" class="title">LLM Agent Skill Supply Chain</text>
+  <text x="80" y="84" class="subtitle">Malicious skills hide between the agent and your local resources.</text>
+
+  <!-- Node boxes: laid out in a simple row, no overlap -->
+  <rect x="80"  y="140" width="200" height="110" rx="18" fill="#020617" stroke="#1f2937" stroke-width="1.2" />
+  <rect x="330" y="140" width="220" height="110" rx="18" fill="url(#agent)" stroke="#1f2937" stroke-width="1.2" />
+  <rect x="610" y="120" width="240" height="150" rx="18" fill="#020617" stroke="#1f2937" stroke-width="1.2" />
+  <rect x="900" y="140" width="210" height="110" rx="18" fill="#111827" stroke="#1f2937" stroke-width="1.2" />
+
+  <!-- Developer -->
+  <text x="180" y="175" text-anchor="middle" class="label">Developer</text>
+  <text x="180" y="198" text-anchor="middle" class="small">prompts / questions</text>
+
+  <!-- Agent -->
+  <text x="440" y="175" text-anchor="middle" class="label">LLM Agent</text>
+  <text x="440" y="198" text-anchor="middle" class="small">planning, tools, memory</text>
+
+  <!-- Skills / Tools container label -->
+  <text x="730" y="145" text-anchor="middle" class="label">Skills / Tools</text>
+
+  <!-- Exfil arrow drawn first so it sits under skill box -->
+  <path d="M740 238 C 820 300 880 310 900 320" fill="none" stroke="#f97373" stroke-width="2" marker-end="url(#arrow-red)" />
+
+  <!-- Skills panel boxes -->
+  <rect x="630" y="160" width="220" height="40" rx="10" fill="url(#trusted)" stroke="#0f766e" stroke-width="1" />
+  <rect x="630" y="210" width="220" height="40" rx="10" fill="url(#malicious)" stroke="#b91c1c" stroke-width="1" />
+  <text x="740" y="185" text-anchor="middle" class="small">Legitimate code search</text>
+  <text x="740" y="235" text-anchor="middle" class="small">Malicious code search (trojan)</text>
+
+  <!-- Local resources -->
+  <text x="1005" y="175" text-anchor="middle" class="label">Local resources</text>
+  <text x="1005" y="198" text-anchor="middle" class="small">codebase, configs, secrets</text>
+
+  <!-- Attacker node below, separate box -->
+  <rect x="900" y="270" width="210" height="80" rx="18" fill="#450a0a" stroke="#b91c1c" stroke-width="1.2" />
+  <text x="1005" y="300" text-anchor="middle" class="label">Attacker-controlled API</text>
+  <text x="1005" y="322" text-anchor="middle" class="small">exfil / C2 server</text>
+
+  <!-- Arrows (no overlap) -->
+  <!-- Developer -> Agent -->
+  <line x1="280" y1="195" x2="330" y2="195" stroke="#38bdf8" stroke-width="2" marker-end="url(#arrow)" />
+
+  <!-- Agent -> Legit skill -->
+  <line x1="550" y1="178" x2="630" y2="178" stroke="#38bdf8" stroke-width="2" marker-end="url(#arrow)" />
+
+  <!-- Agent -> Malicious skill -->
+  <line x1="550" y1="228" x2="630" y2="228" stroke="#38bdf8" stroke-width="2" marker-end="url(#arrow)" />
+
+  <!-- Legit skill -> Local resources (intended flow) -->
+  <line x1="850" y1="178" x2="900" y2="178" stroke="#22c55e" stroke-width="2" marker-end="url(#arrow)" />
+
+  <!-- Malicious skill -> Local resources (scan) -->
+  <line x1="850" y1="228" x2="900" y2="228" stroke="#f97373" stroke-width="2" marker-end="url(#arrow-red)" />
+
+  <!-- Legend -->
+  <rect x="80" y="350" width="1040" height="50" rx="14" fill="#020617" stroke="#1f2937" stroke-width="1" />
+  <text x="100" y="370" class="legend">Legend</text>
+
+  <rect x="150" y="361" width="16" height="10" rx="3" fill="url(#trusted)" stroke="#0f766e" stroke-width="0.8" />
+  <text x="175" y="369" class="legend">Trusted / benign skill</text>
+
+  <rect x="360" y="361" width="16" height="10" rx="3" fill="url(#malicious)" stroke="#b91c1c" stroke-width="0.8" />
+  <text x="385" y="369" class="legend">Malicious or compromised skill</text>
+
+  <line x1="580" y1="366" x2="610" y2="366" stroke="#22c55e" stroke-width="2" marker-end="url(#arrow)" />
+  <text x="620" y="369" class="legend">Intended data flow</text>
+
+  <line x1="800" y1="366" x2="830" y2="366" stroke="#f97373" stroke-width="2" marker-end="url(#arrow-red)" />
+  <text x="840" y="369" class="legend">Silent exfiltration path</text>
+</svg>
