@@ -612,7 +612,7 @@ No magic. Just a normal service that happens to be powered by a model.</p>
 <pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">Role</span><span class="p">:</span><span class="w"> </span><span class="l">Incident responder</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="nt">Task</span><span class="p">:</span><span class="w"> </span><span class="l">Summarize this log and list 3 next steps.</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="nt">Constraints</span><span class="p">:</span><span class="w"> </span><span class="l">Keep it under 60 words.</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="nt">Output: JSON keys</span><span class="p">:</span><span class="w"> </span><span class="l">summary, next_steps</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="nt">Output</span><span class="p">:</span><span class="w"> </span><span class="nt">JSON keys</span><span class="p">:</span><span class="w"> </span><span class="l">summary, next_steps</span><span class="w">
 </span></span></span></code></pre></td></tr></table>
 </div>
 </div><hr>
@@ -649,7 +649,7 @@ No magic. Just a normal service that happens to be powered by a model.</p>
 </span></span></span><span class="line"><span class="cl"><span class="nt">Task</span><span class="p">:</span><span class="w"> </span><span class="l">Summarize the activity and recommend next steps.</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="nt">Context</span><span class="p">:</span><span class="w"> </span><span class="l">These are auth failures on a public web app.</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="nt">Constraints</span><span class="p">:</span><span class="w"> </span><span class="kc">No</span><span class="w"> </span><span class="l">guessing. Use only the log lines. Keep it concise.</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="nt">Output: JSON with keys</span><span class="p">:</span><span class="w"> </span><span class="l">summary, severity, indicators, next_steps</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="nt">Output</span><span class="p">:</span><span class="w"> </span><span class="nt">JSON with keys</span><span class="p">:</span><span class="w"> </span><span class="l">summary, severity, indicators, next_steps</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="nt">Logs</span><span class="p">:</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="l">&lt;paste logs here&gt;</span><span class="w">
