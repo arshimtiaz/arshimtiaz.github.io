@@ -10,6 +10,7 @@
   <link rel="stylesheet" href="/css/style.min.css">
 </head>
 <body data-header-desktop="fixed" data-header-mobile="auto">
+  <script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('dark' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'dark' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
   <div class="wrapper">
     <header class="desktop" id="header-desktop">
       <div class="header-wrapper">
