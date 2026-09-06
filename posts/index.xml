@@ -1,14 +1,14 @@
 <rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
     <channel>
         <title>All Posts - Arsh Imtiaz</title>
-        <link>https://arshimtiaz.github.io/posts/</link>
+        <link>https://arshimtiaz.com/posts/</link>
         <description>All Posts | Arsh Imtiaz</description>
-        <generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Sun, 19 Jul 2026 00:00:00 &#43;0100</lastBuildDate><atom:link href="https://arshimtiaz.github.io/posts/" rel="self" type="application/rss+xml" /><item>
+        <generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Sun, 19 Jul 2026 00:00:00 &#43;0100</lastBuildDate><atom:link href="https://arshimtiaz.com/posts/" rel="self" type="application/rss+xml" /><item>
     <title>Why STRIDE Alone May Not Be Enough for AI Threat Modelling</title>
-    <link>https://arshimtiaz.github.io/posts/stride-ai-threat-modelling/</link>
+    <link>https://arshimtiaz.com/posts/stride-ai-threat-modelling/</link>
     <pubDate>Sun, 19 Jul 2026 00:00:00 &#43;0100</pubDate>
     <author>Arsh Imtiaz</author>
-    <guid>https://arshimtiaz.github.io/posts/stride-ai-threat-modelling/</guid>
+    <guid>https://arshimtiaz.com/posts/stride-ai-threat-modelling/</guid>
     <description><![CDATA[<figure><a class="lightgallery" href="/images/stride-ai-threat-modelling-hero.svg" title="Hero diagram showing a poisoned document flowing through an AI assistant into multiple STRIDE impacts" data-thumbnail="/images/stride-ai-threat-modelling-hero.svg" data-sub-html="<h2>The model may work as designed while the trust chain around it is compromised.</h2>">
         
     </a><figcaption class="image-caption">The model may work as designed while the trust chain around it is compromised.</figcaption>
@@ -380,10 +380,10 @@
 </item>
 <item>
     <title>The First Time It Finally Clicked</title>
-    <link>https://arshimtiaz.github.io/posts/ollama-api-integration/</link>
+    <link>https://arshimtiaz.com/posts/ollama-api-integration/</link>
     <pubDate>Mon, 29 Dec 2025 00:00:00 &#43;0000</pubDate>
     <author>Arsh Imtiaz</author>
-    <guid>https://arshimtiaz.github.io/posts/ollama-api-integration/</guid>
+    <guid>https://arshimtiaz.com/posts/ollama-api-integration/</guid>
     <description><![CDATA[<figure><a class="lightgallery" href="/images/ai-integration-header.svg" title="AI Integration" data-thumbnail="/images/ai-integration-header.svg" data-sub-html="<h2>Local model, real system, clean output.</h2>">
         
     </a><figcaption class="image-caption">Local model, real system, clean output.</figcaption>
@@ -748,10 +748,10 @@ Ollama made it local and easy. The API made it usable.</p>
 </item>
 <item>
     <title>Learning ML by Building a Tiny Password Strength Classifier</title>
-    <link>https://arshimtiaz.github.io/posts/my-first-ml-model/</link>
+    <link>https://arshimtiaz.com/posts/my-first-ml-model/</link>
     <pubDate>Wed, 19 Nov 2025 00:00:00 &#43;0000</pubDate>
     <author>Arsh Imtiaz</author>
-    <guid>https://arshimtiaz.github.io/posts/my-first-ml-model/</guid>
+    <guid>https://arshimtiaz.com/posts/my-first-ml-model/</guid>
     <description><![CDATA[<p>I finally sat down and built a <a href="/glossary/#machine-learning" rel="">machine learning</a> model in <a href="https://jupyter.org/" target="_blank" rel="noopener noreffer "><strong>Jupyter Notebook</strong></a> that actually does something cybersecurity related. Not a big fancy neural network. Not a GPT clone. Just a tiny <a href="/glossary/#classification" rel="">password strength classifier</a> that helped me understand the full ML pipeline without frying my brain.</p>
 <a class="lightgallery" href="/posts/my-first-ml-model/jupyter_password_ml.png" title="Jupyter Notebook" data-thumbnail="/posts/my-first-ml-model/jupyter_password_ml.png">
         
@@ -909,10 +909,10 @@ Ollama made it local and easy. The API made it usable.</p>
 </item>
 <item>
     <title>When Red Teaming Meets Car Hacking: Building a Virtual Vehicle Pentest Lab on My Laptop</title>
-    <link>https://arshimtiaz.github.io/posts/virtual-vehicle-lab/</link>
+    <link>https://arshimtiaz.com/posts/virtual-vehicle-lab/</link>
     <pubDate>Sun, 09 Nov 2025 00:00:00 &#43;0000</pubDate>
     <author>Arsh Imtiaz</author>
-    <guid>https://arshimtiaz.github.io/posts/virtual-vehicle-lab/</guid>
+    <guid>https://arshimtiaz.com/posts/virtual-vehicle-lab/</guid>
     <description><![CDATA[<figure><a class="lightgallery" href="/posts/virtual-vehicle-lab/assets/car_hacking.png" title="Networking is fun" data-thumbnail="/posts/virtual-vehicle-lab/assets/car_hacking.png" data-sub-html="<h2>How does one emulate cars at home?</h2>">
         
     </a><figcaption class="image-caption">How does one emulate cars at home?</figcaption>
@@ -1170,10 +1170,10 @@ We can use <code>candump</code>, which continuously listens for any CAN messages
 </item>
 <item>
     <title>Why Networking Fundamentals Should Be Your First Step</title>
-    <link>https://arshimtiaz.github.io/posts/networking-fundamentals/</link>
+    <link>https://arshimtiaz.com/posts/networking-fundamentals/</link>
     <pubDate>Wed, 06 Aug 2025 00:00:00 &#43;0100</pubDate>
     <author>Arsh Imtiaz</author>
-    <guid>https://arshimtiaz.github.io/posts/networking-fundamentals/</guid>
+    <guid>https://arshimtiaz.com/posts/networking-fundamentals/</guid>
     <description><![CDATA[<figure><a class="lightgallery" href="./network-nodes.gif" title="Networking is fun" data-thumbnail="./network-nodes.gif" data-sub-html="<h2>Networking is fun. Also, it is the part that keeps your hacks from breaking at the worst time.</h2>">
         
     </a><figcaption class="image-caption">Networking is fun. Also, it is the part that keeps your hacks from breaking at the worst time.</figcaption>
@@ -1307,10 +1307,10 @@ If you want to explore it in depth, check out:</p>
 </item>
 <item>
     <title>My First Wi-Fi Pentest</title>
-    <link>https://arshimtiaz.github.io/posts/wifi-hacking/</link>
+    <link>https://arshimtiaz.com/posts/wifi-hacking/</link>
     <pubDate>Wed, 30 Jul 2025 00:00:00 &#43;0100</pubDate>
     <author>Arsh Imtiaz</author>
-    <guid>https://arshimtiaz.github.io/posts/wifi-hacking/</guid>
+    <guid>https://arshimtiaz.com/posts/wifi-hacking/</guid>
     <description><![CDATA[<a class="lightgallery" href="/images/wifi-pent.png" title="Wi-Fi Pentesting" data-thumbnail="/images/wifi-pent.png">
         
     </a>
@@ -1371,10 +1371,10 @@ Result: Warnings everywhere, services kept messing with monitor mode.</p>
 </item>
 <item>
     <title>Docker to Detection: Setting Up Wazuh SIEM for Beginners</title>
-    <link>https://arshimtiaz.github.io/posts/wazuh-setup/</link>
+    <link>https://arshimtiaz.com/posts/wazuh-setup/</link>
     <pubDate>Sat, 14 Jun 2025 00:00:00 &#43;0100</pubDate>
     <author>Arsh Imtiaz</author>
-    <guid>https://arshimtiaz.github.io/posts/wazuh-setup/</guid>
+    <guid>https://arshimtiaz.com/posts/wazuh-setup/</guid>
     <description><![CDATA[<a class="lightgallery" href="/images/wazuh-header-image.jpg" title="Wazuh" data-thumbnail="/images/wazuh-header-image.jpg">
         
     </a>
@@ -1610,10 +1610,10 @@ Result: Warnings everywhere, services kept messing with monitor mode.</p>
 </item>
 <item>
     <title>Welcome</title>
-    <link>https://arshimtiaz.github.io/posts/welcome/</link>
+    <link>https://arshimtiaz.com/posts/welcome/</link>
     <pubDate>Wed, 15 Jan 2025 11:59:12 &#43;0300</pubDate>
     <author>Arsh Imtiaz</author>
-    <guid>https://arshimtiaz.github.io/posts/welcome/</guid>
+    <guid>https://arshimtiaz.com/posts/welcome/</guid>
     <description><![CDATA[<h1 id="welcome-to-my-blog">Welcome to My Blog</h1>
 <p>Hello, and thank you for visiting my blog!</p>
 <p>I&rsquo;m Arsh Imtiaz — a cybersecurity professional passionate about ethical hacking, information security, and continuous learning in the ever-evolving world of technology.</p>

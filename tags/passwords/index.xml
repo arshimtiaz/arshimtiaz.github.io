@@ -2,7 +2,7 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
 	<channel>
 		<title>Passwords on Arsh Imtiaz</title>
-		<link>https://arshimtiaz.github.io/tags/passwords/</link>
+		<link>https://arshimtiaz.com/tags/passwords/</link>
 		<description>Recent content in Passwords on Arsh Imtiaz</description>
 		<generator>Hugo</generator>
 		<language>en</language>
@@ -10,15 +10,15 @@
 		
 		
 		
-			<lastBuildDate>Mon, 20 Jul 2026 20:00:45 +0100</lastBuildDate>
+			<lastBuildDate>Sun, 06 Sep 2026 19:57:52 +0100</lastBuildDate>
 		
-			<atom:link href="https://arshimtiaz.github.io/tags/passwords/index.xml" rel="self" type="application/rss+xml" />
+			<atom:link href="https://arshimtiaz.com/tags/passwords/index.xml" rel="self" type="application/rss+xml" />
 			<item>
 				<title>Learning ML by Building a Tiny Password Strength Classifier</title>
-				<link>https://arshimtiaz.github.io/posts/my-first-ml-model/</link>
+				<link>https://arshimtiaz.com/posts/my-first-ml-model/</link>
 				<pubDate>Wed, 19 Nov 2025 00:00:00 +0000</pubDate>
-				<guid>https://arshimtiaz.github.io/posts/my-first-ml-model/</guid>
-				<description>&lt;p&gt;I finally sat down and built a &lt;a href=&#34;https://arshimtiaz.github.io/glossary/#machine-learning&#34; rel=&#34;&#34;&gt;machine learning&lt;/a&gt; model in &lt;a href=&#34;https://jupyter.org/&#34; target=&#34;_blank&#34; rel=&#34;noopener noreffer &#34;&gt;&lt;strong&gt;Jupyter Notebook&lt;/strong&gt;&lt;/a&gt; that actually does something cybersecurity related. Not a big fancy neural network. Not a GPT clone. Just a tiny &lt;a href=&#34;https://arshimtiaz.github.io/glossary/#classification&#34; rel=&#34;&#34;&gt;password strength classifier&lt;/a&gt; that helped me understand the full ML pipeline without frying my brain.&lt;/p&gt;&#xA;&lt;a class=&#34;lightgallery&#34; href=&#34;https://arshimtiaz.github.io/posts/my-first-ml-model/jupyter_password_ml.png&#34; title=&#34;Jupyter Notebook&#34; data-thumbnail=&#34;/posts/my-first-ml-model/jupyter_password_ml.png&#34;&gt;&#xA;        &lt;img&#xA;            class=&#34;lazyload&#34;&#xA;            src=&#34;https://arshimtiaz.github.io/svg/loading.min.svg&#34;&#xA;            data-src=&#34;https://arshimtiaz.github.io/posts/my-first-ml-model/jupyter_password_ml.png&#34;&#xA;            data-srcset=&#34;https://arshimtiaz.github.io/posts/my-first-ml-model/jupyter_password_ml.png, https://arshimtiaz.github.io/posts/my-first-ml-model/jupyter_password_ml.png 1.5x, https://arshimtiaz.github.io/posts/my-first-ml-model/jupyter_password_ml.png 2x&#34;&#xA;            data-sizes=&#34;auto&#34;&#xA;            alt=&#34;Jupyter Notebook&#34; /&gt;&#xA;    &lt;/a&gt;&#xA;&lt;p&gt;This whole thing started because I kept telling myself I would learn ML one day. And one day never comes when you wait for the perfect idea. So I forced myself to build something so stupid simple that I couldn&amp;rsquo;t run away from it.&lt;/p&gt;</description>
+				<guid>https://arshimtiaz.com/posts/my-first-ml-model/</guid>
+				<description>&lt;p&gt;I finally sat down and built a &lt;a href=&#34;https://arshimtiaz.com/glossary/#machine-learning&#34; rel=&#34;&#34;&gt;machine learning&lt;/a&gt; model in &lt;a href=&#34;https://jupyter.org/&#34; target=&#34;_blank&#34; rel=&#34;noopener noreffer &#34;&gt;&lt;strong&gt;Jupyter Notebook&lt;/strong&gt;&lt;/a&gt; that actually does something cybersecurity related. Not a big fancy neural network. Not a GPT clone. Just a tiny &lt;a href=&#34;https://arshimtiaz.com/glossary/#classification&#34; rel=&#34;&#34;&gt;password strength classifier&lt;/a&gt; that helped me understand the full ML pipeline without frying my brain.&lt;/p&gt;&#xA;&lt;a class=&#34;lightgallery&#34; href=&#34;https://arshimtiaz.com/posts/my-first-ml-model/jupyter_password_ml.png&#34; title=&#34;Jupyter Notebook&#34; data-thumbnail=&#34;/posts/my-first-ml-model/jupyter_password_ml.png&#34;&gt;&#xA;        &lt;img&#xA;            class=&#34;lazyload&#34;&#xA;            src=&#34;https://arshimtiaz.com/svg/loading.min.svg&#34;&#xA;            data-src=&#34;https://arshimtiaz.com/posts/my-first-ml-model/jupyter_password_ml.png&#34;&#xA;            data-srcset=&#34;https://arshimtiaz.com/posts/my-first-ml-model/jupyter_password_ml.png, https://arshimtiaz.com/posts/my-first-ml-model/jupyter_password_ml.png 1.5x, https://arshimtiaz.com/posts/my-first-ml-model/jupyter_password_ml.png 2x&#34;&#xA;            data-sizes=&#34;auto&#34;&#xA;            alt=&#34;Jupyter Notebook&#34; /&gt;&#xA;    &lt;/a&gt;&#xA;&lt;p&gt;This whole thing started because I kept telling myself I would learn ML one day. And one day never comes when you wait for the perfect idea. So I forced myself to build something so stupid simple that I couldn&amp;rsquo;t run away from it.&lt;/p&gt;</description>
 			</item>
 	</channel>
 </rss>
